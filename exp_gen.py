@@ -26,9 +26,9 @@ config['system_parameters'] = {'n': str(n),
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = 50
-sol_per_pop = 1000
-fidelity_tolerance = 0.95
+num_genes = 100
+sol_per_pop = 2000
+fidelity_tolerance = 0.99
 saturation = 20
 
 
@@ -78,7 +78,7 @@ else:
 
 src = os.path.dirname(os.path.abspath(__file__))
 script_name = os.path.join(src, script)
-mod_name = os.path.join(src, 'gmod.py')
+mod_name = os.path.join(src, 'dgamod.py')
 
 cmd = f'cp "{script_name}" "{directory}"'
 os.system(cmd)
