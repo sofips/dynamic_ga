@@ -14,9 +14,9 @@ config = configparser.ConfigParser()
 
 # system parameters
 
-n =  7
+n =  6
 dt = 0.15
-b = 0.9  #for j_fidelity
+b = 100  #for j_fidelity
 
 config['system_parameters'] = {'n': str(n),
                                'dt': str(dt),
@@ -26,9 +26,9 @@ config['system_parameters'] = {'n': str(n),
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = 100
+num_genes = 20
 sol_per_pop = 2000
-fidelity_tolerance = 0.99
+fidelity_tolerance = 0.95
 saturation = 20
 
 
@@ -78,7 +78,7 @@ else:
 
 src = os.path.dirname(os.path.abspath(__file__))
 script_name = os.path.join(src, script)
-mod_name = os.path.join(src, 'dgamod.py')
+mod_name = os.path.join(src, 'zhang_actions_mod.py')
 
 cmd = f'cp "{script_name}" "{directory}"'
 os.system(cmd)

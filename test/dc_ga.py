@@ -1,5 +1,6 @@
 import numpy as np
-from dgamod import *
+#from dgamod import *
+from zhang_actions_mod import *
 import csv
 import pygad
 import sys
@@ -21,7 +22,7 @@ n = config.getint('system_parameters', 'n')
 dt = config.getfloat('system_parameters', 'dt')
 b = config.getfloat('system_parameters', 'b')
 
-acciones = actions(b,n)
+acciones = acciones(b,n)
 props = gen_props(acciones,n,b,dt)
 
 fidelity_args = [props]
