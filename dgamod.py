@@ -1,8 +1,6 @@
 import numpy as np
 import scipy.linalg as la
 import cmath as cm
-import numpy as np
-import scipy.linalg as la
 
 
 
