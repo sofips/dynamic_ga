@@ -70,7 +70,7 @@ with open(filename, 'a') as f:
     for i in range(n_samples):
         writer = csv.writer(f,  delimiter=' ')
         
-        solutions_fname = dirname + '/act_sequence_sample'+ str(i)+'.dat'
+        solutions_fname = dirname + '/act_sequence_n{}_sample{}'+'.dat'.format(n,i)
         #fitness_history_fname = dirname + '/fitness_history_sample'+ str(i) + '.dat'
         
         t1 = time.time()
