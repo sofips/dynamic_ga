@@ -26,10 +26,10 @@ config['system_parameters'] = {'n': str(n),
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = 20
+num_genes = 2*(n//0.15)
 sol_per_pop = 2000
-fidelity_tolerance = 0.95
-saturation = 20
+fidelity_tolerance = 0.999
+saturation = 50
 
 
 config['ga_initialization'] = {'num_generations': str(num_generations),
@@ -64,7 +64,7 @@ config['mutation'] = {'mutation_probability': str(mutation_probability),
 
 # execution and results saving
 directory = 'test'
-n_samples = 2
+n_samples = 5
 
 config['saving'] = {'directory': directory,
                     'n_samples': str(n_samples)}
