@@ -2,6 +2,7 @@ import numpy as np
 import scipy.linalg as la
 import cmath as cm
 import csv
+import matplotlib as plt
 
 
 def delta(k, n):
@@ -248,3 +249,65 @@ def actions_to_file(solution,filename,condition):
             writer.writerow(row)
 
     return True
+
+def time_evolution(solution,propagadores,nh,graph=False,filename=False):
+    '''
+     Parameters:
+        - solution: action sequence
+        - graph: if False skips plotting graph, else enter figure name
+        - file: save time evolution in a file (enter file name)
+     Return:
+        - array of fidelity evolution
+    '''
+
+    state = np.zeros(nh, dtype=np.complex_)
+    state[0] = 1.
+    nat_evolution = []
+
+    state = np.zeros(nh, dtype=np.complex_)
+    state[0] = 1.
+    fid_evolution = []
+
+    for action in solution:
+
+        state = np.matmul(propagadores[action, :, :], state)
+        # fid = np.real(state[nh-1])**2+np.imag(state[nh-1])**2
+        
+        fid = np.real(state[nh-1]*np.conjugate(state[nh-1]))
+        fid_evolution = np.append(fid_evolution, fid)
+
+        if abs(la.norm(state) - 1.) > 1E8:
+            print('FALLO EN LA NORMALIZACION', la.norm(state))
+
+        # else:
+            # print('NORMALIZACION OK: ',la.norm(state))
+    
+    tsteps = np.shape(fid_evolution)[0] + 1
+
+    if graph:
+
+        axs = plt.figure(figsize=(11,5))
+        max_fid = np.max(fid_evolution)
+        max_action = np.argmax(fid_evolution)
+
+        plt.plot(np.arange(1,tsteps,1)*0.15,fid_evolution, '-o', label = 'Evol. Fid')
+        plt.plot(np.arange(0,200,1)*0.15,nat_evolution, '-o', label = 'sin forzamiento')
+
+        plt.grid()
+        plt.title(' Evolucion fidelidad, max = {}, accion = {}'.format(max_fid,max_action))
+        plt.xlabel('t')
+        plt.ylabel('|f|**2')
+        plt.legend()
+        plt.savefig(graph)
+
+    fid_evolution_array = np.asarray(fid_evolution)
+
+    if filename:
+        np.savetxt(filename)
+
+    return fid_evolution_array             
+        
+            
+           
+         
+

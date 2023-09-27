@@ -1,6 +1,6 @@
 import numpy as np
-#from dgamod import *
-from zhang_actions_mod import *
+from dgamod import *
+#from zhang_actions_mod import *
 import csv
 import pygad
 import sys
@@ -22,7 +22,9 @@ n = config.getint('system_parameters', 'n')
 dt = config.getfloat('system_parameters', 'dt')
 b = config.getfloat('system_parameters', 'b')
 
-acciones = acciones(b,n)
+# generates actions and associated propagators
+
+acciones = actions(b,n)
 props = gen_props(acciones,n,b,dt)
 
 fidelity_args = [props]
@@ -68,7 +70,7 @@ with open(filename, 'a') as f:
     for i in range(n_samples):
         writer = csv.writer(f,  delimiter=' ')
         
-        #solutions_fname = dirname + '/act_sequence_sample'+ str(i)+'.dat'
+        solutions_fname = dirname + '/act_sequence_sample'+ str(i)+'.dat'
         #fitness_history_fname = dirname + '/fitness_history_sample'+ str(i) + '.dat'
         
         t1 = time.time()
@@ -97,15 +99,15 @@ with open(filename, 'a') as f:
         trun = t2-t1
 
         maxg = initial_instance.generations_completed
-
+        
         solution, solution_fitness, solution_idx = initial_instance.best_solution()
+        
+        evolution = time_evolution(solution, props,n,graph = False, filename = False) 
+        time_max_fidelity = np.argmax(evolution)*0.15
 
-        row = [i, format(
-            fidelity(solution,props)), '{:.8f}'.format(trun), maxg]
+        row = [n,i, format(
+            fidelity(solution,props)), '{:.8f}'.format(time_max_fidelity), maxg, '{:.8f}'.format(trun)]
         writer.writerow(row)
 
-        row = solution
-        writer.writerow(row)
-
-        #couplings_to_file(solution, solutions_fname, 'w')
-        #fitness_history_to_file(initial_instance, fitness_history_fname)
+        actions_to_file(solution, solutions_fname, 'w')
+        
