@@ -16,7 +16,7 @@ config = configparser.ConfigParser()
 
 n =  6
 dt = 0.15
-b = 100  #for j_fidelity
+b = 100  
 
 config['system_parameters'] = {'n': str(n),
                                'dt': str(dt),
@@ -78,7 +78,7 @@ else:
 
 src = os.path.dirname(os.path.abspath(__file__))
 script_name = os.path.join(src, script)
-mod_name = os.path.join(src, 'zhang_actions_mod.py')
+mod_name = os.path.join(src, 'dgamod.py')
 
 cmd = f'cp "{script_name}" "{directory}"'
 os.system(cmd)
