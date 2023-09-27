@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.linalg as la
 import cmath as cm
-
+import csv
 
 
 def delta(k, n):
@@ -226,3 +226,25 @@ def generation_func(ga):
     
     print('Generation', ga.generations_completed)
     print('Solution: ', solution, 'Fitness: ', solution_fitness)
+
+
+
+def actions_to_file(solution,filename,condition):
+    '''
+    Parameters:
+        - solution: best solution obtained
+        - filename
+        - condition: write or append
+    
+    Return:
+        - saves best action sequence in file = filename
+    '''
+    with open(filename, condition) as f1:
+        
+        writer = csv.writer(f1,  delimiter=' ')
+        solution = np.asarray(solution)
+        for i in range(len(solution)):
+            row = ['{:<020}'.format(solution[i])]
+            writer.writerow(row)
+
+    return True
