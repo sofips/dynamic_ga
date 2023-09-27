@@ -13,7 +13,7 @@ config = configparser.ConfigParser()
 
 # system parameters
 
-n =  sys.argv[1]     # number of spins in the system
+n =  int(sys.argv[1])     # number of spins in the system
 dt = 0.15  # length of temporal steps
 b = 100    # magnetic field strength
 
