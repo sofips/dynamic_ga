@@ -11,12 +11,11 @@ import sys
 # Create instance of ConfigParser
 config = configparser.ConfigParser()
 
-
 # system parameters
 
-n =  6
-dt = 0.15
-b = 100  
+n =  sys.argv[1]     # number of spins in the system
+dt = 0.15  # length of temporal steps
+b = 100    # magnetic field strength
 
 config['system_parameters'] = {'n': str(n),
                                'dt': str(dt),
@@ -26,11 +25,10 @@ config['system_parameters'] = {'n': str(n),
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = 2*(n//0.15)
-sol_per_pop = 2000
-fidelity_tolerance = 0.999
-saturation = 50
-
+num_genes = int(2*(n/dt))  # chosen to allow a transmission time of 2n
+sol_per_pop = 1000          
+fidelity_tolerance = 0.99
+saturation = 30
 
 config['ga_initialization'] = {'num_generations': str(num_generations),
                                'num_genes': str(num_genes),
@@ -56,14 +54,14 @@ config['crossover'] = {'crossover_type': crossover_type,
 # other mutation parameters
 
 mutation_probability = 0.99
-mutation_num_genes = 1
+mutation_num_genes = 2
 
 config['mutation'] = {'mutation_probability': str(mutation_probability),
                       'mutation_num_genes': str(mutation_num_genes)}
 
 
 # execution and results saving
-directory = 'test'
+directory = 'test1'
 n_samples = 5
 
 config['saving'] = {'directory': directory,
@@ -91,6 +89,7 @@ with open(config_name, 'w') as configfile:
 
 cmd = f'python3 "{script_name}" "{config_name}"'
 os.system(cmd)
+
 
 
 
