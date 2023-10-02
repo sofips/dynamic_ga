@@ -50,8 +50,8 @@ mutation_probability = config.getfloat('mutation', 'mutation_probability')
 mutation_num_genes = config.getint('mutation', 'mutation_num_genes')
 
 # call construction functions
-on_generation = generation_func
-fitness_func = fitness_func_constructor(fidelity, fidelity_args)
+on_generation = generation_func_constructor(generation_func,props,fidelity_tolerance)
+fitness_func = fitness_func_constructor(time_fidelity, fidelity_args)
 mutation_type = 'scramble'
 
 gene_space = np.arange(0,16,1)
