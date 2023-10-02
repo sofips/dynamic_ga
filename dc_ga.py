@@ -52,7 +52,7 @@ mutation_num_genes = config.getint('mutation', 'mutation_num_genes')
 # call construction functions
 on_generation = generation_func_constructor(generation_func,props,fidelity_tolerance)
 fitness_func = fitness_func_constructor(time_fidelity, fidelity_args)
-mutation_type = 'scramble'
+mutation_type = 'swap'
 
 gene_space = np.arange(0,16,1)
 gene_type  = int
