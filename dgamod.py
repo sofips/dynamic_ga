@@ -209,6 +209,28 @@ def fidelity(action_sequence,props):
 
     return max_fid
 
+def time_fidelity(action_sequence,props):
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.
+    max_fid = 0.
+    i = 0
+
+    for action in action_sequence:
+        i += 1
+        state = np.matmul(props[action, :, :], state)
+        fid = np.real(state[n-1]*np.conjugate(state[n-1]))
+
+        if fid>max_fid:
+             max_fid = fid
+
+
+    if abs(la.norm(state) - 1.)>1E8:
+
+        print('FALLO EN LA NORMALIZACION',la.norm(state))
+
+    return max_fid/i
+
 def fitness_func_constructor(fid_function,arguments):
     '''
     Parameters:
@@ -221,13 +243,36 @@ def fitness_func_constructor(fid_function,arguments):
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 
-def generation_func(ga):
+def generation_print(ga):
     
     solution, solution_fitness, solution_idx = ga.best_solution()
     
     print('Generation', ga.generations_completed)
     print('Solution: ', solution, 'Fitness: ', solution_fitness)
 
+def generation_func(ga,props,tol):
+    solution, solution_fitness, solution_idx = ga.best_solution()
+    
+    fid = fidelity(solution,props)
+
+    print('Generation', ga.generations_completed)
+    print('Solution: ', solution, 'Fidelity: ', fid, 'Fitness: ', solution_fitness)
+
+    if (fid >= tol): 
+        return 'stop'
+
+def generation_func_constructor(gen_function,arguments):
+    '''
+    Parameters:
+        - generation function
+        - arguments: arguments of generation function
+    Return:
+        - lambda function: the mutation function as required by PyGAD
+    '''
+
+    on_gen = lambda ga_instance: gen_function(ga_instance,*arguments)
+
+    return lambda ga_instance: on_gen(ga_instance)
 
 
 def actions_to_file(solution,filename,condition):
