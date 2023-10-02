@@ -27,7 +27,7 @@ config['system_parameters'] = {'n': str(n),
 num_generations = 2000
 num_genes = int(2*(n/dt))  # chosen to allow a transmission time of 2n
 sol_per_pop = 1000          
-fidelity_tolerance = 0.99
+fidelity_tolerance = 0.95
 saturation = 30
 
 config['ga_initialization'] = {'num_generations': str(num_generations),
@@ -61,7 +61,7 @@ config['mutation'] = {'mutation_probability': str(mutation_probability),
 
 
 # execution and results saving
-directory = 'test1'
+directory = 'time_fidelity'
 n_samples = 5
 
 config['saving'] = {'directory': directory,
@@ -86,6 +86,9 @@ config_name = directory + '/'+ 'ga'+directory+'.ini'
 
 with open(config_name, 'w') as configfile:
     config.write(configfile)
+
+script_name = directory + '/' +script
+config_name = 'ga' + directory + '.ini'
 
 cmd = f'python3 "{script_name}" "{config_name}"'
 os.system(cmd)
