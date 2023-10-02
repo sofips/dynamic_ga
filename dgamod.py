@@ -229,7 +229,7 @@ def time_fidelity(action_sequence,props):
 
         print('FALLO EN LA NORMALIZACION',la.norm(state))
 
-    return max_fid/i
+    return max_fid + 10/i
 
 def fitness_func_constructor(fid_function,arguments):
     '''
@@ -290,7 +290,7 @@ def actions_to_file(solution,filename,condition):
         writer = csv.writer(f1,  delimiter=' ')
         solution = np.asarray(solution)
         for i in range(len(solution)):
-            row = ['{:<020}'.format(solution[i])]
+            row = [solution[i]]
             writer.writerow(row)
 
     return True
@@ -321,7 +321,7 @@ def time_evolution(solution,propagadores,nh,graph=False,filename=False):
         fid = np.real(state[nh-1]*np.conjugate(state[nh-1]))
         fid_evolution = np.append(fid_evolution, fid)
 
-        if abs(la.norm(state) - 1.) > 1E8:
+        if abs(la.norm(state) - 1.) > 1E-8:
             print('FALLO EN LA NORMALIZACION', la.norm(state))
 
         # else:
