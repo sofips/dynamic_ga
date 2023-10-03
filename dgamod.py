@@ -222,14 +222,15 @@ def time_fidelity(action_sequence,props):
         fid = np.real(state[n-1]*np.conjugate(state[n-1]))
 
         if fid>max_fid:
-             max_fid = fid
+            max_fid = fid
+            imax = i
 
 
-    if abs(la.norm(state) - 1.)>1E8:
+    if abs(la.norm(state) - 1.)>1E-8:
 
         print('FALLO EN LA NORMALIZACION',la.norm(state))
 
-    return max_fid + 10/i
+    return max_fid + 10/imax
 
 def fitness_func_constructor(fid_function,arguments):
     '''
