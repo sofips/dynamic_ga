@@ -25,8 +25,8 @@ config['system_parameters'] = {'n': str(n),
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = int(2*(n/dt))  # chosen to allow a transmission time of 2n
-sol_per_pop = 1000          
+num_genes = 5*n  # chosen to allow a transmission time of 2n
+sol_per_pop = 2000          
 fidelity_tolerance = 0.95
 saturation = 30
 
@@ -61,7 +61,7 @@ config['mutation'] = {'mutation_probability': str(mutation_probability),
 
 
 # execution and results saving
-directory = 'time_fidelity'
+directory = sys.argv[2]
 n_samples = 5
 
 config['saving'] = {'directory': directory,
