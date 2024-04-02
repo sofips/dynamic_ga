@@ -23,8 +23,7 @@ dt = config.getfloat('system_parameters', 'dt')
 b = config.getfloat('system_parameters', 'b')
 
 # generates actions and associated propagators
-
-acciones = actions(b,n)
+acciones = actions_paper(b,n) ## acciones zhang
 props = gen_props(acciones,n,b,dt)
 
 fidelity_args = [props]
@@ -51,13 +50,13 @@ mutation_num_genes = config.getint('mutation', 'mutation_num_genes')
 
 # call construction functions
 on_generation = generation_func_constructor(generation_func,[props,fidelity_tolerance])
-fitness_func = fitness_func_constructor(time_fidelity, fidelity_args)
+fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
 mutation_type = 'swap'
 
 gene_space = np.arange(0,16,1)
 gene_type  = int
 
-stop_criteria = ['saturate_'+str(saturation), 'reach_'+str(fidelity_tolerance)]
+stop_criteria = ['saturate_'+str(saturation)] #, 'reach_'+str(fidelity_tolerance)]
 
 dirname = config.get('saving', 'directory')
 n_samples = config.getint('saving', 'n_samples')
@@ -103,8 +102,8 @@ with open(filename, 'a') as f:
         solution, solution_fitness, solution_idx = initial_instance.best_solution()
         
         evolution = time_evolution(solution, props,n,graph = False, filename = False) 
-        time_max_fidelity = np.argmax(evolution)*0.15
-
+        time_max_fidelity = np.argmax(evolution)*dt
+    
         row = [n,i, format(
             fidelity(solution,props)), '{:.8f}'.format(time_max_fidelity), maxg, '{:.8f}'.format(trun)]
         writer.writerow(row)
