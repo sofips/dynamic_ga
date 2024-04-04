@@ -595,7 +595,7 @@ def population_histogram(ga, directory, props):
     max_value = int(np.max(hist))
     y = np.linspace(int(0), max_value, 9, dtype=int)
     ax.set_yticks(y)
-    ax.set_yticklabels(y * 100 / ga.sol_per_pop)
+    ax.set_yticklabels(y * 100 / ga.pop_size[0] / ga.pop_size[1])
 
     x = [0]
     x = x + [i / 10 for i in np.arange(0, 10, 1)]
