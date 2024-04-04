@@ -2,9 +2,10 @@ import numpy as np
 import scipy.linalg as la
 import cmath as cm
 import csv
-import matplotlib as plt
-import configparser
+import matplotlib.pyplot as plt
 from scipy.linalg import expm
+import os
+
 
 
 
@@ -298,8 +299,10 @@ def generation_print(ga):
     print("Solution: ", solution, "Fitness: ", solution_fitness)
 
 
-def generation_func(ga, props, tol):
+def generation_func(ga, props, tol, directory, histogram = True):
+
     solution, solution_fitness, solution_idx = ga.best_solution()
+
 
     fid, time = fidelity(solution, props, return_time=True)
 
@@ -314,6 +317,11 @@ def generation_func(ga, props, tol):
         "Fitness: ",
         solution_fitness,
     )
+
+    if histogram and (
+        ga.generations_completed == 1 or ga.generations_completed % 5 == 0
+    ):
+        population_histogram(ga, directory,props)
 
     if fid >= tol:
         return "stop"
@@ -536,3 +544,97 @@ def calculate_next_state(state, action_index, props):
     next_state = np.asarray(np.transpose(next_state))
     next_state = np.squeeze(next_state)
     return next_state
+
+
+
+def population_histogram(ga, directory, props):
+    """
+    For a given instance of genetic algorithm, creates a directory
+    called hist_frames and plots histograms of population's fidelity
+    distribution together with the action distribution.
+
+    Parameters:
+    - ga: genetic algorithm instance (See PyGAD documentation)
+    - directory: to save frames
+    - props: propagators to calculate fidelity in transmission
+    """
+    figure, axs = plt.subplots(2,1,figsize=(12, 4))
+    nbins = 100
+    
+    # creates directory if it doesnt exist
+
+    dirname = directory + "/hist_frames"
+    isExist = os.path.exists(dirname)
+
+    if not isExist:
+        os.mkdir(dirname)
+
+    # access population 
+    population = ga.population
+    population_fidelity = []
+    # access n. of generations completed
+    ng = ga.generations_completed
+
+    for i in range(0,ga.pop_size[0]):
+        action_sequence = population[i,:]
+        individual_fidelity = fidelity(action_sequence,props)
+        population_fidelity.append(individual_fidelity)
+
+    # array of fidelities in population
+
+    population_fidelity = np.asarray(population_fidelity)
+
+    ax = axs[0]
+
+    # plot histogram of fidelity distribution
+    hist, bins, c = ax.hist(
+        population_fidelity, bins=nbins, range=[0, 1], edgecolor="black", color="#DDFFDD"
+    )
+
+    # configure yticks to show percentage of total pop. number
+    max_value = int(np.max(hist))
+    y = np.linspace(int(0), max_value, 9, dtype=int)
+    ax.set_yticks(y)
+    ax.set_yticklabels(y * 100 / ga.sol_per_pop)
+
+    x = [0]
+    x = x + [i / 10 for i in np.arange(0, 10, 1)]
+    ax.set_xticks(x)
+
+    # set grid, title and labels
+    plt.grid()
+    plt.title("Population distribution for gen. number " + str(ng).zfill(3))
+    ax.set_xlabel("Fidelity")
+    ax.set_ylabel("Population percentage")
+
+    population = population.flatten()
+    # --------------------------------------------------
+    # array of action distributions
+    #---------------------------------------------------
+    ax = axs[1]
+
+    # plot histogram of fidelity distribution
+    hist, bins, c = ax.hist(
+        population, bins=nbins, range=[0, 17], edgecolor="black", color="#DDFFDD"
+    )
+
+    # configure yticks to show percentage of total pop. number
+    max_value = int(np.max(hist))
+    y = np.linspace(int(0), max_value, 9, dtype=int)
+    ax.set_yticks(y)
+    ax.set_yticklabels(y * 100 / ga.sol_per_pop)
+ 
+    x = np.arange(0, 16, 1)
+    ax.set_xticks(x)
+
+    # set grid, title and labels
+    plt.grid()
+    plt.title("Action distribution for gen. number " + str(ng).zfill(3))
+    ax.set_xlabel("Action")
+    ax.set_ylabel("Gene percentage")
+
+    # save to file
+    filename = dirname + "/hist_frame" + str(ng).zfill(3) + ".png"
+    plt.savefig(filename)
+
+    #ga.plot_genes(graph_type = 'histogram', save_dir = dirname + "/gene_dist" + str(ng).zfill(3), solutions = 'all')
