@@ -636,5 +636,5 @@ def population_histogram(ga, directory, props):
     # save to file
     filename = dirname + "/hist_frame" + str(ng).zfill(3) + ".png"
     plt.savefig(filename)
-
+    plt.close()
     #ga.plot_genes(graph_type = 'histogram', save_dir = dirname + "/gene_dist" + str(ng).zfill(3), solutions = 'all')
