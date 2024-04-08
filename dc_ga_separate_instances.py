@@ -70,8 +70,10 @@ mutation_type = "swap"
 reached_fidelity = 0.0
 trials = 0
 generations = 0
-mutations = ['swap','scramble']
+mutations = ['random','swap']
 initial_population = None
+mutation_percent_genes=70
+
 
 with open(filename, "a") as f:
     for i in range(n_samples):
@@ -82,7 +84,7 @@ with open(filename, "a") as f:
         t1 = time.time()
 
         while reached_fidelity < fidelity_tolerance or trials < 10:
-    
+
             initial_instance = pygad.GA(
                 num_generations=num_generations,
                 num_parents_mating=num_parents_mating,
@@ -97,8 +99,12 @@ with open(filename, "a") as f:
                 crossover_probability=crossover_probability,
                 mutation_type=mutations[trials%2],
                 on_generation=on_generation,
-                mutation_num_genes=mutation_num_genes,
-                mutation_probability=mutation_probability,
+                #mutation_num_genes=mutation_num_genes,
+                mutation_percent_genes=min(mutation_percent_genes-10,10),
+                #mutation_probability=mutation_probability,
+                random_mutation_min_val=0,
+                random_mutation_max_val=15,
+                mutation_by_replacement=True,
                 initial_population=initial_population,
                 stop_criteria=stop_criteria,
                 save_solutions=False
