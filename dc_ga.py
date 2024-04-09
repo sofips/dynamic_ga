@@ -27,9 +27,6 @@ b = config.getfloat("system_parameters", "b")
 acciones = actions_paper(b, n)  ## acciones zhang
 props = gen_props(acciones, n, b, dt)
 
-fidelity_args = [props]
-
-
 # genetic algorithm parameters
 num_generations = config.getint("ga_initialization", "num_generations")
 num_genes = config.getint("ga_initialization", "num_genes")
@@ -55,6 +52,7 @@ gene_type = int
 
 stop_criteria = ["saturate_" + str(saturation)]  # , 'reach_'+str(fidelity_tolerance)]
 
+population_histograms = config.getboolean("saving","population_histograms")
 dirname = config.get("saving", "directory")
 n_samples = config.getint("saving", "n_samples")
 
@@ -62,9 +60,11 @@ filename = dirname + "/nvsmaxfid.dat"
 
 # call construction functions
 on_generation = generation_func_constructor(
-    generation_func, [props, fidelity_tolerance, dirname]
+    generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
-fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
+
+fidelity_args = [props,fidelity_tolerance]
+fitness_func = fitness_func_constructor(reward_based_fitness_up_to_max, fidelity_args)
 mutation_type = "swap"
 
 
