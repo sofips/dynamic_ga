@@ -221,30 +221,6 @@ def fidelity(action_sequence, props, return_time=False):
 
     return max_fid
 
-
-def time_fidelity(action_sequence, props):
-    n = np.shape(props)[1]
-    state = np.zeros(n, dtype=np.complex_)
-    state[0] = 1.0
-    max_fid = 0.0
-    i = 0
-
-    for action in action_sequence:
-        i += 1
-        state = np.matmul(props[action, :, :], state)
-        fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
-
-        if fid > max_fid:
-            max_fid = fid
-            imax = i
-
-    if abs(la.norm(state) - 1.0) > 1E-8:
-
-        print("FALLO EN LA NORMALIZACION", la.norm(state))
-
-    return max_fid + 10 / imax
-
-
 def reward_based_fitness(action_sequence, props):
 
     n = np.shape(props)[1]
@@ -259,6 +235,43 @@ def reward_based_fitness(action_sequence, props):
         #state = np.matmul(props[action, :, :], state)
         state  = calculate_next_state(state,action,props)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
+
+        if fid <= 0.8:
+            reward = 10 * fid
+        elif 0.8 <= fid <= 1 - tolerance:
+            reward = 1000 / (1 + np.exp(10 * (1 - tolerance - fid)))
+        else:
+            reward = 25000
+
+        fitness = fitness + reward * (0.95**i)
+
+        # check state normalization
+
+        if abs(la.norm(state) - 1.0) > 1E-8:
+            print("Normalization failed!!!!", la.norm(state))
+            quit()
+
+    return reward
+
+def reward_based_fitness_up_to_max(action_sequence, props,tolerance=0.05):
+
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.0
+    i = 0
+    fitness = 0.0
+    fidelity_evolution = np.asarray([])
+
+    for action in action_sequence:
+        i += 1
+        state  = calculate_next_state(state,action,props)
+        fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
+        fidelity_evolution = np.append(fidelity_evolution,fid)
+
+    #max_fid = np.max(fidelity_evolution)
+    max_time = np.argmax(fidelity_evolution)
+
+    for fid in fidelity_evolution[0:max_time+1]:
 
         if fid <= 0.8:
             reward = 10 * fid
@@ -323,7 +336,7 @@ def generation_func(ga, props, tol, directory, histogram = True):
     ):
         population_histogram(ga, directory,props)
 
-    if fid >= tol:
+    if fid >= 1-tol:
         return "stop"
 
 
@@ -560,7 +573,7 @@ def population_histogram(ga, directory, props):
     """
     figure, axs = plt.subplots(2,1,figsize=(12, 4))
     nbins = 100
-    
+    plt.subplots_adjust(wspace = 0.2, hspace=0.7) 
     # creates directory if it doesnt exist
 
     dirname = directory + "/hist_frames"
@@ -593,9 +606,9 @@ def population_histogram(ga, directory, props):
 
     # configure yticks to show percentage of total pop. number
     max_value = int(np.max(hist))
-    y = np.linspace(int(0), max_value, 9, dtype=int)
+    y = np.linspace(int(0), max_value, 10, dtype=int)
     ax.set_yticks(y)
-    ax.set_yticklabels(y * 100 / ga.pop_size[0] / ga.pop_size[1])
+    ax.set_yticklabels(y * 100 / ga.pop_size[0])
 
     x = [0]
     x = x + [i / 10 for i in np.arange(0, 10, 1)]
@@ -620,9 +633,9 @@ def population_histogram(ga, directory, props):
 
     # configure yticks to show percentage of total pop. number
     max_value = int(np.max(hist))
-    y = np.linspace(int(0), max_value, 9, dtype=int)
+    y = np.linspace(int(0), max_value, 10, dtype=int)
     ax.set_yticks(y)
-    ax.set_yticklabels(y * 100 / ga.sol_per_pop)
+    ax.set_yticklabels(y * 100 / ga.pop_size[0] / ga.pop_size[1])
  
     x = np.arange(0, 16, 1)
     ax.set_xticks(x)
@@ -632,7 +645,7 @@ def population_histogram(ga, directory, props):
     plt.title("Action distribution for gen. number " + str(ng).zfill(3))
     ax.set_xlabel("Action")
     ax.set_ylabel("Gene percentage")
-
+    plt.tight_layout()
     # save to file
     filename = dirname + "/hist_frame" + str(ng).zfill(3) + ".png"
     plt.savefig(filename)
