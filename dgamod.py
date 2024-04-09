@@ -556,6 +556,11 @@ def calculate_next_state(state, action_index, props):
     next_state = p*state
     next_state = np.asarray(np.transpose(next_state))
     next_state = np.squeeze(next_state)
+
+    if abs(la.norm(next_state) - 1.) > 1E-8:
+        print('Normalization failed!!! ', la.norm(state))
+        quit()
+
     return next_state
 
 
