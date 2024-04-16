@@ -253,7 +253,7 @@ def reward_based_fitness(action_sequence, props):
 
     return reward
 
-def reward_based_fitness_up_to_max(action_sequence, props,tolerance=0.05):
+def reward_based_fitness_up_to_max(action_sequence, props,tolerance=0.05, reward_decay=0.95):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -280,7 +280,7 @@ def reward_based_fitness_up_to_max(action_sequence, props,tolerance=0.05):
         else:
             reward = 25000
 
-        fitness = fitness + reward * (0.95**i)
+        fitness = fitness + reward * (reward_decay**i)
 
         # check state normalization
 
@@ -443,6 +443,7 @@ def time_evolution(solution, propagadores, nh, graph=False, filename=False):
 
 
 def diagonales_paper(bmax, i, nh):
+    
     b = np.full(nh, 0)
 
     if i == 1:
@@ -519,7 +520,7 @@ def diagonales_paper(bmax, i, nh):
         b[nh - 3] = 1
         b[nh - 2] = 1
         b[nh - 1] = 1
-
+    
     else:
         b = np.full(nh, 0.0)  # correccion
 
@@ -535,6 +536,113 @@ def actions_paper(bmax, nh):
     for i in range(0, 16):
 
         b = diagonales_paper(bmax, i, nh)
+
+        J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
+
+        for k in range(0, nh - 1):
+            mat_acc[i, k, k + 1] = J
+            mat_acc[i, k + 1, k] = mat_acc[i, k, k + 1]
+
+        for k in range(0, nh):
+
+            mat_acc[i, k, k] = b[k]
+
+    return mat_acc
+
+def diagonales_paper2(bmax, i, nh):
+    
+    b = np.full(nh, 0)
+
+    if i == 1:
+        b[0] = 1
+
+    elif i == 2:
+
+        b[1] = 1
+
+    elif i == 3:
+
+        b[0] = 1
+        b[1] = 1
+
+    elif i == 4:
+
+        b[2] = 1  # correccion
+
+    elif i == 5:
+
+        b[0] = 1
+        b[2] = 1
+
+    elif i == 6:
+
+        b[1] = 1
+        b[2] = 1
+
+    elif i == 7:
+
+        b[0] = 1
+        b[1] = 1
+        b[2] = 1
+
+    elif i == 8:
+
+        b[nh - 3] = 1
+
+    elif i == 9:
+
+        #b = np.full(nh, -1)
+        b[nh - 2] = 1
+
+    elif i == 10:
+
+        b[nh - 3] = 1
+        b[nh - 2] = 1
+
+    elif i == 11:
+
+        b[nh - 1] = 1
+
+    elif i == 12:
+
+        b[nh - 3] = 1
+        b[nh - 1] = 1
+
+    elif i == 13:
+
+        b[nh - 2] = 1
+        b[nh - 1] = 1
+
+    elif i == 14:
+
+        b[nh - 3] = 1
+        b[nh - 2] = 1
+        b[nh - 1] = 1
+
+    elif i == 15:
+
+        # b[0] = 1
+        # b[1] = 1
+        # b[2] = 1
+        # b[nh - 3] = 1
+        # b[nh - 2] = 1
+        # b[nh - 1] = 1
+        b[:] = 1
+    else:
+        b = np.full(nh, 0.0)  # correccion
+
+    b = bmax * b
+
+    return b
+
+
+def actions_paper2(bmax, nh):
+
+    mat_acc = np.zeros((16, nh, nh))
+
+    for i in range(0, 16):
+
+        b = diagonales_paper2(bmax, i, nh)
 
         J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
 
@@ -656,3 +764,113 @@ def population_histogram(ga, directory, props):
     plt.savefig(filename)
     plt.close()
     #ga.plot_genes(graph_type = 'histogram', save_dir = dirname + "/gene_dist" + str(ng).zfill(3), solutions = 'all')
+
+def new_diagonals(bmax, i, nh):
+    
+    b = np.full(nh, 0)
+
+    if i == 1:
+        b[0] = 1
+
+    elif i == 2:
+
+        b[1] = 1
+
+    elif i == 3:
+        b[0] = -1
+        # b[0] = 1
+        # b[1] = 1
+
+    elif i == 4:
+
+        b[2] = 1  # correccion
+
+    elif i == 5:
+        b[1] = -1
+        # b[0] = 1
+        # b[2] = 1
+
+    elif i == 6:
+        b[2] = -1
+        # b[1] = 1
+        # b[2] = 1
+
+    elif i == 7:
+
+        b[0] = 1
+        b[1] = 1
+        b[2] = 1
+
+    elif i == 8:
+
+        b[nh - 3] = 1
+
+    elif i == 9:
+
+        #b = np.full(nh, -1)
+        b[nh - 2] = 1
+
+    elif i == 10:
+        b[nh - 3] = -1
+        # b[nh - 3] = 1
+        # b[nh - 2] = 1
+
+    elif i == 11:
+
+        b[nh - 1] = 1
+
+    elif i == 12:
+
+        b[nh - 2] = -1
+        # b[nh - 3] = 1
+        # b[nh - 1] = 1
+
+    elif i == 13:
+
+        b[nh - 1] = -1
+
+        # b[nh - 2] = 1
+        # b[nh - 1] = 1
+
+    elif i == 14:
+
+        b[nh - 3] = 1
+        b[nh - 2] = 1
+        b[nh - 1] = 1
+
+    elif i == 15:
+
+        # b[0] = 1
+        # b[1] = 1
+        # b[2] = 1
+        # b[nh - 3] = 1
+        # b[nh - 2] = 1
+        # b[nh - 1] = 1
+        b[:] = 1
+    else:
+        # b = np.full(nh, 0.0)  # correccion
+        b[:] = -1
+
+    b = bmax * b
+
+    return b
+
+def new_actions(bmax, nh):
+
+    mat_acc = np.zeros((16, nh, nh))
+
+    for i in range(0, 16):
+
+        b = new_diagonals(bmax, i, nh)
+
+        J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
+
+        for k in range(0, nh - 1):
+            mat_acc[i, k, k + 1] = J
+            mat_acc[i, k + 1, k] = mat_acc[i, k, k + 1]
+
+        for k in range(0, nh):
+
+            mat_acc[i, k, k] = b[k]
+
+    return mat_acc
