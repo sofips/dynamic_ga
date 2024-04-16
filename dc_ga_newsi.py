@@ -24,8 +24,9 @@ dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
 
 # generates actions and associated propagators
-acciones = actions_paper2(b, n)  ## acciones zhang
+acciones = new_actions(b, n)  ## acciones zhang
 props = gen_props(acciones, n, b, dt)
+
 
 # genetic algorithm parameters
 num_generations = config.getint("ga_initialization", "num_generations")
@@ -33,8 +34,6 @@ num_genes = config.getint("ga_initialization", "num_genes")
 sol_per_pop = config.getint("ga_initialization", "sol_per_pop")
 fidelity_tolerance = config.getfloat("ga_initialization", "fidelity_tolerance")
 saturation = config.getint("ga_initialization", "saturation")
-reward_decay = config.getfloat("ga_initialization", "reward_decay")
-
 
 # crossover and parent selection
 
@@ -65,59 +64,93 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,fidelity_tolerance,reward_decay]
+fidelity_args = [props, fidelity_tolerance]
 fitness_func = fitness_func_constructor(reward_based_fitness_up_to_max, fidelity_args)
 mutation_type = "swap"
 
+reached_fidelity = 0.0
+trials = 0
+generations = 0
+mutations = ["random", "swap"]
+parent_selections = ["sss", "rws", "rws", "sss"]
+initial_population = None
+mutation_percent_genes = 70
+
 
 with open(filename, "a") as f:
-    for i in range(n_samples):
-        writer = csv.writer(f, delimiter=" ")
 
+    for i in range(n_samples):
+        print("Sample # {}".format(i))
+        initial_population = None
+        mutation_percent_genes = 70
+        reached_fidelity = 0.0
+        trials = 0
+        generations = 0
+
+        writer = csv.writer(f, delimiter=" ")
         solutions_fname = "{}/act_sequence_n{}_sample{}.dat".format(dirname, n, i)
         # fitness_history_fname = dirname + '/fitness_history_sample'+ str(i) + '.dat'
-
         t1 = time.time()
 
-        initial_instance = pygad.GA(
-            num_generations=num_generations,
-            num_parents_mating=num_parents_mating,
-            fitness_func=fitness_func,
-            sol_per_pop=sol_per_pop,
-            num_genes=num_genes,
-            parent_selection_type=parent_selection_type,
-            keep_elitism=keep_elitism,
-            gene_space=gene_space,
-            gene_type=gene_type,
-            crossover_type=crossover_type,
-            crossover_probability=crossover_probability,
-            mutation_type=mutation_type,
-            on_generation=on_generation,
-            mutation_num_genes=mutation_num_genes,
-            stop_criteria=stop_criteria,
-            save_solutions=False
-        )
+        while reached_fidelity < 1 - fidelity_tolerance and trials < 10:
 
-        initial_instance.run()
+            print(
+                "Mutation: "
+                + mutations[trials % 2]
+                + ", Selection: "
+                + parent_selections[trials % 2]
+                + ", Percentage of genes mutated"
+                + str(mutation_percent_genes)
+            )
+
+            mutation_percent_genes = mutation_percent_genes - 10
+
+            initial_instance = pygad.GA(
+                num_generations=num_generations,
+                num_parents_mating=num_parents_mating,
+                fitness_func=fitness_func,
+                sol_per_pop=sol_per_pop,
+                num_genes=num_genes,
+                parent_selection_type=parent_selections[trials % 4],
+                keep_elitism=keep_elitism,
+                gene_space=gene_space,
+                gene_type=gene_type,
+                crossover_probability=crossover_probability,
+                mutation_type=mutations[trials % 2],
+                on_generation=on_generation,
+                # mutation_num_genes=mutation_num_genes,
+                mutation_percent_genes=max(mutation_percent_genes, 10),
+                # mutation_probability=mutation_probability,
+                random_mutation_min_val=0,
+                random_mutation_max_val=15,
+                mutation_by_replacement=True,
+                initial_population=initial_population,
+                stop_criteria=stop_criteria,
+                save_solutions=False,
+            )
+
+            initial_instance.run()
+            initial_population = initial_instance.population
+            maxg = generations + initial_instance.generations_completed
+            solution, solution_fitness, solution_idx = initial_instance.best_solution()
+
+            reached_fidelity, time_max_fidelity = fidelity(
+                solution, props, return_time=True
+            )
+            trials += 1
 
         t2 = time.time()
         trun = t2 - t1
 
-        maxg = initial_instance.generations_completed
-
-        solution, solution_fitness, solution_idx = initial_instance.best_solution()
-
-        evolution = time_evolution(solution, props, n, graph=False, filename=False)
-        time_max_fidelity = np.argmax(evolution) * dt
-
         row = [
             n,
             i,
-            format(fidelity(solution, props)),
+            "{:.8f}".format(reached_fidelity),
             "{:.8f}".format(time_max_fidelity),
             maxg,
             "{:.8f}".format(trun),
         ]
+
         writer.writerow(row)
 
         actions_to_file(solution, solutions_fname, "w")
