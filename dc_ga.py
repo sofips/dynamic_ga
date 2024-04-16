@@ -24,7 +24,7 @@ dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
 
 # generates actions and associated propagators
-acciones = actions_paper(b, n)  ## acciones zhang
+acciones = actions_paper2(b, n)  ## acciones zhang
 props = gen_props(acciones, n, b, dt)
 
 # genetic algorithm parameters
@@ -33,6 +33,8 @@ num_genes = config.getint("ga_initialization", "num_genes")
 sol_per_pop = config.getint("ga_initialization", "sol_per_pop")
 fidelity_tolerance = config.getfloat("ga_initialization", "fidelity_tolerance")
 saturation = config.getint("ga_initialization", "saturation")
+reward_decay = config.getfloat("ga_initialization", "reward_decay")
+
 
 # crossover and parent selection
 
@@ -63,7 +65,7 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,fidelity_tolerance]
+fidelity_args = [props,fidelity_tolerance,reward_decay]
 fitness_func = fitness_func_constructor(reward_based_fitness_up_to_max, fidelity_args)
 mutation_type = "swap"
 
@@ -92,7 +94,6 @@ with open(filename, "a") as f:
             mutation_type=mutation_type,
             on_generation=on_generation,
             mutation_num_genes=mutation_num_genes,
-            mutation_probability=mutation_probability,
             stop_criteria=stop_criteria,
             save_solutions=False
         )

@@ -24,7 +24,7 @@ dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
 
 # generates actions and associated propagators
-acciones = actions_paper(b, n)  ## acciones zhang
+acciones = actions_paper2(b, n)  ## acciones zhang
 props = gen_props(acciones, n, b, dt)
 
 
