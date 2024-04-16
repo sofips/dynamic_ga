@@ -20,10 +20,11 @@ b = 100  # magnetic field strength
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = 5 * n  # chosen to allow a transmission time of 2n
+num_genes = 4*n  # chosen to allow a transmission time of (3/4)n
 sol_per_pop = 3000
 fidelity_tolerance = 0.05
-saturation = 5
+reward_decay = 0.85 # time decay to achieve faster transmission
+saturation = 20
 
 # crossover and parent selection
 num_parents_mating = sol_per_pop // 10
@@ -51,6 +52,7 @@ config["ga_initialization"] = {
     "sol_per_pop": str(sol_per_pop),
     "fidelity_tolerance": str(fidelity_tolerance),
     "saturation": str(saturation),
+    "reward_decay": str(reward_decay)
 }
 
 
@@ -77,7 +79,7 @@ config["saving"] = {
     "directory": directory,
     "n_samples": str(n_samples),
 }
-script = "dc_ga_separate_instances.py"
+script = "dc_ga.py"
 
 isExist = os.path.exists(directory)
 if not isExist:
