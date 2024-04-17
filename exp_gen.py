@@ -20,10 +20,10 @@ b = 100  # magnetic field strength
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = 4*n  # chosen to allow a transmission time of (3/4)n
+num_genes = 5*n 
 sol_per_pop = 3000
-fidelity_tolerance = 0.05
-reward_decay = 0.85 # time decay to achieve faster transmission
+fidelity_tolerance = 0.01
+reward_decay = 0.95 # time decay to achieve faster transmission
 saturation = 20
 
 # crossover and parent selection
