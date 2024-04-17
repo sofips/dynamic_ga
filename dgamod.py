@@ -221,14 +221,13 @@ def fidelity(action_sequence, props, return_time=False):
 
     return max_fid
 
-def reward_based_fitness(action_sequence, props):
+def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.95):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
     state[0] = 1.0
     i = 0
     fitness = 0.0
-    tolerance = 0.05
 
     for action in action_sequence:
         i += 1
@@ -236,14 +235,16 @@ def reward_based_fitness(action_sequence, props):
         state  = calculate_next_state(state,action,props)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
+# uso los valores que usan ellos (sin multiplicar por 10!!!!!!!!!!!!)
+
         if fid <= 0.8:
             reward = 10 * fid
         elif 0.8 <= fid <= 1 - tolerance:
-            reward = 1000 / (1 + np.exp(10 * (1 - tolerance - fid)))
+            reward = 100 / (1 + np.exp(10 * (1 - tolerance - fid)))
         else:
-            reward = 25000
+            reward = 2500
 
-        fitness = fitness + reward * (0.95**i)
+        fitness = fitness + reward * (reward_decay**i)
 
         # check state normalization
 
