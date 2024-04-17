@@ -33,9 +33,9 @@ num_genes = config.getint("ga_initialization", "num_genes")
 sol_per_pop = config.getint("ga_initialization", "sol_per_pop")
 fidelity_tolerance = config.getfloat("ga_initialization", "fidelity_tolerance")
 saturation = config.getint("ga_initialization", "saturation")
+reward_decay = config.getfloat("ga_initialization", "reward_decay")
 
 # crossover and parent selection
-
 num_parents_mating = config.getint("parent_selection", "num_parents_mating")
 parent_selection_type = config.get("parent_selection", "parent_selection_type")
 keep_elitism = config.getint("parent_selection", "keep_elitism")
@@ -63,7 +63,7 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,fidelity_tolerance]
+fidelity_args = [props,fidelity_tolerance,reward_decay]
 fitness_func = fitness_func_constructor(reward_based_fitness_up_to_max, fidelity_args)
 mutation_type = "swap"
 
