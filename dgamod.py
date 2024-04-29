@@ -6,9 +6,6 @@ import matplotlib.pyplot as plt
 from scipy.linalg import expm
 import os
 
-
-
-
 def delta(k, n):
 
     if k == n:
@@ -175,13 +172,16 @@ def gen_props(actions, n, b, dt):
     #     print("Descomposicion espectral: correcta")
 
     for i in range(0, 16):  # para cada matriz de accion
-        propagadores[i, :, :] =  expm(-1j*actions[i]*dt)
+        propagadores[i, :, :] = expm(-1j * actions[i] * dt)
 
     check_prop = True
 
     for a in np.arange(0, 16):
         for j in np.arange(0, n):
-            errores = calculate_next_state( bases[a, :, j],a,propagadores)-np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
+            errores = (
+                calculate_next_state(bases[a, :, j], a, propagadores)
+                - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
+            )
             # errores = (
             #     np.matmul(propagadores[a, :, :], bases[a, :, j])
             #     - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
@@ -221,6 +221,7 @@ def fidelity(action_sequence, props, return_time=False):
 
     return max_fid
 
+
 def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.95):
 
     n = np.shape(props)[1]
@@ -231,11 +232,11 @@ def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.
 
     for action in action_sequence:
         i += 1
-        #state = np.matmul(props[action, :, :], state)
-        state  = calculate_next_state(state,action,props)
+        # state = np.matmul(props[action, :, :], state)
+        state = calculate_next_state(state, action, props)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
-# uso los valores que usan ellos (sin multiplicar por 10!!!!!!!!!!!!)
+        # uso los valores que usan ellos (sin multiplicar por 10!!!!!!!!!!!!)
 
         if fid <= 0.8:
             reward = 10 * fid
@@ -248,13 +249,16 @@ def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.
 
         # check state normalization
 
-        if abs(la.norm(state) - 1.0) > 1E-8:
+        if abs(la.norm(state) - 1.0) > 1e-8:
             print("Normalization failed!!!!", la.norm(state))
             quit()
 
     return reward
 
-def reward_based_fitness_up_to_max(action_sequence, props,tolerance=0.05, reward_decay=0.95):
+
+def reward_based_fitness_up_to_max(
+    action_sequence, props, tolerance=0.05, reward_decay=0.95
+):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -265,14 +269,14 @@ def reward_based_fitness_up_to_max(action_sequence, props,tolerance=0.05, reward
 
     for action in action_sequence:
         i += 1
-        state  = calculate_next_state(state,action,props)
+        state = calculate_next_state(state, action, props)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
-        fidelity_evolution = np.append(fidelity_evolution,fid)
+        fidelity_evolution = np.append(fidelity_evolution, fid)
 
-    #max_fid = np.max(fidelity_evolution)
+    # max_fid = np.max(fidelity_evolution)
     max_time = np.argmax(fidelity_evolution)
 
-    for fid in fidelity_evolution[0:max_time+1]:
+    for fid in fidelity_evolution[0 : max_time + 1]:
 
         if fid <= 0.8:
             reward = 10 * fid
@@ -285,7 +289,52 @@ def reward_based_fitness_up_to_max(action_sequence, props,tolerance=0.05, reward
 
         # check state normalization
 
-        if abs(la.norm(state) - 1.0) > 1E-8:
+        if abs(la.norm(state) - 1.0) > 1e-8:
+            print("Normalization failed!!!!", la.norm(state))
+            quit()
+
+    return reward
+
+
+def reward_based_with_differences(
+    action_sequence, props, tolerance=0.05, reward_decay=0.95
+):
+
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.0
+    i = 0
+    fitness = 0.0
+    fidelity_evolution = np.asarray([])
+    differences = np.asarray([])
+
+    for action in action_sequence:
+        i += 1
+        state = calculate_next_state(state, action, props)
+        fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
+        fidelity_evolution = np.append(fidelity_evolution, fid)
+        if i > 1:
+            differences = np.append(differences, (fid - fidelity_evolution[i - 1])**2)
+    # max_fid = np.max(fidelity_evolution)
+    max_time = np.argmax(fidelity_evolution)
+
+    i = 0
+    for fid in fidelity_evolution[0 : max_time + 1]:
+
+        i +=1 
+
+        if fid <= 0.8:
+            reward = 10 * fid
+        elif 0.8 <= fid <= 1 - tolerance:
+            reward = 1000 / (1 + np.exp(10 * (1 - tolerance - fid)))
+        else:
+            reward = 25000
+
+        fitness = fitness + reward * (reward_decay**i) + differences[i]
+
+        # check state normalization
+
+        if abs(la.norm(state) - 1.0) > 1e-8:
             print("Normalization failed!!!!", la.norm(state))
             quit()
 
@@ -313,10 +362,9 @@ def generation_print(ga):
     print("Solution: ", solution, "Fitness: ", solution_fitness)
 
 
-def generation_func(ga, props, tol, directory, histogram = True):
+def generation_func(ga, props, tol, directory, histogram=True):
 
     solution, solution_fitness, solution_idx = ga.best_solution()
-
 
     fid, time = fidelity(solution, props, return_time=True)
 
@@ -335,9 +383,9 @@ def generation_func(ga, props, tol, directory, histogram = True):
     if histogram and (
         ga.generations_completed == 1 or ga.generations_completed % 5 == 0
     ):
-        population_histogram(ga, directory,props)
+        population_histogram(ga, directory, props)
 
-    if fid >= 1-tol:
+    if fid >= 1 - tol:
         return "stop"
 
 
@@ -444,7 +492,7 @@ def time_evolution(solution, propagadores, nh, graph=False, filename=False):
 
 
 def diagonales_paper(bmax, i, nh):
-    
+
     b = np.full(nh, 0)
 
     if i == 1:
@@ -521,7 +569,7 @@ def diagonales_paper(bmax, i, nh):
         b[nh - 3] = 1
         b[nh - 2] = 1
         b[nh - 1] = 1
-    
+
     else:
         b = np.full(nh, 0.0)  # correccion
 
@@ -550,8 +598,9 @@ def actions_paper(bmax, nh):
 
     return mat_acc
 
+
 def diagonales_paper2(bmax, i, nh):
-    
+
     b = np.full(nh, 0)
 
     if i == 1:
@@ -567,67 +616,48 @@ def diagonales_paper2(bmax, i, nh):
         b[1] = 1
 
     elif i == 4:
-
         b[2] = 1  # correccion
 
     elif i == 5:
-
         b[0] = 1
         b[2] = 1
 
     elif i == 6:
-
         b[1] = 1
         b[2] = 1
 
     elif i == 7:
-
         b[0] = 1
         b[1] = 1
         b[2] = 1
 
     elif i == 8:
-
         b[nh - 3] = 1
 
     elif i == 9:
-
-        #b = np.full(nh, -1)
         b[nh - 2] = 1
 
     elif i == 10:
-
         b[nh - 3] = 1
         b[nh - 2] = 1
 
     elif i == 11:
-
         b[nh - 1] = 1
 
     elif i == 12:
-
         b[nh - 3] = 1
         b[nh - 1] = 1
 
     elif i == 13:
-
         b[nh - 2] = 1
         b[nh - 1] = 1
 
     elif i == 14:
-
         b[nh - 3] = 1
         b[nh - 2] = 1
         b[nh - 1] = 1
 
     elif i == 15:
-
-        # b[0] = 1
-        # b[1] = 1
-        # b[2] = 1
-        # b[nh - 3] = 1
-        # b[nh - 2] = 1
-        # b[nh - 1] = 1
         b[:] = 1
     else:
         b = np.full(nh, 0.0)  # correccion
@@ -661,17 +691,16 @@ def actions_paper2(bmax, nh):
 def calculate_next_state(state, action_index, props):
 
     state = np.transpose(np.mat(state))
-    p = props[action_index] 
-    next_state = p*state
+    p = props[action_index]
+    next_state = p * state
     next_state = np.asarray(np.transpose(next_state))
     next_state = np.squeeze(next_state)
 
-    if abs(la.norm(next_state) - 1.) > 1E-8:
-        print('Normalization failed!!! ', la.norm(state))
+    if abs(la.norm(next_state) - 1.0) > 1e-8:
+        print("Normalization failed!!! ", la.norm(state))
         quit()
 
     return next_state
-
 
 
 def population_histogram(ga, directory, props):
@@ -685,9 +714,9 @@ def population_histogram(ga, directory, props):
     - directory: to save frames
     - props: propagators to calculate fidelity in transmission
     """
-    figure, axs = plt.subplots(2,1,figsize=(12, 4))
+    figure, axs = plt.subplots(2, 1, figsize=(12, 4))
     nbins = 100
-    plt.subplots_adjust(wspace = 0.2, hspace=0.7) 
+    plt.subplots_adjust(wspace=0.2, hspace=0.7)
     # creates directory if it doesnt exist
 
     dirname = directory + "/hist_frames"
@@ -696,15 +725,15 @@ def population_histogram(ga, directory, props):
     if not isExist:
         os.mkdir(dirname)
 
-    # access population 
+    # access population
     population = ga.population
     population_fidelity = []
     # access n. of generations completed
     ng = ga.generations_completed
 
-    for i in range(0,ga.pop_size[0]):
-        action_sequence = population[i,:]
-        individual_fidelity = fidelity(action_sequence,props)
+    for i in range(0, ga.pop_size[0]):
+        action_sequence = population[i, :]
+        individual_fidelity = fidelity(action_sequence, props)
         population_fidelity.append(individual_fidelity)
 
     # array of fidelities in population
@@ -715,7 +744,11 @@ def population_histogram(ga, directory, props):
 
     # plot histogram of fidelity distribution
     hist, bins, c = ax.hist(
-        population_fidelity, bins=nbins, range=[0, 1], edgecolor="black", color="#DDFFDD"
+        population_fidelity,
+        bins=nbins,
+        range=[0, 1],
+        edgecolor="black",
+        color="#DDFFDD",
     )
 
     # configure yticks to show percentage of total pop. number
@@ -737,7 +770,7 @@ def population_histogram(ga, directory, props):
     population = population.flatten()
     # --------------------------------------------------
     # array of action distributions
-    #---------------------------------------------------
+    # ---------------------------------------------------
     ax = axs[1]
 
     # plot histogram of fidelity distribution
@@ -750,7 +783,7 @@ def population_histogram(ga, directory, props):
     y = np.linspace(int(0), max_value, 10, dtype=int)
     ax.set_yticks(y)
     ax.set_yticklabels(y * 100 / ga.pop_size[0] / ga.pop_size[1])
- 
+
     x = np.arange(0, 16, 1)
     ax.set_xticks(x)
 
@@ -764,37 +797,39 @@ def population_histogram(ga, directory, props):
     filename = dirname + "/hist_frame" + str(ng).zfill(3) + ".png"
     plt.savefig(filename)
     plt.close()
-    #ga.plot_genes(graph_type = 'histogram', save_dir = dirname + "/gene_dist" + str(ng).zfill(3), solutions = 'all')
+    # ga.plot_genes(graph_type = 'histogram', save_dir = dirname + "/gene_dist" + str(ng).zfill(3), solutions = 'all')
+
 
 def new_diagonals(bmax, i, nh):
-    
+    """
+    Función para definir la diagonal de las matrices. Usa el mismo offset que el paper de Zhang (como
+    si movieramos el 0 de energía) para que 0 -> campo apagado, +-1-> campo encendido en una u otra dirección.
+
+    Parámetros:
+        bmax: magnitud del campo magnético
+        i: índice de acción
+        n: dimensión de las matrices
+    """
+
     b = np.full(nh, 0)
 
     if i == 1:
         b[0] = 1
 
     elif i == 2:
-
         b[1] = 1
 
     elif i == 3:
         b[0] = -1
-        # b[0] = 1
-        # b[1] = 1
 
     elif i == 4:
-
         b[2] = 1  # correccion
 
     elif i == 5:
         b[1] = -1
-        # b[0] = 1
-        # b[2] = 1
 
     elif i == 6:
         b[2] = -1
-        # b[1] = 1
-        # b[2] = 1
 
     elif i == 7:
 
@@ -803,58 +838,38 @@ def new_diagonals(bmax, i, nh):
         b[2] = 1
 
     elif i == 8:
-
         b[nh - 3] = 1
 
     elif i == 9:
-
-        #b = np.full(nh, -1)
         b[nh - 2] = 1
 
     elif i == 10:
         b[nh - 3] = -1
-        # b[nh - 3] = 1
-        # b[nh - 2] = 1
 
     elif i == 11:
-
         b[nh - 1] = 1
 
     elif i == 12:
-
         b[nh - 2] = -1
-        # b[nh - 3] = 1
-        # b[nh - 1] = 1
 
     elif i == 13:
-
         b[nh - 1] = -1
 
-        # b[nh - 2] = 1
-        # b[nh - 1] = 1
-
     elif i == 14:
-
         b[nh - 3] = 1
         b[nh - 2] = 1
         b[nh - 1] = 1
 
     elif i == 15:
-
-        # b[0] = 1
-        # b[1] = 1
-        # b[2] = 1
-        # b[nh - 3] = 1
-        # b[nh - 2] = 1
-        # b[nh - 1] = 1
         b[:] = 1
+
     else:
-        # b = np.full(nh, 0.0)  # correccion
-        b[:] = -1
+        b[:] = -1  # no tiene acción que no haga nada
 
     b = bmax * b
 
     return b
+
 
 def new_actions(bmax, nh):
 
@@ -863,8 +878,7 @@ def new_actions(bmax, nh):
     for i in range(0, 16):
 
         b = new_diagonals(bmax, i, nh)
-
-        J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
+        J = 1
 
         for k in range(0, nh - 1):
             mat_acc[i, k, k + 1] = J
