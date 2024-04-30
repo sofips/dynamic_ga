@@ -24,7 +24,7 @@ dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
 
 # generates actions and associated propagators
-acciones = actions_paper2(b, n)  ## acciones zhang
+acciones = new_actions(b, n)  ## acciones zhang
 props = gen_props(acciones, n, b, dt)
 
 # genetic algorithm parameters
@@ -66,7 +66,7 @@ on_generation = generation_func_constructor(
 )
 
 fidelity_args = [props,fidelity_tolerance,reward_decay]
-fitness_func = fitness_func_constructor(reward_based_fitness_up_to_max, fidelity_args)
+fitness_func = fitness_func_constructor(reward_based_with_differences, fidelity_args)
 mutation_type = "swap"
 
 

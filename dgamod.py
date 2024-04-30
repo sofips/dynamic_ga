@@ -314,11 +314,12 @@ def reward_based_with_differences(
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
         fidelity_evolution = np.append(fidelity_evolution, fid)
         if i >= 1:
-            differences = np.append(differences, (fid - fidelity_evolution[i - 2]))
-    # max_fid = np.max(fidelity_evolution)
+            differences = np.append(differences, (fid**2 - fidelity_evolution[i - 2]**2))
+        
     max_time = np.argmax(fidelity_evolution)
 
     i = 0
+
     for fid in fidelity_evolution[0 : max_time + 1]:
 
         i +=1 
@@ -330,19 +331,18 @@ def reward_based_with_differences(
         else:
             reward = 25000*fid
 
-        fitness = fitness + reward * (reward_decay**i) + (differences[i]*i)
-
+        fitness = fitness + reward * (reward_decay**i) + differences[i] #/np.mean(differences)
         # check state normalization
 
         if abs(la.norm(state) - 1.0) > 1e-8:
             print("Normalization failed!!!!", la.norm(state))
             quit()
         
-        b = 0.2
+        b = 0.5
 
         a = 1-b
 
-    return fitness *(a + b*max_time*0.15/n)
+    return fitness 
 
 
 def fitness_func_constructor(fid_function, arguments):
