@@ -119,5 +119,4 @@ with open(filename, "a") as f:
             "{:.8f}".format(trun),
         ]
         writer.writerow(row)
-
         actions_to_file(solution, solutions_fname, "w")
