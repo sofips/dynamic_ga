@@ -253,7 +253,7 @@ def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.
             print("Normalization failed!!!!", la.norm(state))
             quit()
 
-    return reward
+    return fitness
 
 
 def reward_based_fitness_up_to_max(
@@ -293,7 +293,7 @@ def reward_based_fitness_up_to_max(
             print("Normalization failed!!!!", la.norm(state))
             quit()
 
-    return reward
+    return fitness
 
 
 def reward_based_with_differences(
@@ -306,15 +306,15 @@ def reward_based_with_differences(
     i = 0
     fitness = 0.0
     fidelity_evolution = np.asarray([])
-    differences = np.asarray([])
+    differences = np.asarray([0])
 
     for action in action_sequence:
         i += 1
         state = calculate_next_state(state, action, props)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
         fidelity_evolution = np.append(fidelity_evolution, fid)
-        if i > 1:
-            differences = np.append(differences, (fid - fidelity_evolution[i - 1])**2)
+        if i >= 1:
+            differences = np.append(differences, (fid - fidelity_evolution[i - 2]))
     # max_fid = np.max(fidelity_evolution)
     max_time = np.argmax(fidelity_evolution)
 
@@ -325,20 +325,24 @@ def reward_based_with_differences(
 
         if fid <= 0.8:
             reward = 10 * fid
-        elif 0.8 <= fid <= 1 - tolerance:
+        elif 0.8 <= fid <= 0.95:
             reward = 1000 / (1 + np.exp(10 * (1 - tolerance - fid)))
         else:
-            reward = 25000
+            reward = 25000*fid
 
-        fitness = fitness + reward * (reward_decay**i) + differences[i]
+        fitness = fitness + reward * (reward_decay**i) + (differences[i]*i)
 
         # check state normalization
 
         if abs(la.norm(state) - 1.0) > 1e-8:
             print("Normalization failed!!!!", la.norm(state))
             quit()
+        
+        b = 0.2
 
-    return reward
+        a = 1-b
+
+    return fitness *(a + b*max_time*0.15/n)
 
 
 def fitness_func_constructor(fid_function, arguments):
