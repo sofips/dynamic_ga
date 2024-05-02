@@ -296,6 +296,42 @@ def reward_based_fitness_up_to_max(
     return fitness
 
 
+def non_acumulative(
+    action_sequence, props, tolerance=0.01, reward_decay=0.95
+):
+
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.0
+    i = 0
+    fitness = 0.0
+    fidelity_evolution = np.asarray([])
+
+    for action in action_sequence:
+        i += 1
+        state = calculate_next_state(state, action, props)
+        fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
+        fidelity_evolution = np.append(fidelity_evolution, fid)
+
+    max_fid = np.max(fidelity_evolution)
+    max_time = np.argmax(fidelity_evolution)
+
+
+    reward = 1000 / (1 + np.exp(10 * (1 - tolerance - max_fid)))
+    
+    b = 0.8
+    a = 1-b
+    fitness = reward *( a + b / max_time**2)
+
+    # check state normalization
+
+    if abs(la.norm(state) - 1.0) > 1e-8:
+        print("Normalization failed!!!!", la.norm(state))
+        quit()
+
+    return fitness
+
+
 def reward_based_with_differences(
     action_sequence, props, tolerance=0.05, reward_decay=0.95
 ):

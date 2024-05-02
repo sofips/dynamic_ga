@@ -65,8 +65,8 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,fidelity_tolerance,reward_decay]
-fitness_func = fitness_func_constructor(reward_based_with_differences, fidelity_args)
+fidelity_args = [props] #,fidelity_tolerance,reward_decay]
+fitness_func = fitness_func_constructor(non_acumulative, fidelity_args)
 mutation_type = "swap"
 
 
