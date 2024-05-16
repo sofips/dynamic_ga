@@ -22,6 +22,8 @@ config.read(initfile)
 n = config.getint("system_parameters", "n")
 dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
+speed_fraction = config.getfloat("system_parameters", "speed_fraction") # fraction of qsl speed if loc based fitness
+max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
 # generates actions and associated propagators
 acciones = actions_paper2(b, n)  ## acciones zhang
@@ -65,7 +67,7 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,fidelity_tolerance,reward_decay]
+fidelity_args = [props,speed_fraction, max_optimization_time,fidelity_tolerance,reward_decay]
 fitness_func = fitness_func_constructor(localization_based, fidelity_args)
 mutation_type = "swap"
 

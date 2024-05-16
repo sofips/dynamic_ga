@@ -381,18 +381,17 @@ def reward_based_with_differences(
     return fitness 
 
 def localization_based(
-    action_sequence, props, tolerance=0.05, reward_decay=0.95
+    action_sequence, props, speed_fraction, max_opt_time, tolerance=0.05, reward_decay=0.95
 ):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
     state[0] = 1.0
-    i = 0
     fitness = 0.0
     fidelity_evolution = np.asarray([])
-    differences = np.asarray([0])
     loc_evolution = np.sum(np.asarray([np.real(state[j] * np.conjugate(state[j]))*(j+1) for j in range(0,n-1)]))
-
+    
+    i = 0
     for action in action_sequence:
         i += 1
         state = calculate_next_state(state, action, props)
@@ -402,14 +401,13 @@ def localization_based(
         loc_evolution = np.append(loc_evolution,site_localization)
 
     max_time = np.argmax(fidelity_evolution)
+    speed = speed_fraction*2*n/(n-1)
 
     i = 0
-    speed = 2*n/(n-1)
-
-    for fid in fidelity_evolution[1 : max_time + 1]:
+    for fid in fidelity_evolution[0 : max_opt_time + 1]:
         
         reward = 1/np.abs(loc_evolution[i]-speed*0.15*i)**2
-        fitness = fitness + fid*reward#*(reward_decay**i) 
+        fitness = fitness + fid*reward 
         i +=1 
     #fitness = np.max(fidelity_evolution)*(1+fitness-max_time)
     return n**2*fitness*np.max(fidelity_evolution)/max_time

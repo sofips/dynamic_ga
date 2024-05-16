@@ -16,14 +16,16 @@ config = configparser.ConfigParser()
 n = int(sys.argv[1])  # number of spins in the system
 dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
+speed_fraction = 1.0  # fraction of qsl speed
+max_optimization_time = int(n//2/0.15)
 
 # genetic algorithm parameters
 
 num_generations = 2000
-num_genes = 5*n 
-sol_per_pop = 3000
+num_genes = 5 * n
+sol_per_pop = 1500
 fidelity_tolerance = 0.01
-reward_decay = 0.95 # time decay to achieve faster transmission
+reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 10
 
 # crossover and parent selection
@@ -44,7 +46,13 @@ directory = sys.argv[2]
 n_samples = 10
 
 
-config["system_parameters"] = {"n": str(n), "dt": str(dt), "b": str(b)}
+config["system_parameters"] = {
+    "n": str(n),
+    "dt": str(dt),
+    "b": str(b),
+    "speed_fraction": str(speed_fraction),
+    "max_optimization_time": str(max_optimization_time),
+}
 
 config["ga_initialization"] = {
     "num_generations": str(num_generations),
@@ -52,7 +60,7 @@ config["ga_initialization"] = {
     "sol_per_pop": str(sol_per_pop),
     "fidelity_tolerance": str(fidelity_tolerance),
     "saturation": str(saturation),
-    "reward_decay": str(reward_decay)
+    "reward_decay": str(reward_decay),
 }
 
 
