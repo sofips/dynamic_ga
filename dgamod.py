@@ -381,7 +381,7 @@ def reward_based_with_differences(
     return fitness 
 
 def localization_based(
-    action_sequence, props, speed_fraction, max_opt_time
+    action_sequence, dt, props, speed_fraction, max_opt_time
 ):
 
     n = np.shape(props)[1]
@@ -409,7 +409,7 @@ def localization_based(
     i = 0
     for fid in fidelity_evolution[0 : max_opt_time + 1]:
         
-        reward = 1/np.abs(loc_evolution[i]-speed*0.15*i)**2
+        reward = 1/np.abs(loc_evolution[i]-speed*dt*i)**2
         fitness = fitness + fid*reward 
         i +=1 
     #fitness = np.max(fidelity_evolution)*(1+fitness-max_time)
