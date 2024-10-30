@@ -137,14 +137,16 @@ def actions(bmax, nh):
 
 def gen_props(actions, n, b, dt):
 
+    n_actions = np.shape(actions)[0]
+    
     mat_acc = actions
     comp_i = complex(0, 1)
-    en = np.zeros((16, n), dtype=np.complex_)
-    bases = np.zeros((16, n, n), dtype=np.complex_)
-    propagadores = np.zeros((16, n, n), dtype=np.complex_)
-    desc_esp = np.zeros((16, n, n), dtype=np.complex_)
+    en = np.zeros((n_actions, n), dtype=np.complex_)
+    bases = np.zeros((n_actions, n, n), dtype=np.complex_)
+    propagadores = np.zeros((n_actions, n, n), dtype=np.complex_)
+    desc_esp = np.zeros((n_actions, n, n), dtype=np.complex_)
 
-    for j in range(0, 16):  # para cada matriz de accion
+    for j in range(0, n_actions):  # para cada matriz de accion
 
         en[j, :], bases[j, :, :] = la.eig(mat_acc[j, :, :])
 
@@ -171,12 +173,12 @@ def gen_props(actions, n, b, dt):
     # if check_de:
     #     print("Descomposicion espectral: correcta")
 
-    for i in range(0, 16):  # para cada matriz de accion
+    for i in range(0, n_actions):  # para cada matriz de accion
         propagadores[i, :, :] = expm(-1j * actions[i] * dt)
 
     check_prop = True
 
-    for a in np.arange(0, 16):
+    for a in np.arange(0, n_actions):
         for j in np.arange(0, n):
             errores = (
                 calculate_next_state(bases[a, :, j], a, propagadores)
