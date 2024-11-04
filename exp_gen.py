@@ -87,7 +87,7 @@ config["saving"] = {
     "directory": directory,
     "n_samples": str(n_samples),
 }
-script = "dc_ga.py"
+script = "dc_ga_one_action_per_site.py"
 
 isExist = os.path.exists(directory)
 if not isExist:
