@@ -128,6 +128,8 @@ def actions(bmax, nh):
 
 def gen_props(actions, n, b, dt):
 
+    n_actions = np.shape(actions)[0]
+    
     mat_acc = actions
     n_actions = mat_acc.shape[0]
     comp_i = complex(0, 1)
