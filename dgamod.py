@@ -545,7 +545,6 @@ def time_evolution(solution, propagadores, nh, graph=False, filename=False):
 # acciones zhang#
 ################
 
-
 def diagonales_paper(bmax, i, nh):
 
     b = np.full(nh, 0)

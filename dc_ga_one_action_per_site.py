@@ -9,7 +9,6 @@ import time
 import os
 import configparser
 
-
 # get parameters from config file
 thisfolder = os.path.dirname(os.path.abspath(__file__))
 initfile = os.path.join(thisfolder, str(sys.argv[1]))
@@ -22,11 +21,13 @@ config.read(initfile)
 n = config.getint("system_parameters", "n")
 dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
-speed_fraction = config.getfloat("system_parameters", "speed_fraction") # fraction of qsl speed if loc based fitness
+speed_fraction = config.getfloat(
+    "system_parameters", "speed_fraction"
+)  # fraction of qsl speed if loc based fitness
 max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
 # aca genero las acciones
-acciones = one_field_actions(b, n)  
+acciones = one_field_actions(b, n)
 props = gen_props(acciones, n, b, dt)
 
 
@@ -52,12 +53,12 @@ mutation_probability = config.getfloat("mutation", "mutation_probability")
 mutation_num_genes = config.getint("mutation", "mutation_num_genes")
 
 
-gene_space = np.arange(0, n, 1) # un gen por sitio
+gene_space = np.arange(0, n, 1)  # un gen por sitio
 gene_type = int
 
 stop_criteria = ["saturate_" + str(saturation)]  # , 'reach_'+str(fidelity_tolerance)]
 
-population_histograms = config.getboolean("saving","population_histograms")
+population_histograms = config.getboolean("saving", "population_histograms")
 dirname = config.get("saving", "directory")
 n_samples = config.getint("saving", "n_samples")
 
@@ -68,7 +69,11 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
+fidelity_args = [
+    props,
+    speed_fraction,
+    max_optimization_time,
+]  # ,fidelity_tolerance,reward_decay]
 fitness_func = fitness_func_constructor(localization_based, fidelity_args)
 mutation_type = "swap"
 
@@ -98,7 +103,7 @@ with open(filename, "a") as f:
             on_generation=on_generation,
             mutation_num_genes=mutation_num_genes,
             stop_criteria=stop_criteria,
-            save_solutions=False
+            save_solutions=False,
         )
 
         initial_instance.run()
