@@ -43,7 +43,7 @@ mutation_num_genes = n
 # execution and results saving
 population_histograms = False
 directory = sys.argv[2]
-n_samples = 100
+n_samples = 10
 
 
 config["system_parameters"] = {
