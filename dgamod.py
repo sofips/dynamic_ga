@@ -6,15 +6,6 @@ import matplotlib.pyplot as plt
 from scipy.linalg import expm
 import os
 
-def delta(k, n):
-
-    if k == n:
-        d = 1.0
-    else:
-        d = 0.0
-
-    return d
-
 
 def diagonales(bmax, i, nh):
 
@@ -140,38 +131,15 @@ def gen_props(actions, n, b, dt):
     n_actions = np.shape(actions)[0]
     
     mat_acc = actions
+    n_actions = mat_acc.shape[0]
     comp_i = complex(0, 1)
     en = np.zeros((n_actions, n), dtype=np.complex_)
     bases = np.zeros((n_actions, n, n), dtype=np.complex_)
     propagadores = np.zeros((n_actions, n, n), dtype=np.complex_)
-    desc_esp = np.zeros((n_actions, n, n), dtype=np.complex_)
 
     for j in range(0, n_actions):  # para cada matriz de accion
 
         en[j, :], bases[j, :, :] = la.eig(mat_acc[j, :, :])
-
-    #     for k in range(0, n):
-    #         p = np.outer(bases[j, :, k], bases[j, :, k])
-
-    #         propagadores[j, :, :] = (
-    #             propagadores[j, :, :] + cm.exp(-comp_i * dt * en[j, k]) * p
-    #         )
-
-    #         desc_esp[j, :, :] = desc_esp[j, :, :] + p * en[j, k]
-
-    # # check de descomposición espectral
-    # check_de = True
-
-    # for k in np.arange(0, 16):
-    #     for i in np.arange(0, n):
-    #         for j in np.arange(0, n):
-
-    #             if mat_acc[k, i, j] - desc_esp[k, i, j] > 1e-6:
-    #                 print("error desc. esp")
-    #                 check_de = False
-
-    # if check_de:
-    #     print("Descomposicion espectral: correcta")
 
     for i in range(0, n_actions):  # para cada matriz de accion
         propagadores[i, :, :] = expm(-1j * actions[i] * dt)
@@ -184,10 +152,6 @@ def gen_props(actions, n, b, dt):
                 calculate_next_state(bases[a, :, j], a, propagadores)
                 - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
             )
-            # errores = (
-            #     np.matmul(propagadores[a, :, :], bases[a, :, j])
-            #     - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
-            # )
             et = np.sum(errores)
             if la.norm(et) > 1e-8:
                 print("error en propagacion")
@@ -298,9 +262,7 @@ def reward_based_fitness_up_to_max(
     return fitness
 
 
-def non_acumulative(
-    action_sequence, props, tolerance=0.01, reward_decay=0.95
-):
+def non_acumulative(action_sequence, props, tolerance=0.01, reward_decay=0.95):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -318,12 +280,11 @@ def non_acumulative(
     max_fid = np.max(fidelity_evolution)
     max_time = np.argmax(fidelity_evolution)
 
-
     reward = 1000 / (1 + np.exp(10 * (1 - tolerance - max_fid)))
-    
+
     b = 0.8
-    a = 1-b
-    fitness = reward *( a + b / max_time**2)
+    a = 1 - b
+    fitness = reward * (a + b / max_time**2)
 
     # check state normalization
 
@@ -352,70 +313,87 @@ def reward_based_with_differences(
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
         fidelity_evolution = np.append(fidelity_evolution, fid)
         if i >= 1:
-            differences = np.append(differences, (fid**2 - fidelity_evolution[i - 2]**2))
-        
+            differences = np.append(
+                differences, (fid**2 - fidelity_evolution[i - 2] ** 2)
+            )
+
     max_time = np.argmax(fidelity_evolution)
 
     i = 0
 
     for fid in fidelity_evolution[0 : max_time + 1]:
 
-        i +=1 
+        i += 1
 
         if fid <= 0.8:
             reward = 10 * fid
         elif 0.8 <= fid <= 0.95:
             reward = 1000 / (1 + np.exp(10 * (1 - tolerance - fid)))
         else:
-            reward = 25000*fid
+            reward = 25000 * fid
 
-        fitness = fitness + reward * (reward_decay**i) + differences[i] #/np.mean(differences)
+        fitness = (
+            fitness + reward * (reward_decay**i) + differences[i]
+        )  # /np.mean(differences)
         # check state normalization
 
         if abs(la.norm(state) - 1.0) > 1e-8:
             print("Normalization failed!!!!", la.norm(state))
             quit()
-        
+
         b = 0.5
 
-        a = 1-b
+        a = 1 - b
 
-    return fitness 
+    return fitness
 
-def localization_based(
-    action_sequence, dt, props, speed_fraction, max_opt_time
-):
+
+def localization_based(action_sequence, props, speed_fraction, max_opt_time):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
     state[0] = 1.0
     fitness = 0.0
     fidelity_evolution = np.asarray([])
-    loc_evolution = np.sum(np.asarray([np.real(state[j] * np.conjugate(state[j]))*(j+1) for j in range(0,n-1)]))
-    
+    loc_evolution = np.sum(
+        np.asarray(
+            [
+                np.real(state[j] * np.conjugate(state[j])) * (j + 1)
+                for j in range(0, n - 1)
+            ]
+        )
+    )
+
     i = 0
-    for action in action_sequence:
+    for action in action_sequence:  # en cada accion
         i += 1
         state = calculate_next_state(state, action, props)
-        site_localization =  np.sum(np.asarray([np.real(state[j] * np.conjugate(state[j]))*(j+1) for j in range(0,n-1)]))
+        site_localization = np.sum(
+            np.asarray(
+                [
+                    np.real(state[j] * np.conjugate(state[j])) * (j + 1)
+                    for j in range(0, n - 1)
+                ]
+            )
+        )
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
         fidelity_evolution = np.append(fidelity_evolution, fid)
-        loc_evolution = np.append(loc_evolution,site_localization)
+        loc_evolution = np.append(loc_evolution, site_localization)
 
     max_time = np.argmax(fidelity_evolution)
-    speed = speed_fraction*2*n/(n-1)
+    speed = speed_fraction * 2 * n / (n - 1)
 
     if max_opt_time == 0:
         max_opt_time = max_time
-        
+
     i = 0
     for fid in fidelity_evolution[0 : max_opt_time + 1]:
-        
-        reward = 1/np.abs(loc_evolution[i]-speed*dt*i)**2
-        fitness = fitness + fid*reward 
-        i +=1 
-    #fitness = np.max(fidelity_evolution)*(1+fitness-max_time)
-    return n**2*fitness*np.max(fidelity_evolution)/max_time
+
+        reward = 1 / np.abs(loc_evolution[i] - speed * 0.15 * i) ** 2
+        fitness = fitness + fid * reward
+        i += 1
+    # fitness = np.max(fidelity_evolution)*(1+fitness-max_time)
+    return n**2 * fitness * np.max(fidelity_evolution) / max_time
 
 
 def fitness_func_constructor(fid_function, arguments):
@@ -566,7 +544,6 @@ def time_evolution(solution, propagadores, nh, graph=False, filename=False):
 ################
 # acciones zhang#
 ################
-
 
 def diagonales_paper(bmax, i, nh):
 
@@ -966,3 +943,20 @@ def new_actions(bmax, nh):
             mat_acc[i, k, k] = b[k]
 
     return mat_acc
+
+
+def one_field_actions(bmax, nh):
+
+    action_matrices = np.zeros((nh, nh, nh))
+    J = 1.0
+
+    for i in range(0, nh):
+
+        for k in range(0, nh - 1):
+            action_matrices[i, k, k + 1] = J
+            action_matrices[i, k + 1, k] = action_matrices[i, k, k + 1]
+
+        for k in range(0, nh):
+            action_matrices[i, i, i] = bmax
+
+    return action_matrices
