@@ -24,7 +24,7 @@ max_optimization_time = 0 #int(n//2/0.15)
 num_generations = 2000
 num_genes = 5 * n
 sol_per_pop = 3000
-fidelity_tolerance = 0.01
+fidelity_tolerance = 0.05
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 20
 
