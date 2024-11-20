@@ -221,6 +221,39 @@ def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.
 
     return fitness
 
+def reward_based_fitness_late(action_sequence, props, initial_state, initial_step, tolerance=0.05, reward_decay=0.95):
+
+    n = np.shape(props)[1]
+
+    state = initial_state
+    i = 0
+    fitness = 0.0
+
+    for action in action_sequence[initial_step:]:
+        i += 1
+        # state = np.matmul(props[action, :, :], state)
+        state = calculate_next_state(state, action, props)
+        fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
+
+        # uso los valores que usan ellos (sin multiplicar por 10!!!!!!!!!!!!)
+
+        if fid <= 0.8:
+            reward = 10 * fid
+        elif 0.8 <= fid <= 1 - tolerance:
+            reward = 100 / (1 + np.exp(10 * (1 - tolerance - fid)))
+        else:
+            reward = 2500
+
+        fitness = fitness + reward * (reward_decay**i)
+
+        # check state normalization
+
+        if abs(la.norm(state) - 1.0) > 1e-8:
+            print("Normalization failed!!!!", la.norm(state))
+            quit()
+
+    return fitness
+
 
 def reward_based_fitness_up_to_max(
     action_sequence, props, tolerance=0.05, reward_decay=0.95
@@ -751,7 +784,7 @@ def calculate_next_state(state, action_index, props):
     next_state = np.squeeze(next_state)
 
     if abs(la.norm(next_state) - 1.0) > 1e-8:
-        print("Normalization failed!!! ", la.norm(state))
+        print("Normalization failed!!! ", la.norm(next_state))
         quit()
 
     return next_state
@@ -947,7 +980,31 @@ def new_actions(bmax, nh):
 
 def one_field_actions(bmax, nh):
 
-    action_matrices = np.zeros((nh, nh, nh))
+    action_matrices = np.zeros((nh+1, nh, nh))
+    J = 1.0
+
+    for i in range(0, nh):
+
+        for k in range(0, nh - 1):
+            action_matrices[i+1, k, k + 1] = J
+            action_matrices[i+1, k + 1, k] = action_matrices[i+1, k, k + 1]
+
+        action_matrices[i+1, i, i] = bmax
+    
+    for k in range(0, nh - 1):
+            action_matrices[0, k, k + 1] = J
+            action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
+
+    return action_matrices
+
+def one_field_actions_extra(bmax, nh):
+    '''
+    i = [0,n-1] : Acciones por sitio
+    i = n : Campos apagados
+    i = n+1 : Campo negativo primer sitio
+    i = n+2 : Campo negativo último sitio
+    '''
+    action_matrices = np.zeros((nh+3, nh, nh))
     J = 1.0
 
     for i in range(0, nh):
@@ -956,7 +1013,47 @@ def one_field_actions(bmax, nh):
             action_matrices[i, k, k + 1] = J
             action_matrices[i, k + 1, k] = action_matrices[i, k, k + 1]
 
-        for k in range(0, nh):
-            action_matrices[i, i, i] = bmax
+        action_matrices[i, i, i] = bmax
+    
+    # campos apagados (i=nh)
+    for k in range(0, nh - 1):
+        action_matrices[nh, k, k + 1] = J
+        action_matrices[nh, k + 1, k] = action_matrices[nh, k, k + 1]
+    
+    # campo primer sitio
+    for k in range(0, nh - 1):
+        action_matrices[nh+1, k, k + 1] = J
+        action_matrices[nh+1, k + 1, k] = action_matrices[i, k, k + 1]
+
+    action_matrices[nh+1, 0, 0] = -bmax
+    
+    # campo ultimo sitio
+    for k in range(0, nh - 1):
+        action_matrices[nh+2, k, k + 1] = J
+        action_matrices[nh+2, k + 1, k] = action_matrices[i, k, k + 1]
+
+    action_matrices[nh+2, nh-1, nh-1] = -bmax
+
+
+    return action_matrices
+
+def one_field_actions_weak(bmax, nh):
+
+    action_matrices = np.zeros((nh+1, nh, nh))
+    J = np.ones(nh)
+    J[0] = 0.5
+    J[nh-1] = 0.5
+
+    for i in range(0, nh):
+
+        for k in range(0, nh - 1):
+            action_matrices[i+1, k, k + 1] = J[k]
+            action_matrices[i+1, k + 1, k] = action_matrices[i+1, k, k + 1]
+
+        action_matrices[i+1, i, i] = bmax
+    
+    for k in range(0, nh - 1):
+            action_matrices[0, k, k + 1] = J[k]
+            action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
 
     return action_matrices
