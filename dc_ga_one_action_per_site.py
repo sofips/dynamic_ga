@@ -28,9 +28,8 @@ max_optimization_time = config.getint("system_parameters", "max_optimization_tim
 
 # aca genero las acciones
 acciones = one_field_actions(b, n)
+print(acciones)
 props = gen_props(acciones, n, b, dt)
-
-
 # genetic algorithm parameters
 num_generations = config.getint("ga_initialization", "num_generations")
 num_genes = config.getint("ga_initialization", "num_genes")
@@ -53,7 +52,7 @@ mutation_probability = config.getfloat("mutation", "mutation_probability")
 mutation_num_genes = config.getint("mutation", "mutation_num_genes")
 
 
-gene_space = np.arange(0, n, 1)  # un gen por sitio
+gene_space = np.arange(0, np.shape(acciones)[0], 1)  # un gen por sitio
 gene_type = int
 
 stop_criteria = ["saturate_" + str(saturation)]  # , 'reach_'+str(fidelity_tolerance)]
@@ -69,8 +68,8 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,fidelity_tolerance,reward_decay] #[props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
+fidelity_args = [props,speed_fraction,max_optimization_time] #[props,fidelity_tolerance,reward_decay] #[props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
+fitness_func = fitness_func_constructor(localization_based, fidelity_args)
 mutation_type = "swap"
 
 
