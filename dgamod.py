@@ -7,163 +7,60 @@ from scipy.linalg import expm
 import os
 
 
-def diagonales(bmax, i, nh):
+def gen_props(actions, n, dt, test = True):
 
-    if i == 1:
-        b = np.full(nh, -1)
-        b[0] = 1
+    """
+    Generate propagators for a set of action matrices.
 
-    elif i == 2:
-        b = np.full(nh, -1)
+    Parameters:
+    actions (numpy.ndarray): A 3D array of shape (n_actions, n, n) containing the action matrices.
+    n (int): The dimension of the action matrices equal to the chain length.
+    dt (float): The time step for propagation.
+    test (bool, optional): If True, perform a test to check the correctness of the propagation. Default is True.
 
-        b[1] = 1
+    Returns:
+    numpy.ndarray: A 3D array of shape (n_actions, n, n) containing the propagators.
 
-    elif i == 3:
+    Notes:
+    - The function first diagonalizes each action matrix to obtain eigenvalues and eigenvectors.
+    - It then constructs the propagators using the matrix exponential.
+    - If `test` is True, it checks if the eigenstates are properly propagated and prints the result.
+    """
 
-        b = np.full(nh, -2.0)
-
-        b[0] = 0.0
-        b[1] = 0.0
-
-    elif i == 4:
-
-        b = np.full(nh, -1)
-
-        b[2] = 1  # correccion
-
-    elif i == 5:
-
-        b = np.full(nh, -2.0)
-
-        b[0] = 0.0
-        b[2] = 0.0
-
-    elif i == 6:
-
-        b = np.full(nh, -2.0)  # correccion
-
-        b[1] = 0.0
-        b[2] = 0.0
-
-    elif i == 7:
-
-        b = np.full(nh, -3)
-
-        b[0] = -1
-        b[1] = -1
-        b[2] = -1
-
-    elif i == 8:
-        b = np.full(nh, -1)
-        b[nh - 3] = 1
-
-    elif i == 9:
-
-        b = np.full(nh, -1)
-        b[nh - 2] = 1
-
-    elif i == 10:
-
-        b = np.full(nh, -2.0)
-        b[nh - 3] = 0.0
-        b[nh - 2] = 0.0
-
-    elif i == 11:
-
-        b = np.full(nh, -1)
-        b[nh - 1] = 1
-
-    elif i == 12:
-        b = np.full(nh, -2.0)
-
-        b[nh - 3] = 0.0
-        b[nh - 1] = 0.0
-
-    elif i == 13:
-
-        b = np.full(nh, -2.0)
-
-        b[nh - 2] = 0.0  # correccion
-        b[nh - 1] = 0.0  # correccion
-
-    elif i == 14:
-
-        b = np.full(nh, -3)
-
-        b[nh - 3] = -1
-        b[nh - 2] = -1
-        b[nh - 1] = -1
-
-    elif i == 15:
-
-        b = np.full(nh, -2.0)
-    else:
-        b = np.full(nh, 0.0)  # correccion
-
-    b = bmax * b
-
-    return b
-
-
-def actions(bmax, nh):
-
-    mat_acc = np.zeros((16, nh, nh))
-
-    for i in range(0, 16):
-
-        b = diagonales(bmax, i, nh)
-
-        J = -0.5  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
-
-        for k in range(0, nh - 1):
-            mat_acc[i, k, k + 1] = J
-            mat_acc[i, k + 1, k] = mat_acc[i, k, k + 1]
-
-        for k in range(0, nh):
-
-            mat_acc[i, k, k] = b[k]
-
-    return mat_acc
-
-
-def gen_props(actions, n, b, dt):
-
-    n_actions = np.shape(actions)[0]
-    
-    mat_acc = actions
-    n_actions = mat_acc.shape[0]
+    n_actions = actions.shape[0]
     comp_i = complex(0, 1)
+
     en = np.zeros((n_actions, n), dtype=np.complex_)
     bases = np.zeros((n_actions, n, n), dtype=np.complex_)
-    propagadores = np.zeros((n_actions, n, n), dtype=np.complex_)
+    props = np.zeros((n_actions, n, n), dtype=np.complex_)
 
-    for j in range(0, n_actions):  # para cada matriz de accion
+    for i in range(0, n_actions):  # propagator building
+        props[i, :, :] = expm(-1j * actions[i] * dt)
 
-        en[j, :], bases[j, :, :] = la.eig(mat_acc[j, :, :])
+    if test:
+        for j in range(0, n_actions):  # diagonalization of action matrices
+            en[j, :], bases[j, :, :] = la.eig(actions[j, :, :])
 
-    for i in range(0, n_actions):  # para cada matriz de accion
-        propagadores[i, :, :] = expm(-1j * actions[i] * dt)
+        correct_propagation = True
 
-    check_prop = True
+        for a in np.arange(0, n_actions):
+            for j in np.arange(0, n):
+                errores = (
+                    calculate_next_state(bases[a, :, j], a, props)
+                    - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
+                )
+                et = np.sum(errores)
+                if la.norm(et) > 1e-8:
+                    print("Propagation Error: Eigenstates are not being properly propagated")
+                    correct_propagation = False
 
-    for a in np.arange(0, n_actions):
-        for j in np.arange(0, n):
-            errores = (
-                calculate_next_state(bases[a, :, j], a, propagadores)
-                - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
-            )
-            et = np.sum(errores)
-            if la.norm(et) > 1e-8:
-                print("error en propagacion")
-                check_prop = False
-
-    if check_prop:
-        print("Propagacion de autoestados: correcta")
-
-    return propagadores
+        if correct_propagation:
+            print("Eigenstate Propagation: correct")
+    return props
 
 
 def fidelity(action_sequence, props, return_time=False):
+
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
     state[0] = 1.0
@@ -512,7 +409,7 @@ def actions_to_file(solution, filename, condition):
     return True
 
 
-def time_evolution(solution, propagadores, nh, graph=False, filename=False):
+def time_evolution(solution, props, nh, graph=False, filename=False):
     """
     Parameters:
        - solution: action sequence
@@ -532,7 +429,7 @@ def time_evolution(solution, propagadores, nh, graph=False, filename=False):
 
     for action in solution:
 
-        state = np.matmul(propagadores[action, :, :], state)
+        state = np.matmul(props[action, :, :], state)
         # fid = np.real(state[nh-1])**2+np.imag(state[nh-1])**2
 
         fid = np.real(state[nh - 1] * np.conjugate(state[nh - 1]))
@@ -667,7 +564,7 @@ def diagonales_paper(bmax, i, nh):
 
 def actions_paper(bmax, nh):
 
-    mat_acc = np.zeros((16, nh, nh))
+    actions = np.zeros((16, nh, nh))
 
     for i in range(0, 16):
 
@@ -676,14 +573,14 @@ def actions_paper(bmax, nh):
         J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
 
         for k in range(0, nh - 1):
-            mat_acc[i, k, k + 1] = J
-            mat_acc[i, k + 1, k] = mat_acc[i, k, k + 1]
+            actions[i, k, k + 1] = J
+            actions[i, k + 1, k] = actions[i, k, k + 1]
 
         for k in range(0, nh):
 
-            mat_acc[i, k, k] = b[k]
+            actions[i, k, k] = b[k]
 
-    return mat_acc
+    return actions
 
 
 def diagonales_paper2(bmax, i, nh):
@@ -756,7 +653,7 @@ def diagonales_paper2(bmax, i, nh):
 
 def actions_paper2(bmax, nh):
 
-    mat_acc = np.zeros((16, nh, nh))
+    actions = np.zeros((16, nh, nh))
 
     for i in range(0, 16):
 
@@ -765,14 +662,14 @@ def actions_paper2(bmax, nh):
         J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
 
         for k in range(0, nh - 1):
-            mat_acc[i, k, k + 1] = J
-            mat_acc[i, k + 1, k] = mat_acc[i, k, k + 1]
+            actions[i, k, k + 1] = J
+            actions[i, k + 1, k] = actions[i, k, k + 1]
 
         for k in range(0, nh):
 
-            mat_acc[i, k, k] = b[k]
+            actions[i, k, k] = b[k]
 
-    return mat_acc
+    return actions
 
 
 def calculate_next_state(state, action_index, props):
@@ -960,7 +857,7 @@ def new_diagonals(bmax, i, nh):
 
 def new_actions(bmax, nh):
 
-    mat_acc = np.zeros((16, nh, nh))
+    actions = np.zeros((16, nh, nh))
 
     for i in range(0, 16):
 
@@ -968,14 +865,14 @@ def new_actions(bmax, nh):
         J = 1
 
         for k in range(0, nh - 1):
-            mat_acc[i, k, k + 1] = J
-            mat_acc[i, k + 1, k] = mat_acc[i, k, k + 1]
+            actions[i, k, k + 1] = J
+            actions[i, k + 1, k] = actions[i, k, k + 1]
 
         for k in range(0, nh):
 
-            mat_acc[i, k, k] = b[k]
+            actions[i, k, k] = b[k]
 
-    return mat_acc
+    return actions
 
 
 def one_field_actions(bmax, nh):
