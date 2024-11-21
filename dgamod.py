@@ -7,8 +7,7 @@ from scipy.linalg import expm
 import os
 
 
-def gen_props(actions, n, dt, test = True):
-
+def gen_props(actions, n, dt, test=True):
     """
     Generate propagators for a set of action matrices.
 
@@ -29,15 +28,14 @@ def gen_props(actions, n, dt, test = True):
 
     n_actions = actions.shape[0]
     comp_i = complex(0, 1)
-
-    en = np.zeros((n_actions, n), dtype=np.complex_)
-    bases = np.zeros((n_actions, n, n), dtype=np.complex_)
     props = np.zeros((n_actions, n, n), dtype=np.complex_)
 
     for i in range(0, n_actions):  # propagator building
         props[i, :, :] = expm(-1j * actions[i] * dt)
 
     if test:
+        en = np.zeros((n_actions, n), dtype=np.complex_)
+        bases = np.zeros((n_actions, n, n), dtype=np.complex_)
         for j in range(0, n_actions):  # diagonalization of action matrices
             en[j, :], bases[j, :, :] = la.eig(actions[j, :, :])
 
@@ -51,15 +49,31 @@ def gen_props(actions, n, dt, test = True):
                 )
                 et = np.sum(errores)
                 if la.norm(et) > 1e-8:
-                    print("Propagation Error: Eigenstates are not being properly propagated")
+                    print(
+                        "Propagation Error: Eigenstates are not being properly propagated"
+                    )
                     correct_propagation = False
+                    quit()
 
         if correct_propagation:
             print("Eigenstate Propagation: correct")
     return props
 
 
-def fidelity(action_sequence, props, return_time=False):
+def fidelity(action_sequence, props, return_time=False, test_normalization=True):
+    """
+    Calculate the fidelity resulting of a given pulse sequence. The state is initialized to /10...0>
+
+    Parameters:
+    action_sequence (list or array-like): A sequence of actions to be applied to the initial state.
+    props (ndarray): A 3D array where props[action] is the propagation matrix corresponding to that action.
+    return_time (bool, optional): If True, return the time step at which the maximum fidelity is achieved. Default is False.
+    test_normalization (bool, optional): If True, test the normalization of the final state. Default is True.
+
+    Returns:
+    float: The maximum fidelity achieved.
+    tuple: If return_time is True, returns a tuple (max_fid, imax) where max_fid is the maximum fidelity and imax is the time step at which it is achieved.
+    """
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -67,7 +81,9 @@ def fidelity(action_sequence, props, return_time=False):
     max_fid = 0.0
     imax = 0
     i = 0
+
     for action in action_sequence:
+
         i += 1
         state = np.matmul(props[action, :, :], state)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
@@ -76,8 +92,11 @@ def fidelity(action_sequence, props, return_time=False):
             imax = i
             max_fid = fid
 
-    if abs(la.norm(state) - 1.0) > 1e-8:
-        print("FALLO EN LA NORMALIZACION", la.norm(state))
+    if test_normalization:
+
+        if abs(la.norm(state) - 1.0) > 1e-8:
+            print("Normalization test failed. Norm of final state: ", la.norm(state))
+            quit()
 
     if return_time:
         return max_fid, imax
@@ -85,7 +104,24 @@ def fidelity(action_sequence, props, return_time=False):
     return max_fid
 
 
-def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.95):
+def reward_based_fitness(action_sequence, props, tolerance, reward_decay, test_normalization: True):
+    """
+    Calculate the fitness of an action sequence based on the reward assigned by the RL 
+    algorithm of the referenced work. For every action, fidelity (probability of finding the
+    excitation in the last site) is calculated. A proportional reward is assigned and this value is
+    acumulated over time with a decay factor, making solutions with higher fidelity in shorter times 
+    the fittest.
+
+    Parameters:
+    action_sequence (list): A list of actions to be performed.
+    props (ndarray): A numpy array containing propagators to evolve the state.
+    tolerance (float): A tolerance value for determining reward thresholds (min. fidelity).
+    reward_decay (float): A decay factor for the reward over time.
+    test_normalization (bool): A flag to test if the state normalization is maintained.
+
+    Returns:
+    fitness (float): The calculated fitness value.
+    """
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -95,11 +131,8 @@ def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.
 
     for action in action_sequence:
         i += 1
-        # state = np.matmul(props[action, :, :], state)
         state = calculate_next_state(state, action, props)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
-
-        # uso los valores que usan ellos (sin multiplicar por 10!!!!!!!!!!!!)
 
         if fid <= 0.8:
             reward = 10 * fid
@@ -111,14 +144,22 @@ def reward_based_fitness(action_sequence, props, tolerance=0.05, reward_decay=0.
         fitness = fitness + reward * (reward_decay**i)
 
         # check state normalization
-
-        if abs(la.norm(state) - 1.0) > 1e-8:
-            print("Normalization failed!!!!", la.norm(state))
-            quit()
+    if test_normalization:
+            if abs(la.norm(state) - 1.0) > 1e-8:
+                print("Normalization failed. Norm of final state:", la.norm(state))
+                quit()
 
     return fitness
 
-def reward_based_fitness_late(action_sequence, props, initial_state, initial_step, tolerance=0.05, reward_decay=0.95):
+
+def reward_based_fitness_late(
+    action_sequence,
+    props,
+    initial_state,
+    initial_step,
+    tolerance=0.05,
+    reward_decay=0.95,
+):
 
     n = np.shape(props)[1]
 
@@ -474,6 +515,7 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 ################
 # acciones zhang#
 ################
+
 
 def diagonales_paper(bmax, i, nh):
 
@@ -877,31 +919,32 @@ def new_actions(bmax, nh):
 
 def one_field_actions(bmax, nh):
 
-    action_matrices = np.zeros((nh+1, nh, nh))
+    action_matrices = np.zeros((nh + 1, nh, nh))
     J = 1.0
 
     for i in range(0, nh):
 
         for k in range(0, nh - 1):
-            action_matrices[i+1, k, k + 1] = J
-            action_matrices[i+1, k + 1, k] = action_matrices[i+1, k, k + 1]
+            action_matrices[i + 1, k, k + 1] = J
+            action_matrices[i + 1, k + 1, k] = action_matrices[i + 1, k, k + 1]
 
-        action_matrices[i+1, i, i] = bmax
-    
+        action_matrices[i + 1, i, i] = bmax
+
     for k in range(0, nh - 1):
-            action_matrices[0, k, k + 1] = J
-            action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
+        action_matrices[0, k, k + 1] = J
+        action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
 
     return action_matrices
 
+
 def one_field_actions_extra(bmax, nh):
-    '''
+    """
     i = [0,n-1] : Acciones por sitio
     i = n : Campos apagados
     i = n+1 : Campo negativo primer sitio
     i = n+2 : Campo negativo último sitio
-    '''
-    action_matrices = np.zeros((nh+3, nh, nh))
+    """
+    action_matrices = np.zeros((nh + 3, nh, nh))
     J = 1.0
 
     for i in range(0, nh):
@@ -911,46 +954,46 @@ def one_field_actions_extra(bmax, nh):
             action_matrices[i, k + 1, k] = action_matrices[i, k, k + 1]
 
         action_matrices[i, i, i] = bmax
-    
+
     # campos apagados (i=nh)
     for k in range(0, nh - 1):
         action_matrices[nh, k, k + 1] = J
         action_matrices[nh, k + 1, k] = action_matrices[nh, k, k + 1]
-    
+
     # campo primer sitio
     for k in range(0, nh - 1):
-        action_matrices[nh+1, k, k + 1] = J
-        action_matrices[nh+1, k + 1, k] = action_matrices[i, k, k + 1]
+        action_matrices[nh + 1, k, k + 1] = J
+        action_matrices[nh + 1, k + 1, k] = action_matrices[i, k, k + 1]
 
-    action_matrices[nh+1, 0, 0] = -bmax
-    
+    action_matrices[nh + 1, 0, 0] = -bmax
+
     # campo ultimo sitio
     for k in range(0, nh - 1):
-        action_matrices[nh+2, k, k + 1] = J
-        action_matrices[nh+2, k + 1, k] = action_matrices[i, k, k + 1]
+        action_matrices[nh + 2, k, k + 1] = J
+        action_matrices[nh + 2, k + 1, k] = action_matrices[i, k, k + 1]
 
-    action_matrices[nh+2, nh-1, nh-1] = -bmax
-
+    action_matrices[nh + 2, nh - 1, nh - 1] = -bmax
 
     return action_matrices
 
+
 def one_field_actions_weak(bmax, nh):
 
-    action_matrices = np.zeros((nh+1, nh, nh))
+    action_matrices = np.zeros((nh + 1, nh, nh))
     J = np.ones(nh)
     J[0] = 0.5
-    J[nh-1] = 0.5
+    J[nh - 1] = 0.5
 
     for i in range(0, nh):
 
         for k in range(0, nh - 1):
-            action_matrices[i+1, k, k + 1] = J[k]
-            action_matrices[i+1, k + 1, k] = action_matrices[i+1, k, k + 1]
+            action_matrices[i + 1, k, k + 1] = J[k]
+            action_matrices[i + 1, k + 1, k] = action_matrices[i + 1, k, k + 1]
 
-        action_matrices[i+1, i, i] = bmax
-    
+        action_matrices[i + 1, i, i] = bmax
+
     for k in range(0, nh - 1):
-            action_matrices[0, k, k + 1] = J[k]
-            action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
+        action_matrices[0, k, k + 1] = J[k]
+        action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
 
     return action_matrices
