@@ -29,7 +29,7 @@ max_optimization_time = config.getint("system_parameters", "max_optimization_tim
 # aca genero las acciones
 acciones = one_field_actions_extra(b, n)
 print(acciones)
-props = gen_props(acciones, n, b, dt)
+props = gen_props(acciones, n, dt)
 # genetic algorithm parameters
 num_generations = config.getint("ga_initialization", "num_generations")
 num_genes = config.getint("ga_initialization", "num_genes")

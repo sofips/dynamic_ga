@@ -27,7 +27,7 @@ max_optimization_time = config.getint("system_parameters", "max_optimization_tim
 
 # generates actions and associated propagators
 acciones = actions_paper2(b, n)  ## acciones zhang
-props = gen_props(acciones, n, b, dt)
+props = gen_props(acciones, n, dt)
 
 # genetic algorithm parameters
 num_generations = config.getint("ga_initialization", "num_generations")

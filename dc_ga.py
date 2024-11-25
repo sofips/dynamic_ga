@@ -27,7 +27,7 @@ max_optimization_time = config.getint("system_parameters", "max_optimization_tim
 
 # generates actions and associated propagators
 acciones = actions_paper2(b, n)  ## acciones zhang
-props = gen_props(acciones, n, b, dt)
+props = gen_props(acciones, n, dt)
 
 # genetic algorithm parameters
 num_generations = config.getint("ga_initialization", "num_generations")
@@ -67,8 +67,8 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-fitness_func = fitness_func_constructor(localization_based, fidelity_args)
+fidelity_args = [props,fidelity_tolerance,reward_decay, True] #[dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
+fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
 mutation_type = "swap"
 
 
