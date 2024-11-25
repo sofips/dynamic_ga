@@ -56,7 +56,6 @@ gene_type = int
 
 stop_criteria = ["saturate_" + str(saturation)]  # , 'reach_'+str(fidelity_tolerance)]
 
-population_histograms = config.getboolean("saving","population_histograms")
 dirname = config.get("saving", "directory")
 n_samples = config.getint("saving", "n_samples")
 
@@ -64,7 +63,7 @@ filename = dirname + "/nvsmaxfid.dat"
 
 # call construction functions
 on_generation = generation_func_constructor(
-    generation_func, [props, fidelity_tolerance, dirname, population_histograms]
+    generation_func, [props, fidelity_tolerance]
 )
 
 initial_step = num_genes//4

@@ -46,7 +46,7 @@ def gen_props(actions, n, dt, test=True):
         for a in np.arange(0, n_actions):
             for j in np.arange(0, n):
                 errores = (
-                    calculate_next_state(bases[a, :, j], a, props)
+                    calculate_next_state(bases[a, :, j], a, props,check_normalization=True)
                     - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
                 )
                 et = np.sum(errores)
@@ -105,7 +105,21 @@ def fidelity(action_sequence, props, return_time=False, test_normalization=True)
 
     return max_fid
 
-def calculate_next_state(state, action_index, props):
+def calculate_next_state(state, action_index, props, check_normalization = True):
+    """
+    Calculate the next state by applying the propagator associated to an action.
+
+    Args:
+        state (np.ndarray): The current state represented as a numpy array.
+        action_index (int): The index of the action to be applied.
+        props (list or np.ndarray): The propagator corresponding to that action.
+
+    Returns:
+        np.ndarray: The next state after applying the action.
+
+    Raises:
+        SystemExit: If the normalization of the next state fails.
+    """
 
     state = np.transpose(np.mat(state))
     p = props[action_index]
@@ -113,9 +127,10 @@ def calculate_next_state(state, action_index, props):
     next_state = np.asarray(np.transpose(next_state))
     next_state = np.squeeze(next_state)
 
-    if abs(la.norm(next_state) - 1.0) > 1e-8:
-        print("Normalization failed!!! ", la.norm(state))
-        quit()
+    if check_normalization:
+        if abs(la.norm(next_state) - 1.0) > 1e-8:
+            print("Normalization failed. Norm of state: ", la.norm(state))
+            quit()
 
     return next_state
 
@@ -148,7 +163,7 @@ def reward_based_fitness(
 
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props)
+        state = calculate_next_state(state, action, props, check_normalization = False)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
         if fid <= 0.8:
@@ -186,7 +201,7 @@ def reward_based_fitness_late(
 
     for action in action_sequence[initial_step:]:
         i += 1
-        state = calculate_next_state(state, action, props)
+        state = calculate_next_state(state, action, props, check_normalization = False)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
         if fid <= 0.8:
@@ -208,7 +223,7 @@ def reward_based_fitness_late(
     return fitness
 
 
-def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time):
+def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time, test_normalization = True):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -227,7 +242,7 @@ def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time)
     i = 0
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props)
+        state = calculate_next_state(state, action, props, check_normalization = False)
         site_localization = np.sum(
             np.asarray(
                 [
@@ -253,6 +268,12 @@ def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time)
         fitness = fitness + fid * reward
         i += 1
     # fitness = np.max(fidelity_evolution)*(1+fitness-max_time)
+
+    if test_normalization:
+        if abs(la.norm(state) - 1.0) > 1e-8:
+            print("Normalization failed. Norm of final state:", la.norm(state))
+            quit()
+
     return n**2 * fitness * np.max(fidelity_evolution) / max_time
 
 
@@ -277,7 +298,7 @@ def generation_print(ga):
     print("Solution: ", solution, "Fitness: ", solution_fitness)
 
 
-def generation_func(ga, props, tol, directory, histogram=True):
+def generation_func(ga, props, tol):
 
     solution, solution_fitness, solution_idx = ga.best_solution()
 
@@ -294,11 +315,6 @@ def generation_func(ga, props, tol, directory, histogram=True):
         "Fitness: ",
         solution_fitness,
     )
-
-    if histogram and (
-        ga.generations_completed == 1 or ga.generations_completed % 5 == 0
-    ):
-        population_histogram(ga, directory, props)
 
     if fid >= 1 - tol:
         return "stop"

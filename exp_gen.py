@@ -41,7 +41,6 @@ mutation_probability = 0.99
 mutation_num_genes = n
 
 # execution and results saving
-population_histograms = False
 directory = sys.argv[2]
 n_samples = 100
 
@@ -83,7 +82,6 @@ config["mutation"] = {
 
 
 config["saving"] = {
-    "population_histograms": str(population_histograms),
     "directory": directory,
     "n_samples": str(n_samples),
 }
