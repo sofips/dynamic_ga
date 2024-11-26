@@ -46,7 +46,9 @@ def gen_props(actions, n, dt, test=True):
         for a in np.arange(0, n_actions):
             for j in np.arange(0, n):
                 errores = (
-                    calculate_next_state(bases[a, :, j], a, props,check_normalization=True)
+                    calculate_next_state(
+                        bases[a, :, j], a, props, check_normalization=True
+                    )
                     - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
                 )
                 et = np.sum(errores)
@@ -105,7 +107,8 @@ def fidelity(action_sequence, props, return_time=False, test_normalization=True)
 
     return max_fid
 
-def calculate_next_state(state, action_index, props, check_normalization = True):
+
+def calculate_next_state(state, action_index, props, check_normalization=True):
     """
     Calculate the next state by applying the propagator associated to an action.
 
@@ -133,6 +136,7 @@ def calculate_next_state(state, action_index, props, check_normalization = True)
             quit()
 
     return next_state
+
 
 def reward_based_fitness(
     action_sequence, props, tolerance, reward_decay, test_normalization=True
@@ -163,7 +167,7 @@ def reward_based_fitness(
 
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props, check_normalization = False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
         if fid <= 0.8:
@@ -188,11 +192,26 @@ def reward_based_fitness_late(
     action_sequence,
     props,
     initial_state,
-    initial_step,
     tolerance=0.05,
     reward_decay=0.95,
     test_normalization=True,
 ):
+    """
+    Calculate the fitness of an action sequence based on the reward assigned by the RL
+    algorithm of the referenced work (same as reward based fitness) but optimizing only
+    after a certain step.
+
+    Parameters:
+    action_sequence (list): A list of actions to be performed.
+    props (ndarray): A numpy array containing propagators to evolve the state.
+    initial_state (numpy.ndarray): The initial state vector.
+    tolerance (float): A tolerance value for determining reward thresholds (min. fidelity).
+    reward_decay (float): A decay factor for the reward over time.
+    test_normalization (bool): A flag to test if the state normalization is maintained.
+
+    Returns:
+    float: The calculated fitness value.
+    """
 
     n = np.shape(props)[1]
     state = initial_state
@@ -201,7 +220,7 @@ def reward_based_fitness_late(
 
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props, check_normalization = False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
         if fid <= 0.8:
@@ -223,7 +242,27 @@ def reward_based_fitness_late(
     return fitness
 
 
-def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time, test_normalization = True):
+def localization_based(
+    action_sequence, dt, props, speed_fraction, max_opt_time, test_normalization=True
+):
+    """
+    Evaluate the fitness of a given action sequence based on comparison with the natural
+    evolution of the system. The function calculates where the excitation is localized
+    (on average) and compares with the natural propagation of a "wave" of a speed
+    proportional to the natural speed by a factor given by the speed_fraction
+    parameter.
+
+    Parameters:
+    action_sequence (list): A sequence of actions to be applied to the state.
+    dt (float): Time step for the evolution.
+    props (ndarray): Properties of the system.
+    speed_fraction (float): Fraction of the speed to be considered.
+    max_opt_time (int): Maximum optimization time.
+    test_normalization (bool, optional): Flag to test normalization of the state. Default is True.
+
+    Returns:
+    float: The fitness value of the given action sequence.
+    """
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -242,7 +281,7 @@ def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time,
     i = 0
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props, check_normalization = False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         site_localization = np.sum(
             np.asarray(
                 [
@@ -267,7 +306,6 @@ def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time,
         reward = 1 / np.abs(loc_evolution[i] - speed * dt * i) ** 2
         fitness = fitness + fid * reward
         i += 1
-    # fitness = np.max(fidelity_evolution)*(1+fitness-max_time)
 
     if test_normalization:
         if abs(la.norm(state) - 1.0) > 1e-8:
@@ -279,26 +317,34 @@ def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time,
 
 def fitness_func_constructor(fid_function, arguments):
     """
-    Parameters:
-        - fidelity function(can be either fidelity or en_fidelity)
-        - arguments: arguments of fidelity functions
-    Return:
-        - lambda function: the fitness function as required by PyGAD
+    Constructs a fitness function for use with PyGAD.
+
+        fid_function (callable): The fidelity function to be used (can be either fidelity or en_fidelity).
+        arguments (tuple): The arguments to be passed to the fidelity function.
+
+    Returns:
+        callable: A lambda function that takes a PyGAD GA instance, a solution, and the solution index,
+                  and returns the fitness value of the solution.
     """
+
     fitness = lambda vec: fid_function(vec, *arguments)
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 
-
-def generation_print(ga):
-
-    solution, solution_fitness, solution_idx = ga.best_solution()
-
-    print("Generation", ga.generations_completed)
-    print("Solution: ", solution, "Fitness: ", solution_fitness)
-
-
 def generation_func(ga, props, tol):
+    """
+    Function to be ran on every generation of the genetic algorithm. 
+    Prints relevant information on the best solution, 
+    and determines whether to stop the algorithm based on fidelity.
+
+    Args:
+        ga (GeneticAlgorithm): An instance of the genetic algorithm.
+        props (dict): Propagators being used to calculate fidelity from action sequence.
+        tol (float): The tolerance level for the fidelity to determine if the algorithm should stop.
+
+    Returns:
+        str: Returns "stop" if the fidelity of the best solution is greater than or equal to (1 - tol).
+    """
 
     solution, solution_fitness, solution_idx = ga.best_solution()
 
@@ -322,12 +368,21 @@ def generation_func(ga, props, tol):
 
 def generation_func_constructor(gen_function, arguments):
     """
-    Parameters:
-        - generation function
-        - arguments: arguments of generation function
-    Return:
-        - lambda function: the mutation function as required by PyGAD
+    Constructs a generation function for a genetic algorithm instance.
+
+    This function takes a generation function and its arguments, and returns a new function
+    that can be used with a genetic algorithm PyGAD instance. The returned function will call the
+    original generation function with the provided arguments.
+
+    Args:
+        gen_function (callable): The generation function to be used with the genetic algorithm instance.
+        arguments (tuple): A tuple of arguments to be passed to the generation function.
+
+    Returns:
+        callable: A function that takes a genetic algorithm instance as its argument and calls the
+                  generation function with the provided arguments.
     """
+
 
     on_gen = lambda ga_instance: gen_function(ga_instance, *arguments)
 
@@ -336,13 +391,13 @@ def generation_func_constructor(gen_function, arguments):
 
 def actions_to_file(solution, filename, condition):
     """
-    Parameters:
-        - solution: best solution obtained
-        - filename
-        - condition: write or append
+    Saves the best action sequence to a file.
+        solution (list or np.ndarray): The best solution obtained.
+        filename (str): The name of the file where the solution will be saved.
+        condition (str): The mode in which the file is opened ('w' for write, 'a' for append).
 
-    Return:
-        - saves best action sequence in file = filename
+    Returns:
+        bool: True if the solution is successfully saved to the file.
     """
     with open(filename, condition) as f1:
 
@@ -356,13 +411,34 @@ def actions_to_file(solution, filename, condition):
 
 
 def time_evolution(solution, props, nh, graph=False, filename=False):
+
     """
+    Simulates the time evolution of a quantum state based on a sequence of actions.
+
     Parameters:
-       - solution: action sequence
-       - graph: if False skips plotting graph, else enter figure name
-       - file: save time evolution in a file (enter file name)
-    Return:
-       - array of fidelity evolution
+    solution : list
+        A sequence of actions to be applied to the initial state.
+    props : dict
+        Propagators associated to the actions in the provided solution.
+    nh : int
+        Dimension of the Hilbert space.
+    graph : bool or str, optional
+        If False, skips plotting the graph. If True, plots the graph with a default name.
+        If a string is provided, it is used as the figure name. Default is False.
+    filename : bool or str, optional
+        If False, does not save the time evolution data to a file. If a string is provided,
+        it is used as the filename to save the data. Default is False.
+
+    Returns:
+    np.ndarray
+        An array of fidelity evolution over time.
+
+    Notes:
+    ------
+    - The function initializes the quantum state and iteratively applies the actions from the solution.
+    - It calculates the fidelity at each step and stores it in an array.
+    - If the graph parameter is provided, it plots the fidelity evolution.
+    - If the filename parameter is provided, it saves the fidelity evolution data to a file.
     """
 
     state = np.zeros(nh, dtype=np.complex_)
@@ -375,17 +451,13 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
     for action in solution:
 
-        state = np.matmul(props[action, :, :], state)
-        # fid = np.real(state[nh-1])**2+np.imag(state[nh-1])**2
-
+        state = calculate_next_state(state,action,props,check_normalization=False)
         fid = np.real(state[nh - 1] * np.conjugate(state[nh - 1]))
         fid_evolution = np.append(fid_evolution, fid)
 
-        if abs(la.norm(state) - 1.0) > 1e-8:
-            print("FALLO EN LA NORMALIZACION", la.norm(state))
+    if abs(la.norm(state) - 1.0) > 1e-8:
+        print("Normalization field. Norm of final state:", la.norm(state))
 
-        # else:
-        # print('NORMALIZACION OK: ',la.norm(state))
 
     tsteps = np.shape(fid_evolution)[0] + 1
 
@@ -402,7 +474,7 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
         plt.grid()
         plt.title(
-            " Evolucion fidelidad, max = {}, accion = {}".format(max_fid, max_action)
+            " Fidelity evolution. Max. = {} on time step = {}".format(max_fid, max_action)
         )
         plt.xlabel("t")
         plt.ylabel("|f|**2")
@@ -417,12 +489,27 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
     return fid_evolution_array
 
 
-################
-# acciones zhang#
-################
+# ---------------------------------------------------------------------------
+#
+# ACTIONS FROM THE REFERENCED WORK 
+#
+# ---------------------------------------------------------------------------
 
+def diagonals_zhang(bmax, i, nh):
+    """
+    Construction of diagonals associated to referenced work. The first and last three sites
+    can be controlled. 
 
-def diagonales_paper2(bmax, i, nh):
+    Parameters:
+    bmax (float): Control field value.
+    i (int): The index determining which diagonal elements to set to 1.
+    nh (int): The length of the spin chain, corresponding to the action
+    matrices size.
+
+    Returns:
+    numpy.ndarray: A diagonal vector of length `nh` with specific elements set to `bmax` based on the index `i`,
+    corresponding to the 16 action matrices. 
+    """
 
     b = np.full(nh, 0)
 
@@ -490,15 +577,26 @@ def diagonales_paper2(bmax, i, nh):
     return b
 
 
-def actions_paper2(bmax, nh):
+def actions_zhang(bmax, nh):
+    """
+    Generate a 3D numpy array representing actions based on Zhang's method.
+
+    Parameters:
+    bmax (float): Control field value.
+    nh (int): Size of the matrix (number of rows/columns) corresponding to
+    chain length.
+
+    Returns:
+    numpy.ndarray: A 3D array of shape (16, nh, nh) containing the actions.
+    """
 
     actions = np.zeros((16, nh, nh))
 
     for i in range(0, 16):
 
-        b = diagonales_paper2(bmax, i, nh)
+        b = diagonals_zhang(bmax, i, nh)
 
-        J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
+        J = 1 
 
         for k in range(0, nh - 1):
             actions[i, k, k + 1] = J
@@ -510,13 +608,26 @@ def actions_paper2(bmax, nh):
 
     return actions
 
-#---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
 #
 # SETS OF ACTIONS DEFINED TO RUN ON ONE SITE ONLY
-# 
-#---------------------------------------------------------------------------
+#
+# ---------------------------------------------------------------------------
+
 
 def one_field_actions(bmax, nh):
+    """
+    Generates a set of action matrices corresponding to fields acting on every individual
+    site.
+
+    Parameters:
+    bmax (float): The maximum value of the field, used in diagonal elements.
+    nh (int): Chain length, which defines the size of action matrices.
+
+    Returns:
+    numpy.ndarray: A 3D numpy array of shape (nh + 1, nh, nh) representing the action matrices.
+    """
 
     action_matrices = np.zeros((nh + 1, nh, nh))
     J = 1.0
@@ -538,35 +649,45 @@ def one_field_actions(bmax, nh):
 
 def one_field_actions_extra(bmax, nh):
     """
-    i = [0,n-1] : Acciones por sitio
-    i = n : Campos apagados
-    i = n+1 : Campo negativo primer sitio
-    i = n+2 : Campo negativo último sitio
+    Generates a set of action matrices corresponding to fields acting on every individual
+    site and the possibility of no field, and negative extremes fields.
+
+    Parameters:
+    bmax (float): The maximum value of the field.
+    nh (int): Chain length, which defines the size of action matrices.
+
+    Returns:
+    numpy.ndarray: A 3D array of shape (nh + 3, nh, nh) containing the action matrices.
+
+    The action matrices are defined as follows:
+    - For i in [0, nh-1]: Actions per site with diagonal elements set to bmax.
+    - For i = nh: Fields off.
+    - For i = nh+1: Field negative at the first site.
+    - For i = nh+2: Field negative at the last site.
     """
     action_matrices = np.zeros((nh + 3, nh, nh))
     J = 1.0
 
     for i in range(0, nh):
-
         for k in range(0, nh - 1):
             action_matrices[i, k, k + 1] = J
             action_matrices[i, k + 1, k] = action_matrices[i, k, k + 1]
 
         action_matrices[i, i, i] = bmax
 
-    # campos apagados (i=nh)
+    # fields off (i=nh)
     for k in range(0, nh - 1):
         action_matrices[nh, k, k + 1] = J
         action_matrices[nh, k + 1, k] = action_matrices[nh, k, k + 1]
 
-    # campo primer sitio
+    # first site field
     for k in range(0, nh - 1):
         action_matrices[nh + 1, k, k + 1] = J
         action_matrices[nh + 1, k + 1, k] = action_matrices[i, k, k + 1]
 
     action_matrices[nh + 1, 0, 0] = -bmax
 
-    # campo ultimo sitio
+    # last site field
     for k in range(0, nh - 1):
         action_matrices[nh + 2, k, k + 1] = J
         action_matrices[nh + 2, k + 1, k] = action_matrices[i, k, k + 1]
@@ -577,6 +698,20 @@ def one_field_actions_extra(bmax, nh):
 
 
 def one_field_actions_weak(bmax, nh):
+    """
+    Generate action matrices for a weak field scenario.
+
+    Parameters:
+    bmax (float): Field value for the diagonal elements of the action matrices.
+    nh (int): Chain length, which defines the size of action matrices.
+
+    Returns:
+    numpy.ndarray: A 3D array of shape (nh + 1, nh, nh) containing the action matrices.
+
+
+    The off-diagonal elements represent interactions between neighboring sites with a coupling constant J
+    which will be lower for the extreme sites.
+    """
 
     action_matrices = np.zeros((nh + 1, nh, nh))
     J = np.ones(nh)
