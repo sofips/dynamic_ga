@@ -199,7 +199,7 @@ def reward_based_fitness_late(
     i = 0
     fitness = 0.0
 
-    for action in action_sequence[initial_step:]:
+    for action in action_sequence:
         i += 1
         state = calculate_next_state(state, action, props, check_normalization = False)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))

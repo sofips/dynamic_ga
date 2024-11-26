@@ -1,7 +1,5 @@
 import numpy as np
 from dgamod import *
-
-# from zhang_actions_mod import *
 import csv
 import pygad
 import sys
