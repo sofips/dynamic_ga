@@ -27,7 +27,7 @@ speed_fraction = config.getfloat(
 max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
 # aca genero las acciones
-acciones = one_field_actions_extra(b, n)
+acciones = one_field_actions_weak(b, n)
 print(acciones)
 props = gen_props(acciones, n, b, dt)
 # genetic algorithm parameters
@@ -68,9 +68,9 @@ on_generation = generation_func_constructor(
     generation_func, [props, fidelity_tolerance, dirname, population_histograms]
 )
 
-fidelity_args = [props,speed_fraction,max_optimization_time] #[props,fidelity_tolerance,reward_decay] #[props,speed_fraction, max_optimization_time]
+fidelity_args = [props,fidelity_tolerance,reward_decay] #[props,speed_fraction, max_optimization_time]
 
-fitness_func = fitness_func_constructor(localization_based, fidelity_args)
+fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
 mutation_type = "swap"
 
 
