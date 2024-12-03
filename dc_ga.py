@@ -29,7 +29,7 @@ def main():
     max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
     # generates actions and associated propagators
-    acciones = actions_zhang(b, n)  ## acciones zhang
+    acciones = one_field_actions(b, n)  ## acciones zhang
     props = gen_props(acciones, n, dt)
 
     # genetic algorithm parameters
@@ -54,7 +54,7 @@ def main():
     mutation_num_genes = config.getint("mutation", "mutation_num_genes")
 
 
-    gene_space = np.arange(0, 16, 1)
+    gene_space = np.arange(0, len(acciones), 1)
     gene_type = int
 
     stop_criteria = ["saturate_" + str(saturation)]  # , 'reach_'+str(fidelity_tolerance)]
@@ -69,8 +69,8 @@ def main():
         generation_func, [props, fidelity_tolerance]
     )
 
-    fidelity_args = [props,fidelity_tolerance,reward_decay, True] #[dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-    fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
+    fidelity_args = [dt, props, True] #[props,fidelity_tolerance,reward_decay, True] #[dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
+    fitness_func = fitness_func_constructor(ipr_based2, fidelity_args)
     mutation_type = "swap"
 
 

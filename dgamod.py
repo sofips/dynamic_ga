@@ -315,11 +315,120 @@ def localization_based(
     return n**2 * fitness * np.max(fidelity_evolution) / max_time
 
 
+def calc_ipr(state):
+    nh = np.shape(state)[0]
+    ipr = 0
+
+    for i in range(nh):
+        ipr += np.real(state[i] * np.conjugate(state[i])) ** 2
+
+    return 1 / ipr
+
+
+def state_fidelity(state):
+    n = np.shape(state)[0]
+    fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
+    return fid
+
+
+def ipr_based(action_sequence, dt, props, test_normalization=True):
+    """
+    Evaluate the fitness of a given action sequence based on comparison with the natural
+    evolution of the system. The function calculates where the excitation is localized
+    (on average) and compares with the natural propagation of a "wave" of a speed
+    proportional to the natural speed by a factor given by the speed_fraction
+    parameter.
+
+    Parameters:
+    action_sequence (list): A sequence of actions to be applied to the state.
+    dt (float): Time step for the evolution.
+    props (ndarray): Properties of the system.
+    speed_fraction (float): Fraction of the speed to be considered.
+    max_opt_time (int): Maximum optimization time.
+    test_normalization (bool, optional): Flag to test normalization of the state. Default is True.
+
+    Returns:
+    float: The fitness value of the given action sequence.
+    """
+
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.0
+    fitness = 0.0
+    fidelity_evolution = np.asarray(state_fidelity(state))
+    ipr_evolution = np.asarray(calc_ipr(state))
+
+    i = 0
+    for action in action_sequence:
+        i += 1
+        state = calculate_next_state(state, action, props, check_normalization=False)
+        ipr = calc_ipr(state)
+        fid = state_fidelity(state)
+        fidelity_evolution = np.append(fidelity_evolution, fid)
+        ipr_evolution = np.append(ipr_evolution, ipr)
+
+    max_time = np.argmax(fidelity_evolution)
+
+    i = 0
+    for fid,ipr in zip(fidelity_evolution,ipr_evolution):
+
+        fitness = fitness + (fid / ipr)*0.95**i
+        i += 1
+
+    return fitness #n**2 * fitness * np.max(fidelity_evolution) / max_time
+
+def ipr_based2(action_sequence, dt, props, test_normalization=True):
+    """
+    Evaluate the fitness of a given action sequence based on comparison with the natural
+    evolution of the system. The function calculates where the excitation is localized
+    (on average) and compares with the natural propagation of a "wave" of a speed
+    proportional to the natural speed by a factor given by the speed_fraction
+    parameter.
+
+    Parameters:
+    action_sequence (list): A sequence of actions to be applied to the state.
+    dt (float): Time step for the evolution.
+    props (ndarray): Properties of the system.
+    speed_fraction (float): Fraction of the speed to be considered.
+    max_opt_time (int): Maximum optimization time.
+    test_normalization (bool, optional): Flag to test normalization of the state. Default is True.
+
+    Returns:
+    float: The fitness value of the given action sequence.
+    """
+
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.0
+    fitness = 0.0
+    fidelity_evolution = np.asarray(state_fidelity(state))
+    ipr_evolution = np.asarray(calc_ipr(state))
+
+    i = 0
+    for action in action_sequence:
+        i += 1
+        state = calculate_next_state(state, action, props, check_normalization=False)
+        ipr = calc_ipr(state)
+        fid = state_fidelity(state)
+        fidelity_evolution = np.append(fidelity_evolution, fid)
+        ipr_evolution = np.append(ipr_evolution, ipr)
+
+    max_time = np.argmax(fidelity_evolution)
+
+    i = 0
+    for fid,ipr in zip(fidelity_evolution,ipr_evolution):
+        alpha = 0.3
+        beta = 1-alpha
+        fitness = fitness + fid*(alpha + beta/ipr)
+        i += 1
+
+    return n**2*fitness/max_time
+
 def fitness_func_constructor(fid_function, arguments):
     """
     Constructs a fitness function for use with PyGAD.
 
-        fid_function (callable): The fidelity function to be used (can be either fidelity or en_fidelity).
+        fid_function (callable): The fidelity function to be used.
         arguments (tuple): The arguments to be passed to the fidelity function.
 
     Returns:
@@ -331,10 +440,11 @@ def fitness_func_constructor(fid_function, arguments):
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 
+
 def generation_func(ga, props, tol):
     """
-    Function to be ran on every generation of the genetic algorithm. 
-    Prints relevant information on the best solution, 
+    Function to be ran on every generation of the genetic algorithm.
+    Prints relevant information on the best solution,
     and determines whether to stop the algorithm based on fidelity.
 
     Args:
@@ -383,7 +493,6 @@ def generation_func_constructor(gen_function, arguments):
                   generation function with the provided arguments.
     """
 
-
     on_gen = lambda ga_instance: gen_function(ga_instance, *arguments)
 
     return lambda ga_instance: on_gen(ga_instance)
@@ -411,7 +520,6 @@ def actions_to_file(solution, filename, condition):
 
 
 def time_evolution(solution, props, nh, graph=False, filename=False):
-
     """
     Simulates the time evolution of a quantum state based on a sequence of actions.
 
@@ -451,13 +559,12 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
     for action in solution:
 
-        state = calculate_next_state(state,action,props,check_normalization=False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         fid = np.real(state[nh - 1] * np.conjugate(state[nh - 1]))
         fid_evolution = np.append(fid_evolution, fid)
 
     if abs(la.norm(state) - 1.0) > 1e-8:
         print("Normalization field. Norm of final state:", la.norm(state))
-
 
     tsteps = np.shape(fid_evolution)[0] + 1
 
@@ -474,7 +581,9 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
         plt.grid()
         plt.title(
-            " Fidelity evolution. Max. = {} on time step = {}".format(max_fid, max_action)
+            " Fidelity evolution. Max. = {} on time step = {}".format(
+                max_fid, max_action
+            )
         )
         plt.xlabel("t")
         plt.ylabel("|f|**2")
@@ -491,14 +600,15 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
 # ---------------------------------------------------------------------------
 #
-# ACTIONS FROM THE REFERENCED WORK 
+# ACTIONS FROM THE REFERENCED WORK
 #
 # ---------------------------------------------------------------------------
+
 
 def diagonals_zhang(bmax, i, nh):
     """
     Construction of diagonals associated to referenced work. The first and last three sites
-    can be controlled. 
+    can be controlled.
 
     Parameters:
     bmax (float): Control field value.
@@ -508,7 +618,7 @@ def diagonals_zhang(bmax, i, nh):
 
     Returns:
     numpy.ndarray: A diagonal vector of length `nh` with specific elements set to `bmax` based on the index `i`,
-    corresponding to the 16 action matrices. 
+    corresponding to the 16 action matrices.
     """
 
     b = np.full(nh, 0)
@@ -596,7 +706,7 @@ def actions_zhang(bmax, nh):
 
         b = diagonals_zhang(bmax, i, nh)
 
-        J = 1 
+        J = 1
 
         for k in range(0, nh - 1):
             actions[i, k, k + 1] = J

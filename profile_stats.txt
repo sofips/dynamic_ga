@@ -1,0 +1,261 @@
+Tue Dec  3 16:45:35 2024    profile_results.prof
+
+         273464840 function calls (270285549 primitive calls) in 203.954 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000  203.954  203.954 /home/sofi/Documentos/codigos/dinamic_ga/test/dc_ga.py:15(main)
+       18    1.299    0.072  202.381   11.243 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:1627(cal_pop_fitness)
+    48900    0.023    0.000  201.020    0.004 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:441(<lambda>)
+    48900    0.068    0.000  200.997    0.004 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:439(<lambda>)
+    48900   12.218    0.000  200.929    0.004 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:380(ipr_based2)
+        1    0.004    0.004  192.629  192.629 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:1851(run)
+  3227400   86.477    0.000  100.702    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:318(calc_ipr)
+       19    0.003    0.000  100.595    5.294 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:2184(best_solution)
+        8    0.000    0.000   89.298   11.162 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:498(<lambda>)
+        8    0.000    0.000   89.298   11.162 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:496(<lambda>)
+        8    0.000    0.000   89.298   11.162 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:444(generation_func)
+  3178747    9.588    0.000   51.164    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:111(calculate_next_state)
+  6357065   15.599    0.000   25.650    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/lib/function_base.py:5562(append)
+  3178747    1.991    0.000   18.367    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/matrixlib/defmatrix.py:37(asmatrix)
+  3178747    3.601    0.000   16.376    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/matrixlib/defmatrix.py:116(__new__)
+  6357494    2.111    0.000   11.117    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:588(transpose)
+  3227400    8.220    0.000   10.186    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:328(state_fidelity)
+15893735/12714988    8.871    0.000   10.122    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/matrixlib/defmatrix.py:168(__array_finalize__)
+ 45184250    9.558    0.000    9.558    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/lib/type_check.py:120(real)
+  6406395    2.623    0.000    9.088    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:53(_wrapfunc)
+  3178747    6.103    0.000    8.085    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/matrixlib/defmatrix.py:224(__rmul__)
+  6357065    3.869    0.000    8.017    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1768(ravel)
+  3178747    1.557    0.000    7.219    0.000 {method 'view' of 'numpy.ndarray' objects}
+  6357494    2.764    0.000    5.679    0.000 {method 'transpose' of 'numpy.ndarray' objects}
+  3178747    4.985    0.000    4.985    0.000 {built-in method _warnings.warn}
+ 45184250    4.793    0.000    4.793    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/lib/type_check.py:116(_real_dispatcher)
+ 28630180    2.651    0.000    2.660    0.000 {built-in method builtins.isinstance}
+ 12714130    2.569    0.000    2.569    0.000 {built-in method numpy.asanyarray}
+  3178747    1.052    0.000    1.793    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1491(squeeze)
+  6455047    1.429    0.000    1.429    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+        8    0.995    0.124    1.336    0.167 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/utils/crossover.py:139(uniform_crossover)
+  6503710    1.191    0.000    1.191    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1980(shape)
+  3277142    1.129    0.000    1.129    0.000 {built-in method numpy.asarray}
+  6357065    0.782    0.000    0.782    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/lib/function_base.py:5558(_append_dispatcher)
+  6449655    0.757    0.000    0.757    0.000 {built-in method builtins.getattr}
+  6357494    0.744    0.000    0.744    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:584(_transpose_dispatcher)
+  3178747    0.741    0.000    0.741    0.000 {method 'squeeze' of 'numpy.ndarray' objects}
+  6357065    0.697    0.000    0.697    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1764(_ravel_dispatcher)
+  6357065    0.668    0.000    0.668    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/multiarray.py:153(concatenate)
+  6503710    0.667    0.000    0.667    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1976(_shape_dispatcher)
+  3178747    0.436    0.000    0.436    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/multiarray.py:741(dot)
+  3178747    0.374    0.000    0.374    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1487(_squeeze_dispatcher)
+    43200    0.118    0.000    0.331    0.000 {method 'randint' of 'numpy.random.mtrand.RandomState' objects}
+    43202    0.028    0.000    0.208    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2979(prod)
+    43516    0.056    0.000    0.182    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:71(_wrapreduction)
+        8    0.031    0.004    0.174    0.022 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/utils/mutation.py:392(swap_mutation)
+    48901    0.058    0.000    0.140    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1140(argmax)
+    21600    0.045    0.000    0.093    0.000 /home/sofi/miniconda3/lib/python3.11/random.py:385(sample)
+    43904    0.084    0.000    0.084    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+    21600    0.054    0.000    0.054    0.000 {method 'random' of 'numpy.random.mtrand.RandomState' objects}
+    48901    0.047    0.000    0.047    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+    48915    0.035    0.000    0.035    0.000 {built-in method numpy.zeros}
+    43289    0.019    0.000    0.026    0.000 /home/sofi/miniconda3/lib/python3.11/random.py:235(_randbelow_with_getrandbits)
+       16    0.004    0.000    0.026    0.002 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/utils/parent_selection.py:12(steady_state_selection)
+   164988    0.021    0.000    0.021    0.000 {built-in method builtins.len}
+    43516    0.021    0.000    0.021    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:72(<dictcomp>)
+       16    0.000    0.000    0.020    0.001 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/utils/nsga2.py:229(sort_solutions_nsga2)
+       16    0.014    0.001    0.020    0.001 {built-in method builtins.sorted}
+     5100    0.016    0.000    0.016    0.000 {method 'index' of 'list' objects}
+        1    0.002    0.002    0.015    0.015 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:10(gen_props)
+       17    0.015    0.001    0.015    0.001 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:1640(<listcomp>)
+       17    0.014    0.001    0.014    0.001 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:1646(<listcomp>)
+    21601    0.005    0.000    0.009    0.000 <frozen abc>:117(__instancecheck__)
+    48901    0.007    0.000    0.007    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:1136(_argmax_dispatcher)
+    48000    0.006    0.000    0.006    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/utils/nsga2.py:264(<lambda>)
+    43202    0.005    0.000    0.005    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2974(_prod_dispatcher)
+    21601    0.005    0.000    0.005    0.000 {built-in method _abc._abc_instancecheck}
+        1    0.000    0.000    0.004    0.004 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:28(__init__)
+      374    0.001    0.000    0.004    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/_misc.py:17(norm)
+        1    0.000    0.000    0.004    0.004 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:1331(initialize_population)
+    46681    0.004    0.000    0.004    0.000 {method 'getrandbits' of '_random.Random' objects}
+    43532    0.004    0.000    0.004    0.000 {method 'items' of 'dict' objects}
+    43289    0.003    0.000    0.003    0.000 {method 'bit_length' of 'int' objects}
+    43235    0.003    0.000    0.003    0.000 {method 'add' of 'set' objects}
+        1    0.003    0.003    0.003    0.003 {method 'choice' of 'numpy.random.mtrand.RandomState' objects}
+    21620    0.003    0.000    0.003    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/multiarray.py:346(where)
+     4829    0.003    0.000    0.003    0.000 {method 'copy' of 'numpy.ndarray' objects}
+       14    0.002    0.000    0.003    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/_matfuncs.py:216(expm)
+       18    0.000    0.000    0.003    0.000 {built-in method builtins.print}
+        9    0.002    0.000    0.003    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:67(fidelity)
+        1    0.000    0.000    0.002    0.002 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:522(time_evolution)
+        8    0.000    0.000    0.002    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:1595(_array_str_implementation)
+        8    0.000    0.000    0.002    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:561(array2string)
+       38    0.002    0.000    0.002    0.000 {built-in method numpy.array}
+        8    0.000    0.000    0.002    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:506(wrapper)
+        8    0.000    0.000    0.002    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:523(_array2string)
+      388    0.001    0.000    0.002    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/lib/function_base.py:564(asarray_chkfinite)
+        8    0.000    0.000    0.002    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:780(_formatArray)
+    528/8    0.001    0.000    0.002    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:789(recurser)
+      182    0.001    0.000    0.001    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/linalg/linalg.py:2383(norm)
+       14    0.001    0.000    0.001    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/_decomp.py:117(eig)
+      182    0.000    0.000    0.001    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2177(sum)
+      110    0.000    0.000    0.001    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2692(max)
+      388    0.000    0.000    0.001    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/_methods.py:61(_all)
+      520    0.000    0.000    0.001    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:753(_extendLine_pretty)
+      206    0.000    0.000    0.001    0.000 {method 'all' of 'numpy.ndarray' objects}
+      182    0.000    0.000    0.001    0.000 {method 'all' of 'numpy.generic' objects}
+      520    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:739(_extendLine)
+        7    0.000    0.000    0.000    0.000 {built-in method time.sleep}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:694(read)
+      364    0.000    0.000    0.000    0.000 {method 'dot' of 'numpy.ndarray' objects}
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:452(_get_format_function)
+        1    0.000    0.000    0.000    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:501(actions_to_file)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1012(_read)
+      206    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/blas.py:384(getter)
+       17    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:821(_get_conv)
+        3    0.000    0.000    0.000    0.000 {built-in method io.open}
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:410(<lambda>)
+       17    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:818(_get)
+    40/20    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:781(get)
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:1223(__init__)
+      520    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:1231(__call__)
+       10    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:832(getint)
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/_lib/_util.py:275(_asarray_validated)
+        3    0.000    0.000    0.000    0.000 {method '__exit__' of '_io._IOBase' objects}
+       20    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:394(before_get)
+       52    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/lapack.py:982(_compute_lwork)
+       20    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:407(_interpolate_some)
+        1    0.000    0.000    0.000    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:729(one_field_actions)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:611(__init__)
+      182    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/linalg/linalg.py:140(isComplexType)
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2421(all)
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:64(_make_options_dict)
+        7    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:837(getfloat)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1336(__init__)
+      430    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+      214    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/numerictypes.py:357(issubdtype)
+      520    0.000    0.000    0.000    0.000 {method 'splitlines' of 'str' objects}
+      136    0.000    0.000    0.000    0.000 {method 'match' of 're.Pattern' objects}
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2836(min)
+       40    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1158(_unify_values)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:2081(getLogger)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1460(setLevel)
+        7    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1259(__init__)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1415(_clear_cache)
+        2    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/blas.py:326(_get_funcs)
+       66    0.000    0.000    0.000    0.000 {method 'writerow' of '_csv.writer' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1327(getLogger)
+      182    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2172(_sum_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1134(_join_multiline_values)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/lapack.py:884(get_lapack_funcs)
+       16    0.000    0.000    0.000    0.000 {built-in method numpy.arange}
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:403(_get_formatdict)
+      182    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/linalg/linalg.py:2379(_norm_dispatcher)
+       60    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:890(optionxform)
+        8    0.000    0.000    0.000    0.000 {built-in method builtins.locals}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1076(__init__)
+       40    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/collections/__init__.py:1000(__getitem__)
+       11    0.000    0.000    0.000    0.000 {method 'format' of 'str' objects}
+       28    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/numerictypes.py:283(issubclass_)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.dir}
+      193    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:882(__init__)
+      4/2    0.000    0.000    0.000    0.000 <frozen abc>:121(__subclasscheck__)
+      4/2    0.000    0.000    0.000    0.000 {built-in method _abc._abc_subclasscheck}
+      110    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2687(_max_dispatcher)
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/lapack.py:1017(_check_work_float)
+        1    0.000    0.000    0.000    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:427(fitness_func_constructor)
+        2    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/pygad.py:1318(round_genes)
+       16    0.000    0.000    0.000    0.000 {method 'reverse' of 'list' objects}
+       27    0.000    0.000    0.000    0.000 {method 'search' of 're.Pattern' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:912(createLock)
+       64    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/blas.py:411(get_blas_funcs)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:576(__init__)
+      116    0.000    0.000    0.000    0.000 {method 'strip' of 'str' objects}
+       40    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/collections/__init__.py:990(__init__)
+        1    0.000    0.000    0.000    0.000 <frozen posixpath>:397(abspath)
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/arrayprint.py:72(<dictcomp>)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/pygad/helper/unique.py:605(unpack_gene_space)
+        2    0.000    0.000    0.000    0.000 {built-in method _csv.writer}
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/sparse/_base.py:1513(issparse)
+       16    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.format}
+       66    0.000    0.000    0.000    0.000 {method 'startswith' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/blas.py:259(find_best_blas_type)
+       65    0.000    0.000    0.000    0.000 {method 'rstrip' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:256(_register_at_fork_reinit_lock)
+       32    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
+       43    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1447(__init__)
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/ma/core.py:6485(isMaskedArray)
+       29    0.000    0.000    0.000    0.000 {method 'group' of 're.Match' objects}
+        5    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:228(_acquireLock)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1378(_fixupParents)
+       14    0.000    0.000    0.000    0.000 {built-in method builtins.min}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:435(validate)
+        5    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/inspect.py:300(ismethod)
+       20    0.000    0.000    0.000    0.000 {method 'find' of 'str' objects}
+        8    0.000    0.000    0.000    0.000 {built-in method builtins.id}
+        2    0.000    0.000    0.000    0.000 <frozen codecs>:319(decode)
+        1    0.000    0.000    0.000    0.000 <frozen posixpath>:150(dirname)
+       40    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:863(_addHandlerRef)
+        8    0.000    0.000    0.000    0.000 {method 'discard' of 'set' objects}
+        5    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:237(_releaseLock)
+       21    0.000    0.000    0.000    0.000 {built-in method builtins.setattr}
+        1    0.000    0.000    0.000    0.000 <frozen posixpath>:60(isabs)
+        7    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1378(__iter__)
+        8    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+       32    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1039(<dictcomp>)
+       14    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/_decomp.py:1384(_check_info)
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/_decomp.py:49(_make_eigvals)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/_weakrefset.py:85(add)
+        1    0.000    0.000    0.000    0.000 <frozen posixpath>:71(join)
+        2    0.000    0.000    0.000    0.000 <frozen codecs>:186(__init__)
+       30    0.000    0.000    0.000    0.000 {method 'clear' of 'dict' objects}
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/_matfuncs.py:315(<listcomp>)
+        1    0.000    0.000    0.000    0.000 <frozen os>:1081(__subclasshook__)
+        8    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        8    0.000    0.000    0.000    0.000 {method 'update' of 'dict' objects}
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2416(_all_dispatcher)
+       26    0.000    0.000    0.000    0.000 {method 'start' of 're.Match' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1646(addHandler)
+       14    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/scipy/linalg/_misc.py:181(_datacopied)
+        1    0.000    0.000    0.000    0.000 <frozen posixpath>:389(normpath)
+        4    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:202(_checkLevel)
+        1    0.000    0.000    0.000    0.000 <frozen codecs>:309(__init__)
+        5    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.RLock' objects}
+        3    0.000    0.000    0.000    0.000 <frozen posixpath>:41(_get_sep)
+       20    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:370(before_read)
+        2    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:795(__init__)
+        8    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2831(_min_dispatcher)
+        1    0.000    0.000    0.000    0.000 <frozen _collections_abc>:78(_check_methods)
+        2    0.000    0.000    0.000    0.000 {built-in method _codecs.utf_8_decode}
+        3    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
+        3    0.000    0.000    0.000    0.000 <frozen _collections_abc>:315(__subclasshook__)
+        2    0.000    0.000    0.000    0.000 {built-in method time.time}
+        7    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/threading.py:90(RLock)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:936(setLevel)
+        1    0.000    0.000    0.000    0.000 /home/sofi/Documentos/codigos/dinamic_ga/test/dgamod.py:479(generation_func_constructor)
+        1    0.000    0.000    0.000    0.000 {method 'isnumeric' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+        7    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/configparser.py:1206(converters)
+        5    0.000    0.000    0.000    0.000 {method 'release' of '_thread.RLock' objects}
+        1    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method posix._path_normpath}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:1267(__init__)
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:428(__init__)
+        5    0.000    0.000    0.000    0.000 {built-in method posix.fspath}
+        1    0.000    0.000    0.000    0.000 <frozen codecs>:260(__init__)
+        1    0.000    0.000    0.000    0.000 <frozen codecs>:214(setstate)
+        1    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'clear' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 /home/sofi/miniconda3/lib/python3.11/logging/__init__.py:983(setFormatter)
+        1    0.000    0.000    0.000    0.000 {built-in method io.text_encoding}
+        1    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
+
+
