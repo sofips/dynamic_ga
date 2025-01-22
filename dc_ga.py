@@ -24,10 +24,10 @@ config.read(initfile)
 n = config.getint("system_parameters", "n")
 dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
-speed_fraction = config.getfloat(
-    "system_parameters", "speed_fraction"
-)  # fraction of qsl speed if loc based fitness
-max_optimization_time = config.getint("system_parameters", "max_optimization_time")
+#speed_fraction = config.getfloat(
+    #"system_parameters", "speed_fraction"
+#)  # fraction of qsl speed if loc based fitness
+#max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
 # generates actions and associated propagators
 acciones = actions_zhang(b, n)  ## acciones zhang
@@ -73,7 +73,7 @@ fidelity_args = [
     props,
     fidelity_tolerance,
     reward_decay,
-    True,
+    False,
 ]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
 fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
 mutation_type = "swap"
@@ -139,9 +139,9 @@ if __name__ == "__main__":
     profiler.enable()
     main()
     profiler.disable()
-    profiler.dump_stats("profile_results.prof")
+    profiler.dump_stats(dirname + "/profile_results.prof")
 
-    with open("profile_stats.txt", "w") as f:
-        stats = pstats.Stats("profile_results.prof", stream=f)
-        stats.sort_stats("cumulative")
+    with open(dirname + "/profile_stats.txt", "w") as f:
+        stats = pstats.Stats(dirname+"/profile_results.prof", stream=f)
+        stats.sort_stats("tottime")
         stats.print_stats()
