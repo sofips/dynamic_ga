@@ -85,7 +85,7 @@ mutation_type = "swap"
 
 # ----------------------------------------------------------
 
-@profile
+#@profile
 def target_program():
     # with open(filename, "a") as f:
 
@@ -133,18 +133,36 @@ def profile_tot_time():
         "total_time": end_time - start_time,
     }
 
+def profile_by_function():
+    
+    profiler = cProfile.Profile()
+    profiler.enable()
+    target_program()
+    profiler.disable()
+    profiler.dump_stats(dirname + "/ppfunction_results.prof")
+
+    with open(dirname + "/ppfunction_results.txt", "w") as f:
+        stats = pstats.Stats(dirname + "/ppfunction_results.prof", stream=f)
+        stats.sort_stats("tottime")
+        stats.print_stats()
+    
+    return 'profile by function'
+
+
 def main():
-    num_runs = 10  # Number of profiling runs
+    num_runs = 3 # Number of profiling runs
     results = []
 
     # Run profiling multiple times with different parameters
     for i in range(num_runs):
+        print(f'run {i}')
         time_stats = profile_tot_time()
         memory_stats = profile_memory()
         
         # Store the results with additional parameters in the list
         results.append({
-            "param_value": n,
+            "chain_length": n,
+            "pop_size": sol_per_pop,
             "total_time": time_stats["total_time"],
             "min_memory": memory_stats["min_memory"],
             "max_memory": memory_stats["max_memory"],
@@ -155,7 +173,7 @@ def main():
     df = pd.DataFrame(results)
 
     # Calculate mean and standard deviation for each parameter setting
-    stats_summary = df.groupby("param_value").agg(
+    stats_summary = df.groupby("chain_length").agg(
         total_time_mean=("total_time", "mean"),
         total_time_std=("total_time", "std"),
         max_memory_increment_mean=("max_memory_increment", "mean"),
@@ -165,6 +183,8 @@ def main():
         max_memory_mean=("max_memory", "mean"),
         max_memory_std=("max_memory", "std")
     ).reset_index()
+
+    profile_by_function()
 
     # Print the summary of stats (means and standard deviations)
     print("\nSummary of Stats (Mean and Standard Deviation):")
@@ -179,6 +199,8 @@ def main():
     summary_file = f"{dirname}/profiling_summary.csv"
     stats_summary.to_csv(summary_file, index=False)
     print(f"Summary stats saved to {summary_file}")
+
+
 
 if __name__ == "__main__":
     main()
