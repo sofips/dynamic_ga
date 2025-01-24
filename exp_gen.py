@@ -13,7 +13,7 @@ config = configparser.ConfigParser()
 
 # system parameters
 
-n = int(sys.argv[1])  # number of spins in the system
+n = 16 #int(sys.argv[1])  # number of spins in the system
 dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
 #speed_fraction = 1.1  # fraction of qsl speed
@@ -23,7 +23,7 @@ b = 100  # magnetic field strength
 
 num_generations = 8
 num_genes = 5 * n
-sol_per_pop = 64
+sol_per_pop = int(sys.argv[1]) 
 fidelity_tolerance = 0.0
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 10
@@ -42,7 +42,7 @@ mutation_num_genes = n
 
 # execution and results saving
 directory = sys.argv[2]
-n_samples = 10
+n_samples = 1
 
 
 config["system_parameters"] = {
