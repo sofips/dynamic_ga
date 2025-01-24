@@ -350,20 +350,20 @@ def generation_func(ga, props, tol):
 
     fid, time = fidelity(solution, props, return_time=True)
 
-    print("Generation", ga.generations_completed)
-    print(
-        "Solution: ",
-        solution,
-        "Fidelity: ",
-        fid,
-        "Time: ",
-        time,
-        "Fitness: ",
-        solution_fitness,
-    )
+    #print("Generation", ga.generations_completed)
+    # print(
+    #     "Solution: ",
+    #     solution,
+    #     "Fidelity: ",
+    #     fid,
+    #     "Time: ",
+    #     time,
+    #     "Fitness: ",
+    #     solution_fitness,
+    # )
 
     if fid >= 1 - tol:
-        return "stop"
+        return "would stop here"
 
 
 def generation_func_constructor(gen_function, arguments):

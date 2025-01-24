@@ -24,7 +24,7 @@ b = 100  # magnetic field strength
 num_generations = 8
 num_genes = 5 * n
 sol_per_pop = int(sys.argv[1]) 
-fidelity_tolerance = 0.0
+fidelity_tolerance = 0.05
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 10
 
@@ -85,7 +85,7 @@ config["saving"] = {
     "directory": directory,
     "n_samples": str(n_samples),
 }
-script = "dc_ga.py"
+script = "dc_ga_profiling.py"
 
 isExist = os.path.exists(directory)
 if not isExist:
