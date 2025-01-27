@@ -17,6 +17,9 @@ from statistics import mean, stdev
 import pandas as pd
 
 
+# Parallel processing, threads
+num_threads = sys.argv[2]
+
 # get parameters from config file
 thisfolder = os.path.dirname(os.path.abspath(__file__))
 initfile = os.path.join(thisfolder, str(sys.argv[1]))
@@ -108,6 +111,8 @@ def target_program():
         mutation_num_genes=mutation_num_genes,
         stop_criteria=stop_criteria,
         save_solutions=False,
+        parallel_processing=["thread", num_threads]
+
     )
 
     initial_instance.run()
