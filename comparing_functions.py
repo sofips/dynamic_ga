@@ -136,7 +136,7 @@ results = []
 
 dimensions = np.arange(8, 64, 8)
 
-iterations = 10
+iterations = 1000
 
 for n in dimensions:
     
