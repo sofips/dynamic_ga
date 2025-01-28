@@ -1,0 +1,123 @@
+Sat Jan 25 02:40:47 2025    n16_ps1024_001/ppfunction_results.prof
+
+         44492512 function calls (43230432 primitive calls) in 34.250 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    15776    5.791    0.000   33.217    0.002 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:143(reward_based_fitness)
+  1262080    5.092    0.000   26.727    0.000 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:113(calculate_next_state)
+6310400/5048320    4.222    0.000    5.008    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/matrixlib/defmatrix.py:172(__array_finalize__)
+  1262080    3.287    0.000    4.187    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/matrixlib/defmatrix.py:229(__rmul__)
+  1262080    2.466    0.000    2.466    0.000 {built-in method _warnings.warn}
+  1262080    1.765    0.000    8.449    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/matrixlib/defmatrix.py:117(__new__)
+  2524160    1.470    0.000    2.943    0.000 {method 'transpose' of 'numpy.ndarray' objects}
+  2524160    1.382    0.000    4.781    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:51(_wrapfunc)
+  1262080    1.137    0.000    9.587    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/matrixlib/defmatrix.py:35(asmatrix)
+  8841984    1.133    0.000    1.137    0.000 {built-in method builtins.isinstance}
+  2524160    1.120    0.000    5.901    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:630(transpose)
+  1262080    1.075    0.000    3.876    0.000 {method 'view' of 'numpy.ndarray' objects}
+  1262089    0.579    0.000    0.579    0.000 {built-in method numpy.asarray}
+  1262080    0.509    0.000    0.895    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:1621(squeeze)
+  1262720    0.483    0.000    0.483    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/lib/_type_check_impl.py:84(real)
+  2531546    0.462    0.000    0.462    0.000 {built-in method builtins.getattr}
+       17    0.429    0.025   33.707    1.983 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:1632(cal_pop_fitness)
+        8    0.393    0.049    0.444    0.056 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/utils/crossover.py:153(uniform_crossover)
+  1262080    0.386    0.000    0.386    0.000 {method 'squeeze' of 'numpy.ndarray' objects}
+  2524160    0.322    0.000    0.322    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:626(_transpose_dispatcher)
+  1262720    0.185    0.000    0.185    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/lib/_type_check_impl.py:80(_real_dispatcher)
+  1262080    0.166    0.000    0.166    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/multiarray.py:761(dot)
+  1262080    0.164    0.000    0.164    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:1617(_squeeze_dispatcher)
+        8    0.037    0.005    0.080    0.010 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/utils/mutation.py:419(swap_mutation)
+    15776    0.032    0.000   33.249    0.002 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:332(<lambda>)
+    15784    0.021    0.000    0.021    0.000 {built-in method numpy.zeros}
+     7376    0.019    0.000    0.047    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/random.py:363(sample)
+     7413    0.016    0.000    0.016    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+     7405    0.013    0.000    0.037    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:69(_wrapreduction)
+    53329    0.011    0.000    0.011    0.000 {built-in method builtins.len}
+    15776    0.010    0.000   33.259    0.002 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:334(<lambda>)
+    14861    0.010    0.000    0.016    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/random.py:245(_randbelow_with_getrandbits)
+     1632    0.008    0.000    0.008    0.000 {method 'index' of 'list' objects}
+       17    0.007    0.000    0.010    0.001 {built-in method builtins.sorted}
+    15784    0.007    0.000    0.007    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:2118(shape)
+     7386    0.006    0.000    0.043    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:3328(prod)
+    23298    0.003    0.000    0.003    0.000 {method 'getrandbits' of '_random.Random' objects}
+    14861    0.003    0.000    0.003    0.000 {method 'bit_length' of 'int' objects}
+    15784    0.003    0.000    0.003    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:2114(_shape_dispatcher)
+        8    0.003    0.000    0.003    0.000 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:69(fidelity)
+    17408    0.003    0.000    0.003    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/utils/nsga2.py:264(<lambda>)
+     7376    0.002    0.000    0.002    0.000 {built-in method _abc._abc_instancecheck}
+     7376    0.002    0.000    0.005    0.000 <frozen abc>:117(__instancecheck__)
+    14753    0.002    0.000    0.002    0.000 {method 'add' of 'set' objects}
+       32    0.002    0.000    0.002    0.000 {method 'tolist' of 'numpy.ndarray' objects}
+       17    0.002    0.000    0.012    0.001 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/utils/parent_selection.py:12(steady_state_selection)
+     7405    0.002    0.000    0.002    0.000 {method 'items' of 'dict' objects}
+     7395    0.001    0.000    0.001    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/multiarray.py:383(where)
+       38    0.001    0.000    0.001    0.000 {built-in method numpy.array}
+        1    0.001    0.001    0.001    0.001 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:1336(initialize_population)
+     7386    0.001    0.000    0.001    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:3323(_prod_dispatcher)
+     1763    0.001    0.000    0.001    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        8    0.001    0.000    0.006    0.001 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:2303(run_update_population)
+       18    0.000    0.000   15.744    0.875 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:2337(best_solution)
+        1    0.000    0.000   34.248   34.248 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:1863(run)
+        9    0.000    0.000    0.007    0.001 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:2099(run_select_parents)
+        1    0.000    0.000    0.001    0.001 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:27(__init__)
+       17    0.000    0.000    0.010    0.001 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/utils/nsga2.py:229(sort_solutions_nsga2)
+        1    0.000    0.000   34.250   34.250 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dc_ga_profiling.py:89(target_program)
+       19    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:3052(max)
+       25    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+        8    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/scipy/linalg/_misc.py:17(norm)
+        8    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/lib/_function_base_impl.py:579(asarray_chkfinite)
+        8    0.000    0.000   15.747    1.968 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:336(generation_func)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        8    0.000    0.000    0.444    0.056 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:2186(run_crossover)
+        8    0.000    0.000    0.080    0.010 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:2253(run_mutation)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:1446(_clear_cache)
+        8    0.000    0.000   15.747    1.968 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:389(<lambda>)
+        8    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/scipy/linalg/blas.py:384(getter)
+       17    0.000    0.000    0.000    0.000 {method 'reverse' of 'list' objects}
+        8    0.000    0.000    0.000    0.000 {method 'all' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:1361(getLogger)
+        8    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:2070(run_loop_head)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:458(validate)
+        1    0.000    0.000    0.000    0.000 {method 'search' of 're.Pattern' objects}
+        2    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py:1323(round_genes)
+       30    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
+        8    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        8    0.000    0.000   15.747    1.968 /home/speron/paralela/dinamic_ga/n16_ps1024_001/dgamod.py:391(<lambda>)
+        8    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/_methods.py:67(_all)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/helper/unique.py:541(unpack_gene_space)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:2128(getLogger)
+        1    0.000    0.000    0.000    0.000 {method 'clear' of 'list' objects}
+       12    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+       19    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:3047(_max_dispatcher)
+       32    0.000    0.000    0.000    0.000 {method 'clear' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:600(__init__)
+        9    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:930(__init__)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:882(_removeHandlerRef)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:957(createLock)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:1490(setLevel)
+        5    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/inspect.py:306(ismethod)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:898(_addHandlerRef)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:265(_register_at_fork_reinit_lock)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:1119(__init__)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/_weakrefset.py:39(_remove)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/_weakrefset.py:85(add)
+        6    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.RLock' objects}
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:1682(addHandler)
+        1    0.000    0.000    0.000    0.000 {method 'remove' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/threading.py:122(RLock)
+        3    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:205(_checkLevel)
+        3    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'isnumeric' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'discard' of 'set' objects}
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:981(setLevel)
+        1    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:819(__init__)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:451(__init__)
+        1    0.000    0.000    0.000    0.000 /home/speron/miniconda3/envs/gaprof/lib/python3.13/logging/__init__.py:1029(setFormatter)
+
+
