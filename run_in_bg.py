@@ -1,14 +1,15 @@
 import os
 import subprocess
 
+nthreads = 1
+
 # List of commands to run
 commands = [ 
-    "python3 exp_gen.py 256 n16_ps256_8t 8",
-    "python3 exp_gen.py 512 n16_ps512_8t 8" ,
-    "python3 exp_gen.py 1024 n16_ps1024_8t 8" ,
-    "python3 exp_gen.py 2048 n16_ps2048_8t 8",
-    "python3 exp_gen.py 4096 n16_ps4096_8t 8",
-    #"python3 exp_gen.py 8192 n16_ps1024_4t",
+    #f"python3 exp_gen.py 512 n16_ps512_{nthreads}t_og {nthreads}" ,
+    f"python3 exp_gen.py 1024 n16_ps1024_{nthreads}t_og {nthreads}" ,
+    f"python3 exp_gen.py 2048 n16_ps2048_{nthreads}t_og {nthreads}",
+    f"python3 exp_gen.py 4096 n16_ps4096_{nthreads}t_og {nthreads}",
+    f"python3 exp_gen.py 8192 n16_ps1024_{nthreads}t_og {nthreads} ",
 ]
 
 # Get the current working directory (script's location)
