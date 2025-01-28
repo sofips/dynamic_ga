@@ -13,7 +13,7 @@ config = configparser.ConfigParser()
 
 # system parameters
 
-n = 32 #int(sys.argv[1])  # number of spins in the system
+n = 16 #int(sys.argv[1])  # number of spins in the system
 dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
 #speed_fraction = 1.1  # fraction of qsl speed
@@ -110,6 +110,6 @@ script_name = directory + "/" + script
 config_name = "ga" + directory + ".ini"
 
 
-num_threads = sys.argv[2]
+num_threads = int(sys.argv[3])
 cmd = f'python3 "{script_name}" "{config_name}" {num_threads}'
 os.system(cmd)

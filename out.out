@@ -1,0 +1,854 @@
+Starting: python3 exp_gen.py 256 n16_ps256_4t 4
+Output of python3 exp_gen.py 256 n16_ps256_4t 4:
+
+Error output of python3 exp_gen.py 256 n16_ps256_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps256_4t/dc_ga_profiling.py", line 1, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+python3 exp_gen.py 256 n16_ps256_4t 4 completed successfully.
+Starting: python3 exp_gen.py 512 n16_ps512_4t 4
+Output of python3 exp_gen.py 512 n16_ps512_4t 4:
+
+Error output of python3 exp_gen.py 512 n16_ps512_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps512_4t/dc_ga_profiling.py", line 1, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+python3 exp_gen.py 512 n16_ps512_4t 4 completed successfully.
+Starting: python3 exp_gen.py 1024 n16_ps1024_4t 4
+Output of python3 exp_gen.py 1024 n16_ps1024_4t 4:
+
+Error output of python3 exp_gen.py 1024 n16_ps1024_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps1024_4t/dc_ga_profiling.py", line 1, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+python3 exp_gen.py 1024 n16_ps1024_4t 4 completed successfully.
+Starting: python3 exp_gen.py 2048 n16_ps2048_4t 4
+Output of python3 exp_gen.py 2048 n16_ps2048_4t 4:
+
+Error output of python3 exp_gen.py 2048 n16_ps2048_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps2048_4t/dc_ga_profiling.py", line 1, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+python3 exp_gen.py 2048 n16_ps2048_4t 4 completed successfully.
+Starting: python3 exp_gen.py 4096 n16_ps4096_4t 4
+Output of python3 exp_gen.py 4096 n16_ps4096_4t 4:
+
+Error output of python3 exp_gen.py 4096 n16_ps4096_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps4096_4t/dc_ga_profiling.py", line 1, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+python3 exp_gen.py 4096 n16_ps4096_4t 4 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 256 n16_ps256_4t 4
+Output of python3 exp_gen.py 256 n16_ps256_4t 4:
+Eigenstate Propagation: correct
+run 0
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 256 n16_ps256_4t 4:
+When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps256_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps256_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps256_4t/dc_ga_profiling.py", line 211, in <module>
+    main()
+    ~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps256_4t/dc_ga_profiling.py", line 164, in main
+    time_stats = profile_tot_time()
+  File "/home/speron/paralela/dinamic_ga/n16_ps256_4t/dc_ga_profiling.py", line 135, in profile_tot_time
+    target_program()
+    ~~~~~~~~~~~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps256_4t/dc_ga_profiling.py", line 97, in target_program
+    initial_instance = pygad.GA(
+        num_generations=num_generations,
+    ...<16 lines>...
+    
+    )
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1321, in __init__
+    raise e
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps256_4t) of type <class 'str'> found.
+
+python3 exp_gen.py 256 n16_ps256_4t 4 completed successfully.
+Starting: python3 exp_gen.py 512 n16_ps512_4t 4
+Output of python3 exp_gen.py 512 n16_ps512_4t 4:
+Eigenstate Propagation: correct
+run 0
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 512 n16_ps512_4t 4:
+When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps512_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps512_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps512_4t/dc_ga_profiling.py", line 211, in <module>
+    main()
+    ~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps512_4t/dc_ga_profiling.py", line 164, in main
+    time_stats = profile_tot_time()
+  File "/home/speron/paralela/dinamic_ga/n16_ps512_4t/dc_ga_profiling.py", line 135, in profile_tot_time
+    target_program()
+    ~~~~~~~~~~~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps512_4t/dc_ga_profiling.py", line 97, in target_program
+    initial_instance = pygad.GA(
+        num_generations=num_generations,
+    ...<16 lines>...
+    
+    )
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1321, in __init__
+    raise e
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps512_4t) of type <class 'str'> found.
+
+python3 exp_gen.py 512 n16_ps512_4t 4 completed successfully.
+Starting: python3 exp_gen.py 1024 n16_ps1024_4t 4
+Output of python3 exp_gen.py 1024 n16_ps1024_4t 4:
+Eigenstate Propagation: correct
+run 0
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 1024 n16_ps1024_4t 4:
+When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps1024_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps1024_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps1024_4t/dc_ga_profiling.py", line 211, in <module>
+    main()
+    ~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps1024_4t/dc_ga_profiling.py", line 164, in main
+    time_stats = profile_tot_time()
+  File "/home/speron/paralela/dinamic_ga/n16_ps1024_4t/dc_ga_profiling.py", line 135, in profile_tot_time
+    target_program()
+    ~~~~~~~~~~~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps1024_4t/dc_ga_profiling.py", line 97, in target_program
+    initial_instance = pygad.GA(
+        num_generations=num_generations,
+    ...<16 lines>...
+    
+    )
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1321, in __init__
+    raise e
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps1024_4t) of type <class 'str'> found.
+
+python3 exp_gen.py 1024 n16_ps1024_4t 4 completed successfully.
+Starting: python3 exp_gen.py 2048 n16_ps2048_4t 4
+Output of python3 exp_gen.py 2048 n16_ps2048_4t 4:
+Eigenstate Propagation: correct
+run 0
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 2048 n16_ps2048_4t 4:
+When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps2048_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps2048_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps2048_4t/dc_ga_profiling.py", line 211, in <module>
+    main()
+    ~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps2048_4t/dc_ga_profiling.py", line 164, in main
+    time_stats = profile_tot_time()
+  File "/home/speron/paralela/dinamic_ga/n16_ps2048_4t/dc_ga_profiling.py", line 135, in profile_tot_time
+    target_program()
+    ~~~~~~~~~~~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps2048_4t/dc_ga_profiling.py", line 97, in target_program
+    initial_instance = pygad.GA(
+        num_generations=num_generations,
+    ...<16 lines>...
+    
+    )
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1321, in __init__
+    raise e
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps2048_4t) of type <class 'str'> found.
+
+python3 exp_gen.py 2048 n16_ps2048_4t 4 completed successfully.
+Starting: python3 exp_gen.py 4096 n16_ps4096_4t 4
+Output of python3 exp_gen.py 4096 n16_ps4096_4t 4:
+Eigenstate Propagation: correct
+run 0
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 4096 n16_ps4096_4t 4:
+When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps4096_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps4096_4t) of type <class 'str'> found.
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/n16_ps4096_4t/dc_ga_profiling.py", line 211, in <module>
+    main()
+    ~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps4096_4t/dc_ga_profiling.py", line 164, in main
+    time_stats = profile_tot_time()
+  File "/home/speron/paralela/dinamic_ga/n16_ps4096_4t/dc_ga_profiling.py", line 135, in profile_tot_time
+    target_program()
+    ~~~~~~~~~~~~~~^^
+  File "/home/speron/paralela/dinamic_ga/n16_ps4096_4t/dc_ga_profiling.py", line 97, in target_program
+    initial_instance = pygad.GA(
+        num_generations=num_generations,
+    ...<16 lines>...
+    
+    )
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1321, in __init__
+    raise e
+  File "/home/speron/miniconda3/envs/gaprof/lib/python3.13/site-packages/pygad/pygad.py", line 1253, in __init__
+    raise TypeError(f"When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value ({parallel_processing[1]}) of type {type(parallel_processing[1])} found.")
+TypeError: When a list or tuple is assigned to the 'parallel_processing' parameter, then the second element must be an integer but the value (n16_ps4096_4t) of type <class 'str'> found.
+
+python3 exp_gen.py 4096 n16_ps4096_4t 4 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 256 n16_ps256_4t 4
+Output of python3 exp_gen.py 256 n16_ps256_4t 4:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 256 n16_ps256_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/exp_gen.py", line 113, in <module>
+    num_threads = int(sys.argv[2])
+ValueError: invalid literal for int() with base 10: 'n16_ps256_4t'
+
+python3 exp_gen.py 256 n16_ps256_4t 4 failed with exit code 1
+Starting: python3 exp_gen.py 512 n16_ps512_4t 4
+Output of python3 exp_gen.py 512 n16_ps512_4t 4:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 512 n16_ps512_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/exp_gen.py", line 113, in <module>
+    num_threads = int(sys.argv[2])
+ValueError: invalid literal for int() with base 10: 'n16_ps512_4t'
+
+python3 exp_gen.py 512 n16_ps512_4t 4 failed with exit code 1
+Starting: python3 exp_gen.py 1024 n16_ps1024_4t 4
+Output of python3 exp_gen.py 1024 n16_ps1024_4t 4:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 1024 n16_ps1024_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/exp_gen.py", line 113, in <module>
+    num_threads = int(sys.argv[2])
+ValueError: invalid literal for int() with base 10: 'n16_ps1024_4t'
+
+python3 exp_gen.py 1024 n16_ps1024_4t 4 failed with exit code 1
+Starting: python3 exp_gen.py 2048 n16_ps2048_4t 4
+Output of python3 exp_gen.py 2048 n16_ps2048_4t 4:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 2048 n16_ps2048_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/exp_gen.py", line 113, in <module>
+    num_threads = int(sys.argv[2])
+ValueError: invalid literal for int() with base 10: 'n16_ps2048_4t'
+
+python3 exp_gen.py 2048 n16_ps2048_4t 4 failed with exit code 1
+Starting: python3 exp_gen.py 4096 n16_ps4096_4t 4
+Output of python3 exp_gen.py 4096 n16_ps4096_4t 4:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 4096 n16_ps4096_4t 4:
+Traceback (most recent call last):
+  File "/home/speron/paralela/dinamic_ga/exp_gen.py", line 113, in <module>
+    num_threads = int(sys.argv[2])
+ValueError: invalid literal for int() with base 10: 'n16_ps4096_4t'
+
+python3 exp_gen.py 4096 n16_ps4096_4t 4 failed with exit code 1
+All programs completed.
+Starting: python3 exp_gen.py 256 n16_ps256_4t 4
+Output of python3 exp_gen.py 256 n16_ps256_4t 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+run 50
+run 51
+run 52
+run 53
+run 54
+run 55
+run 56
+run 57
+run 58
+run 59
+run 60
+run 61
+run 62
+run 63
+run 64
+run 65
+run 66
+run 67
+run 68
+run 69
+run 70
+run 71
+run 72
+run 73
+run 74
+run 75
+run 76
+run 77
+run 78
+run 79
+run 80
+run 81
+run 82
+run 83
+run 84
+run 85
+run 86
+run 87
+run 88
+run 89
+run 90
+run 91
+run 92
+run 93
+run 94
+run 95
+run 96
+run 97
+run 98
+run 99
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16          7.35082  ...       122.564141        0.927795
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps256_4t/profiling_results.csv
+Summary stats saved to n16_ps256_4t/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 256 n16_ps256_4t 4 completed successfully.
+Starting: python3 exp_gen.py 512 n16_ps512_4t 4
+Output of python3 exp_gen.py 512 n16_ps512_4t 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+run 50
+run 51
+run 52
+run 53
+run 54
+run 55
+run 56
+run 57
+run 58
+run 59
+run 60
+run 61
+run 62
+run 63
+run 64
+run 65
+run 66
+run 67
+run 68
+run 69
+run 70
+run 71
+run 72
+run 73
+run 74
+run 75
+run 76
+run 77
+run 78
+run 79
+run 80
+run 81
+run 82
+run 83
+run 84
+run 85
+run 86
+run 87
+run 88
+run 89
+run 90
+run 91
+run 92
+run 93
+run 94
+run 95
+run 96
+run 97
+run 98
+run 99
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16        12.929771  ...       121.868047        0.779613
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps512_4t/profiling_results.csv
+Summary stats saved to n16_ps512_4t/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 512 n16_ps512_4t 4 completed successfully.
+Starting: python3 exp_gen.py 1024 n16_ps1024_4t 4
+Output of python3 exp_gen.py 1024 n16_ps1024_4t 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+run 50
+run 51
+run 52
+run 53
+run 54
+run 55
+run 56
+run 57
+run 58
+run 59
+run 60
+run 61
+run 62
+run 63
+run 64
+run 65
+run 66
+run 67
+run 68
+run 69
+run 70
+run 71
+run 72
+run 73
+run 74
+run 75
+run 76
+run 77
+run 78
+run 79
+run 80
+run 81
+run 82
+run 83
+run 84
+run 85
+run 86
+run 87
+run 88
+run 89
+run 90
+run 91
+run 92
+run 93
+run 94
+run 95
+run 96
+run 97
+run 98
+run 99
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16        26.183671  ...       125.900117         1.69248
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps1024_4t/profiling_results.csv
+Summary stats saved to n16_ps1024_4t/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 1024 n16_ps1024_4t 4 completed successfully.
+Starting: python3 exp_gen.py 2048 n16_ps2048_4t 4
+Output of python3 exp_gen.py 2048 n16_ps2048_4t 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+run 50
+run 51
+run 52
+run 53
+run 54
+run 55
+run 56
+run 57
+run 58
+run 59
+run 60
+run 61
+run 62
+run 63
+run 64
+run 65
+run 66
+run 67
+run 68
+run 69
+run 70
+run 71
+run 72
+run 73
+run 74
+run 75
+run 76
+run 77
+run 78
+run 79
+run 80
+run 81
+run 82
+run 83
+run 84
+run 85
+run 86
+run 87
+run 88
+run 89
+run 90
+run 91
+run 92
+run 93
+run 94
+run 95
+run 96
+run 97
+run 98
+run 99
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16        52.528024  ...        139.64707        0.927776
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps2048_4t/profiling_results.csv
+Summary stats saved to n16_ps2048_4t/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 2048 n16_ps2048_4t 4 completed successfully.
+Starting: python3 exp_gen.py 4096 n16_ps4096_4t 4
+Output of python3 exp_gen.py 4096 n16_ps4096_4t 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+run 50
+run 51
+run 52
+run 53
+run 54
+run 55
+run 56
+run 57
+run 58
+run 59
+run 60
+run 61
+run 62
+run 63
+run 64
+run 65
+run 66
+run 67
+run 68
+run 69
+run 70
+run 71
+run 72
+run 73
+run 74
+run 75
+run 76
+run 77
+run 78
+run 79
+run 80
+run 81
+run 82
+run 83
+run 84
+run 85
+run 86
+run 87
+run 88
+run 89
+run 90
+run 91
+run 92
+run 93
+run 94
+run 95
+run 96
+run 97
+run 98
+run 99
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16       113.107031  ...       152.561094        2.228743
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps4096_4t/profiling_results.csv
+Summary stats saved to n16_ps4096_4t/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 4096 n16_ps4096_4t 4 completed successfully.
+All programs completed.
