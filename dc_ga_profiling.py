@@ -1,3 +1,4 @@
+import os
 import numpy as np
 from dgamod import *
 
@@ -5,7 +6,6 @@ import csv
 import pygad
 import sys
 import time
-import os
 import configparser
 
 # profiling libraries

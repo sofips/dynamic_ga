@@ -24,7 +24,7 @@ b = 100  # magnetic field strength
 num_generations = 8
 num_genes = 5 * n
 sol_per_pop = int(sys.argv[1]) 
-fidelity_tolerance = 0.05
+fidelity_tolerance = 0.00001
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 10
 
@@ -108,7 +108,6 @@ with open(config_name, "w") as configfile:
 
 script_name = directory + "/" + script
 config_name = "ga" + directory + ".ini"
-
 
 num_threads = int(sys.argv[3])
 cmd = f'python3 "{script_name}" "{config_name}" {num_threads}'
