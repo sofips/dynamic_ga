@@ -29,15 +29,15 @@ reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 10
 
 # crossover and parent selection
-num_parents_mating = sol_per_pop // 10
+num_parents_mating = 300 #sol_per_pop // 10
 parent_selection_type = "sss"
-keep_elitism = sol_per_pop // 10
+keep_elitism = 300 #sol_per_pop // 10
 crossover_type = "uniform"
-crossover_probability = 0.8
+crossover_probability = 1 #0.8
 
 # other mutation parameters
 
-mutation_probability = 0.99
+mutation_probability = 1 #0.99
 mutation_num_genes = n
 
 # execution and results saving
