@@ -9,6 +9,7 @@ import os
 np.complex_ = np.complex128
 np.mat = np.asmatrix
 
+
 def gen_props(actions, n, dt, test=True):
     """
     Generate propagators for a set of action matrices.
@@ -333,10 +334,11 @@ def fitness_func_constructor(fid_function, arguments):
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 
+
 def generation_func(ga, props, tol):
     """
-    Function to be ran on every generation of the genetic algorithm. 
-    Prints relevant information on the best solution, 
+    Function to be ran on every generation of the genetic algorithm.
+    Prints relevant information on the best solution,
     and determines whether to stop the algorithm based on fidelity.
 
     Args:
@@ -352,7 +354,7 @@ def generation_func(ga, props, tol):
 
     fid, time = fidelity(solution, props, return_time=True)
 
-    #print("Generation", ga.generations_completed)
+    # print("Generation", ga.generations_completed)
     # print(
     #     "Solution: ",
     #     solution,
@@ -385,7 +387,6 @@ def generation_func_constructor(gen_function, arguments):
                   generation function with the provided arguments.
     """
 
-
     on_gen = lambda ga_instance: gen_function(ga_instance, *arguments)
 
     return lambda ga_instance: on_gen(ga_instance)
@@ -413,7 +414,6 @@ def actions_to_file(solution, filename, condition):
 
 
 def time_evolution(solution, props, nh, graph=False, filename=False):
-
     """
     Simulates the time evolution of a quantum state based on a sequence of actions.
 
@@ -453,13 +453,12 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
     for action in solution:
 
-        state = calculate_next_state(state,action,props,check_normalization=False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         fid = np.real(state[nh - 1] * np.conjugate(state[nh - 1]))
         fid_evolution = np.append(fid_evolution, fid)
 
     if abs(la.norm(state) - 1.0) > 1e-8:
         print("Normalization field. Norm of final state:", la.norm(state))
-
 
     tsteps = np.shape(fid_evolution)[0] + 1
 
@@ -476,7 +475,9 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
         plt.grid()
         plt.title(
-            " Fidelity evolution. Max. = {} on time step = {}".format(max_fid, max_action)
+            " Fidelity evolution. Max. = {} on time step = {}".format(
+                max_fid, max_action
+            )
         )
         plt.xlabel("t")
         plt.ylabel("|f|**2")
@@ -493,14 +494,15 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
 # ---------------------------------------------------------------------------
 #
-# ACTIONS FROM THE REFERENCED WORK 
+# ACTIONS FROM THE REFERENCED WORK
 #
 # ---------------------------------------------------------------------------
+
 
 def diagonals_zhang(bmax, i, nh):
     """
     Construction of diagonals associated to referenced work. The first and last three sites
-    can be controlled. 
+    can be controlled.
 
     Parameters:
     bmax (float): Control field value.
@@ -510,7 +512,7 @@ def diagonals_zhang(bmax, i, nh):
 
     Returns:
     numpy.ndarray: A diagonal vector of length `nh` with specific elements set to `bmax` based on the index `i`,
-    corresponding to the 16 action matrices. 
+    corresponding to the 16 action matrices.
     """
 
     b = np.full(nh, 0)
@@ -598,7 +600,7 @@ def actions_zhang(bmax, nh):
 
         b = diagonals_zhang(bmax, i, nh)
 
-        J = 1 
+        J = 1
 
         for k in range(0, nh - 1):
             actions[i, k, k + 1] = J
@@ -734,3 +736,47 @@ def one_field_actions_weak(bmax, nh):
 
     return action_matrices
 
+
+def refined_cns(state, action_index, props):
+    # Retrieve the matrix corresponding to the action index
+    p = props[action_index]
+
+    # Perform matrix-vector multiplication directly
+    next_state = p @ state
+
+    # Return the result as a flat 1D array
+    return next_state.ravel()
+
+
+def reward_based_fitness_vectorized(
+    action_sequence, props, tolerance, reward_decay, test_normalization=True
+):
+    # compute states
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.0
+
+    states = generate_states(state, action_sequence, props)
+
+    fitness = calculate_reward(states, tolerance, reward_decay)
+
+    return fitness
+
+
+def calculate_reward(states, tolerance, reward_decay):
+    # Compute fidelity for all states
+    fid = np.abs(states[:, n - 1]) ** 2  # Shape: (num_states,)
+
+    # Compute rewards based on conditions
+    rewards = np.zeros_like(fid)
+    rewards[fid <= 0.8] = 10 * fid[fid <= 0.8]
+    rewards[(fid > 0.8) & (fid <= 1 - tolerance)] = 100 / (
+        1 + np.exp(10 * (1 - tolerance - fid[(fid > 0.8) & (fid <= 1 - tolerance)]))
+    )
+    rewards[fid > 1 - tolerance] = 2500
+
+    # Compute fitness with decay
+    decay_factors = reward_decay ** np.arange(len(fid))  # Precompute decay factors
+    fitness = np.sum(rewards * decay_factors)
+
+    return fitness
