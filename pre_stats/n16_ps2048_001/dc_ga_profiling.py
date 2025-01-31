@@ -1,4 +1,3 @@
-import os
 import numpy as np
 from dgamod import *
 
@@ -6,6 +5,7 @@ import csv
 import pygad
 import sys
 import time
+import os
 import configparser
 
 # profiling libraries
@@ -16,9 +16,6 @@ from memory_profiler import memory_usage, profile
 from statistics import mean, stdev
 import pandas as pd
 
-
-# Parallel processing, threads
-num_threads = sys.argv[2]
 
 # get parameters from config file
 thisfolder = os.path.dirname(os.path.abspath(__file__))
@@ -83,7 +80,7 @@ fidelity_args = [
     reward_decay,
     False,
 ]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-fitness_func = fitness_func_constructor(reward_based_fitness_vectorized, fidelity_args)
+fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
 mutation_type = "swap"
 
 # ----------------------------------------------------------
@@ -111,8 +108,6 @@ def target_program():
         mutation_num_genes=mutation_num_genes,
         stop_criteria=stop_criteria,
         save_solutions=False,
-        parallel_processing=["thread", int(num_threads)]
-
     )
 
     initial_instance.run()
@@ -155,7 +150,7 @@ def profile_by_function():
 
 
 def main():
-    num_runs = 2 # Number of profiling runs
+    num_runs = 500 # Number of profiling runs
     results = []
 
     # Run profiling multiple times with different parameters

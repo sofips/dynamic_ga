@@ -1,4 +1,10 @@
 import os
+os.environ["OMP_NUM_THREADS"] = "1" # export OMP_NUM_THREADS=1
+os.environ["OPENBLAS_NUM_THREADS"] = "1" # export OPENBLAS_NUM_THREADS=1
+os.environ["MKL_NUM_THREADS"] = "1" # export MKL_NUM_THREADS=1
+os.environ["VECLIB_MAXIMUM_THREADS"] = "1" # export VECLIB_MAXIMUM_THREADS=1
+os.environ["NUMEXPR_NUM_THREADS"] = "1" # export NUMEXPR_NUM_THREADS=1
+
 import numpy as np
 from dgamod import *
 
@@ -83,7 +89,7 @@ fidelity_args = [
     reward_decay,
     False,
 ]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-fitness_func = fitness_func_constructor(reward_based_fitness_vectorized, fidelity_args)
+fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
 mutation_type = "swap"
 
 # ----------------------------------------------------------
@@ -155,7 +161,7 @@ def profile_by_function():
 
 
 def main():
-    num_runs = 2 # Number of profiling runs
+    num_runs = 100 # Number of profiling runs
     results = []
 
     # Run profiling multiple times with different parameters
