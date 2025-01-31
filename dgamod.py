@@ -2,10 +2,10 @@ import numpy as np
 import scipy.linalg as la
 import cmath as cm
 import csv
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from scipy.linalg import expm
 import os
-
+from numba import njit
 np.complex_ = np.complex128
 np.mat = np.asmatrix
 
@@ -330,7 +330,7 @@ def fitness_func_constructor(fid_function, arguments):
                   and returns the fitness value of the solution.
     """
 
-    fitness = lambda vec: fid_function(vec, *arguments)
+    fitness = njit(lambda vec: fid_function(vec, *arguments))
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 
@@ -765,6 +765,7 @@ def reward_based_fitness_vectorized(
 
 def calculate_reward(states, tolerance, reward_decay):
     # Compute fidelity for all states
+    n = np.shape(states)[1]
     fid = np.abs(states[:, n - 1]) ** 2  # Shape: (num_states,)
 
     # Compute rewards based on conditions
@@ -780,3 +781,16 @@ def calculate_reward(states, tolerance, reward_decay):
     fitness = np.sum(rewards * decay_factors)
 
     return fitness
+
+def generate_states(initial_state, action_sequence, props):
+    """Generate a matrix where each row is the state at a given step."""
+    num_elements = len(initial_state)
+    steps = len(action_sequence)
+    states = np.zeros((steps + 1, num_elements), dtype=initial_state.dtype)
+    states[0] = initial_state  # Set the initial state
+
+    # Sequentially calculate states
+    for i in range(1, steps):
+        states[i] = refined_cns(states[i - 1], action_sequence[i], props)
+
+    return states
