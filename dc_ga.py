@@ -76,7 +76,7 @@ fidelity_args = [
     reward_decay,
     False,
 ]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
+fitness_func = fitness_func_constructor(reward_based_fitness_gpu, fidelity_args)
 mutation_type = "swap"
 
 
@@ -107,6 +107,7 @@ def main():
             mutation_num_genes=mutation_num_genes,
             stop_criteria=stop_criteria,
             save_solutions=False,
+            fitness_batch_size=200
         )
 
         initial_instance.run()

@@ -5,7 +5,8 @@ import csv
 #import matplotlib.pyplot as plt
 from scipy.linalg import expm
 import os
-from numba import njit
+#from numba import njit
+import torch as T
 np.complex_ = np.complex128
 np.mat = np.asmatrix
 
@@ -330,7 +331,7 @@ def fitness_func_constructor(fid_function, arguments):
                   and returns the fitness value of the solution.
     """
 
-    fitness = njit(lambda vec: fid_function(vec, *arguments))
+    fitness = lambda vec: fid_function(vec, *arguments)
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 
@@ -794,3 +795,50 @@ def generate_states(initial_state, action_sequence, props):
         states[i] = refined_cns(states[i - 1], action_sequence[i], props)
 
     return states
+import torch as T
+import numpy as np
+
+import torch as T
+import numpy as np
+
+def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay,check_normalization=True):
+    device = 'cuda'
+    
+    # Move props to GPU as a single tensor (complex64 for speed)
+    props = T.tensor(props, dtype=T.complex64, device=device, requires_grad=False)
+    
+    chain_length = props.shape[1]
+    fitness_list = []
+
+    for action_sequence in action_sequences:
+        initial_state = T.zeros(chain_length, dtype=T.complex64, device=device)
+        initial_state[0] = 1.0
+        steps = len(action_sequence)
+
+        states = T.empty((steps, chain_length), dtype=T.complex64, device=device)
+        states[0] = initial_state  # Set initial state
+
+        # Compute states efficiently using preloaded tensors
+        for i in range(1, steps):
+            states[i] = props[action_sequence[i]] @ states[i - 1]
+
+        # Compute fidelity for all states (final column)
+        fid = states[:, -1].abs() ** 2  
+        print(fid)
+        # Compute rewards efficiently using masks
+        rewards = T.zeros_like(fid, device=device)
+        rewards[fid <= 0.8] = 10 * fid[fid <= 0.8]
+        
+        mask = (fid > 0.8) & (fid <= 1 - tolerance)
+        rewards[mask] = 100 / (1 + T.exp(10 * (1 - tolerance - fid[mask])))
+        
+        rewards[fid > 1 - tolerance] = 2500
+
+        # Apply exponential decay and sum fitness
+        decay_factors = reward_decay ** T.arange(len(fid), device=device)
+        fitness = T.sum(rewards * decay_factors).item()
+        
+        fitness_list.append(fitness)
+
+    return np.array(fitness_list)  # Convert once at the end
+
