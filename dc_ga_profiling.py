@@ -1,7 +1,7 @@
 import os
 import numpy as np
 from dgamod import *
-from numba import njit, prange, jit
+#from numba import njit, prange, jit
 import csv
 import pygad
 import sys
@@ -90,10 +90,10 @@ fidelity_args = [
     False,
 ]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
 
-fitness_func = fitness_func_constructor(reward_based_fitness_vectorized, fidelity_args)
+fitness_func = fitness_func_constructor(reward_based_fitness_gpu, fidelity_args)
 
-def fitness_func(ga_instance, action_sequence, action_index) -> float:
-    return reward_based_fitness_vectorized(action_sequence, props, fidelity_tolerance, reward_decay, False)
+# def fitness_func(ga_instance, action_sequence, action_index) -> float:
+#     return reward_based_fitness_gpu(action_sequence, props, fidelity_tolerance, reward_decay, False)
 
 
 mutation_type = "swap"
@@ -123,6 +123,7 @@ def target_program():
         mutation_num_genes=mutation_num_genes,
         stop_criteria=stop_criteria,
         save_solutions=False,
+        fitness_batch_size=sol_per_pop,
         #parallel_processing=["thread", int(num_threads)]
 
     )
@@ -167,7 +168,7 @@ def profile_by_function():
 
 
 def main():
-    num_runs = 2 # Number of profiling runs
+    num_runs = 10 # Number of profiling runs
     results = []
 
     # Run profiling multiple times with different parameters

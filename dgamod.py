@@ -795,50 +795,42 @@ def generate_states(initial_state, action_sequence, props):
         states[i] = refined_cns(states[i - 1], action_sequence[i], props)
 
     return states
-import torch as T
-import numpy as np
 
-import torch as T
-import numpy as np
 
-def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay,check_normalization=True):
+def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay, test_normalization=False):
     device = 'cuda'
     
-    # Move props to GPU as a single tensor (complex64 for speed)
+    # Convert props to a CUDA tensor once (complex64 is faster)
     props = T.tensor(props, dtype=T.complex64, device=device, requires_grad=False)
-    
+
+    # Convert action sequences to a tensor
+    action_sequences = T.tensor(action_sequences, dtype=T.int64, device=device)
+
+    num_sequences, steps = action_sequences.shape
     chain_length = props.shape[1]
-    fitness_list = []
 
-    for action_sequence in action_sequences:
-        initial_state = T.zeros(chain_length, dtype=T.complex64, device=device)
-        initial_state[0] = 1.0
-        steps = len(action_sequence)
+    # Initialize states tensor (batch dimension added)
+    states = T.zeros((num_sequences, steps, chain_length), dtype=T.complex64, device=device)
+    states[:, 0, 0] = 1.0  # Initial condition
 
-        states = T.empty((steps, chain_length), dtype=T.complex64, device=device)
-        states[0] = initial_state  # Set initial state
+    # Compute states using batched matrix multiplication
+    for i in range(1, steps):
+        states[:, i, :] = T.bmm(props[action_sequences[:, i]], states[:, i-1, :].unsqueeze(-1)).squeeze(-1)
 
-        # Compute states efficiently using preloaded tensors
-        for i in range(1, steps):
-            states[i] = props[action_sequence[i]] @ states[i - 1]
+    # Compute fidelity
+    fid = states[:, :, -1].abs() ** 2  # Take absolute squared of last column
 
-        # Compute fidelity for all states (final column)
-        fid = states[:, -1].abs() ** 2  
-        print(fid)
-        # Compute rewards efficiently using masks
-        rewards = T.zeros_like(fid, device=device)
-        rewards[fid <= 0.8] = 10 * fid[fid <= 0.8]
-        
-        mask = (fid > 0.8) & (fid <= 1 - tolerance)
-        rewards[mask] = 100 / (1 + T.exp(10 * (1 - tolerance - fid[mask])))
-        
-        rewards[fid > 1 - tolerance] = 2500
+    # Compute rewards in parallel
+    rewards = T.zeros_like(fid, device=device)
+    rewards[fid <= 0.8] = 10 * fid[fid <= 0.8]
+    
+    mask = (fid > 0.8) & (fid <= 1 - tolerance)
+    rewards[mask] = 100 / (1 + T.exp(10 * (1 - tolerance - fid[mask])))
 
-        # Apply exponential decay and sum fitness
-        decay_factors = reward_decay ** T.arange(len(fid), device=device)
-        fitness = T.sum(rewards * decay_factors).item()
-        
-        fitness_list.append(fitness)
+    rewards[fid > 1 - tolerance] = 2500
 
-    return np.array(fitness_list)  # Convert once at the end
+    # Apply decay and sum fitness
+    decay_factors = reward_decay ** T.arange(steps, device=device).unsqueeze(0)  # Shape: (1, steps)
+    fitness = T.sum(rewards * decay_factors, dim=1)  # Sum over steps
 
+    return fitness.cpu().numpy()  # Convert once at the end

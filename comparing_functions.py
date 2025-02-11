@@ -186,7 +186,7 @@ results = []
 
 dimensions = [16,32,64]
 
-iterations = 2048
+iterations = 1024
 
 for n in dimensions:
 
