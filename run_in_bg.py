@@ -6,11 +6,11 @@ threads = [1, 2, 4, 8, 16, 32]
 for nthreads in threads:
     # List of commands to run
     commands = [ 
-        f"python3 exp_gen.py 512 n32_ps512_{nthreads}t_og {nthreads}" ,
-        f"python3 exp_gen.py 1024 n32_ps1024_{nthreads}t_og {nthreads}" ,
-        f"python3 exp_gen.py 2048 n32_ps2048_{nthreads}t_og {nthreads}" ,
-        f"python3 exp_gen.py 4096 n32_ps4096_{nthreads}t_og {nthreads}" ,
-        f"python3 exp_gen.py 8192 n32_ps8192_{nthreads}t_og {nthreads}" ,
+        f"python3 exp_gen.py 512 n32_ps512_gpu 1" ,
+        f"python3 exp_gen.py 1024 n32_ps1024_gpu 1" ,
+        f"python3 exp_gen.py 2048 n32_ps2048_gpu 1" ,
+        f"python3 exp_gen.py 4096 n32_ps4096_gpu 1" ,
+        f"python3 exp_gen.py 8192 n32_ps8192_gpu 1" ,
     ]
 
     # Get the current working directory (script's location)
