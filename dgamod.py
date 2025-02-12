@@ -355,17 +355,17 @@ def generation_func(ga, props, tol):
 
     fid, time = fidelity(solution, props, return_time=True)
 
-    # print("Generation", ga.generations_completed)
-    # print(
-    #     "Solution: ",
-    #     solution,
-    #     "Fidelity: ",
-    #     fid,
-    #     "Time: ",
-    #     time,
-    #     "Fitness: ",
-    #     solution_fitness,
-    # )
+    print("Generation", ga.generations_completed)
+    print(
+        "Solution: ",
+        solution,
+        "Fidelity: ",
+        fid,
+        "Time: ",
+        time,
+        "Fitness: ",
+        solution_fitness,
+    )
 
     if fid >= 1 - tol:
         return "would stop here"
@@ -810,12 +810,12 @@ def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay, t
     chain_length = props.shape[1]
 
     # Initialize states tensor (batch dimension added)
-    states = T.zeros((num_sequences, steps, chain_length), dtype=T.complex64, device=device)
+    states = T.zeros((num_sequences, steps+1, chain_length), dtype=T.complex64, device=device)
     states[:, 0, 0] = 1.0  # Initial condition
 
     # Compute states using batched matrix multiplication
-    for i in range(1, steps):
-        states[:, i, :] = T.bmm(props[action_sequences[:, i]], states[:, i-1, :].unsqueeze(-1)).squeeze(-1)
+    for i in range(0, steps):
+        states[:, i+1, :] = T.bmm(props[action_sequences[:, i]], states[:, i, :].unsqueeze(-1)).squeeze(-1)
 
     # Compute fidelity
     fid = states[:, :, -1].abs() ** 2  # Take absolute squared of last column
@@ -830,7 +830,7 @@ def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay, t
     rewards[fid > 1 - tolerance] = 2500
 
     # Apply decay and sum fitness
-    decay_factors = reward_decay ** T.arange(steps, device=device).unsqueeze(0)  # Shape: (1, steps)
+    decay_factors = reward_decay ** T.arange(steps+1, device=device).unsqueeze(0)  # Shape: (1, steps)
     fitness = T.sum(rewards * decay_factors, dim=1)  # Sum over steps
 
     return fitness.cpu().numpy()  # Convert once at the end
