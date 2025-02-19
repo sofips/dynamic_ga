@@ -167,7 +167,7 @@ def profile_by_function():
 
 
 def main():
-    num_runs = 50 # Number of profiling runs
+    num_runs = 2 # Number of profiling runs
     results = []
 
     # Run profiling multiple times with different parameters

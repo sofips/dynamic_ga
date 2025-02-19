@@ -1,14 +1,12 @@
 import os
 import numpy as np
 from dgamod import *
-from numba import njit, prange, jit
+
 import csv
 import pygad
 import sys
 import time
 import configparser
-from multiprocessing import Pool
-from joblib import Parallel, delayed
 
 # profiling libraries
 import cProfile
@@ -21,10 +19,6 @@ import pandas as pd
 
 # Parallel processing, threads
 num_threads = sys.argv[2]
-
-#os.environ["NUMBA_NUM_THREADS"] = num_threads  # Linux/macOS
-
-
 
 # get parameters from config file
 thisfolder = os.path.dirname(os.path.abspath(__file__))
@@ -89,18 +83,12 @@ fidelity_args = [
     reward_decay,
     False,
 ]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-
 fitness_func = fitness_func_constructor(reward_based_fitness_vectorized, fidelity_args)
-
-#def fitness_func(ga_instance, action_sequence, action_index) -> float:
-    #return reward_based_fitness_vectorized(action_sequence, props, fidelity_tolerance, reward_decay, False)
-
-
 mutation_type = "swap"
 
 # ----------------------------------------------------------
 
-
+#@profile
 def target_program():
     # with open(filename, "a") as f:
 
@@ -119,15 +107,15 @@ def target_program():
         crossover_type=crossover_type,
         crossover_probability=crossover_probability,
         mutation_type=mutation_type,
-        #on_generation=on_generation,
+        on_generation=on_generation,
         mutation_num_genes=mutation_num_genes,
         stop_criteria=stop_criteria,
         save_solutions=False,
         parallel_processing=["thread", int(num_threads)]
 
     )
-    #with Pool(int(num_threads)) as p:
-        #initial_instance.run()
+
+    initial_instance.run()
 
 
 def profile_memory():

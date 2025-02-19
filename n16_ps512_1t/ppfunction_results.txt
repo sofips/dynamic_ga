@@ -1,0 +1,70 @@
+Wed Feb 19 15:43:40 2025    n16_ps512_1t/ppfunction_results.prof
+
+         222 function calls in 0.001 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.001    0.001 {method 'choice' of 'numpy.random.mtrand.RandomState' objects}
+        1    0.000    0.000    0.001    0.001 /users/speron/anaconda3/lib/python3.11/site-packages/pygad/pygad.py:28(__init__)
+        1    0.000    0.000    0.001    0.001 /users/speron/dinamic_ga/n16_ps512_1t/dc_ga_profiling.py:104(target_program)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:1415(_clear_cache)
+        2    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        2    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/site-packages/pygad/pygad.py:1318(round_genes)
+        2    0.000    0.000    0.000    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+        1    0.000    0.000    0.001    0.001 /users/speron/anaconda3/lib/python3.11/site-packages/pygad/pygad.py:1331(initialize_population)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:2081(getLogger)
+        2    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:69(_wrapreduction)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:576(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'clear' of 'list' objects}
+       71    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        6    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:228(_acquireLock)
+        2    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2955(prod)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:882(__init__)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:912(createLock)
+        6    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:237(_releaseLock)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/site-packages/pygad/helper/unique.py:605(unpack_gene_space)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:1327(getLogger)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:1460(setLevel)
+        2    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(prod)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:845(_removeHandlerRef)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:435(validate)
+       47    0.000    0.000    0.000    0.000 {method 'clear' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/_weakrefset.py:85(add)
+        1    0.000    0.000    0.000    0.000 {method 'search' of 're.Pattern' objects}
+        4    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/inspect.py:300(ismethod)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:1076(__init__)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:863(_addHandlerRef)
+        2    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:256(_register_at_fork_reinit_lock)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/_weakrefset.py:39(_remove)
+        2    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:70(<dictcomp>)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        6    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.RLock' objects}
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:1646(addHandler)
+        3    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:202(_checkLevel)
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        3    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+        6    0.000    0.000    0.000    0.000 {method 'release' of '_thread.RLock' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:428(__init__)
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/threading.py:90(RLock)
+        1    0.000    0.000    0.000    0.000 {method 'remove' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:936(setLevel)
+        3    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:795(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'discard' of 'set' objects}
+        2    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/site-packages/numpy/core/fromnumeric.py:2950(_prod_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'isnumeric' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        2    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /users/speron/anaconda3/lib/python3.11/logging/__init__.py:983(setFormatter)
+        1    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        1    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+
+
