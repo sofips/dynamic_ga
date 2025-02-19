@@ -330,7 +330,7 @@ def fitness_func_constructor(fid_function, arguments):
                   and returns the fitness value of the solution.
     """
 
-    fitness = njit(lambda vec: fid_function(vec, *arguments))
+    fitness = lambda vec: fid_function(vec, *arguments)
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 

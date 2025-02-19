@@ -127,7 +127,7 @@ def target_program():
 
     )
     #with Pool(int(num_threads)) as p:
-        #initial_instance.run()
+    initial_instance.run()
 
 
 def profile_memory():

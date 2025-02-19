@@ -21,7 +21,7 @@ b = 100  # magnetic field strength
 
 # genetic algorithm parameters
 
-num_generations = 8
+num_generations = 2
 num_genes = 5 * n
 sol_per_pop = int(sys.argv[1]) 
 fidelity_tolerance = 0.00001
