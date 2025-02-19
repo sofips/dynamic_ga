@@ -1,3 +1,0 @@
-chain_length,pop_size,total_time,min_memory,max_memory,max_memory_increment
-16,512,0.0008409023284912109,197.5,198.25,0.75
-16,512,0.0006356239318847656,195.71484375,196.46484375,0.75
