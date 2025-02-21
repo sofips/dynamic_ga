@@ -13,7 +13,7 @@ config = configparser.ConfigParser()
 
 # system parameters
 
-n = 32 #int(sys.argv[1])  # number of spins in the system
+n = 64 #int(sys.argv[1])  # number of spins in the system
 dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
 #speed_fraction = 1.1  # fraction of qsl speed
@@ -21,7 +21,7 @@ b = 100  # magnetic field strength
 
 # genetic algorithm parameters
 
-num_generations = 8
+num_generations = 2
 num_genes = 5 * n
 sol_per_pop = int(sys.argv[1]) 
 fidelity_tolerance = 0.00001
