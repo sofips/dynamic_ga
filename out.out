@@ -1,0 +1,2980 @@
+Starting: python3 exp_gen.py 512 n16_ps512_1t_J 1
+Output of python3 exp_gen.py 512 n16_ps512_1t_J 1:
+
+Error output of python3 exp_gen.py 512 n16_ps512_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps512_1t_J/dc_ga_profiling.py", line 3, in <module>
+    from dgamod import *
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps512_1t_J/dgamod.py", line 8, in <module>
+    from numba import njit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 512 n16_ps512_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 1024 n16_ps1024_1t_J 1
+Output of python3 exp_gen.py 1024 n16_ps1024_1t_J 1:
+
+Error output of python3 exp_gen.py 1024 n16_ps1024_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps1024_1t_J/dc_ga_profiling.py", line 3, in <module>
+    from dgamod import *
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps1024_1t_J/dgamod.py", line 8, in <module>
+    from numba import njit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 1024 n16_ps1024_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 2048 n16_ps2048_1t_J 1
+Output of python3 exp_gen.py 2048 n16_ps2048_1t_J 1:
+
+Error output of python3 exp_gen.py 2048 n16_ps2048_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps2048_1t_J/dc_ga_profiling.py", line 3, in <module>
+    from dgamod import *
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps2048_1t_J/dgamod.py", line 8, in <module>
+    from numba import njit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 2048 n16_ps2048_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 4096 n16_ps4096_1t_J 1
+Output of python3 exp_gen.py 4096 n16_ps4096_1t_J 1:
+
+Error output of python3 exp_gen.py 4096 n16_ps4096_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps4096_1t_J/dc_ga_profiling.py", line 3, in <module>
+    from dgamod import *
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps4096_1t_J/dgamod.py", line 8, in <module>
+    from numba import njit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 4096 n16_ps4096_1t_J 1 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n16_ps512_1t_J 1
+Output of python3 exp_gen.py 512 n16_ps512_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 512 n16_ps512_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps512_1t_J/dc_ga_profiling.py", line 4, in <module>
+    from numba import njit, prange, jit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 512 n16_ps512_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 1024 n16_ps1024_1t_J 1
+Output of python3 exp_gen.py 1024 n16_ps1024_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 1024 n16_ps1024_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps1024_1t_J/dc_ga_profiling.py", line 4, in <module>
+    from numba import njit, prange, jit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 1024 n16_ps1024_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 2048 n16_ps2048_1t_J 1
+Output of python3 exp_gen.py 2048 n16_ps2048_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 2048 n16_ps2048_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps2048_1t_J/dc_ga_profiling.py", line 4, in <module>
+    from numba import njit, prange, jit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 2048 n16_ps2048_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 4096 n16_ps4096_1t_J 1
+Output of python3 exp_gen.py 4096 n16_ps4096_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 4096 n16_ps4096_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps4096_1t_J/dc_ga_profiling.py", line 4, in <module>
+    from numba import njit, prange, jit
+ModuleNotFoundError: No module named 'numba'
+
+python3 exp_gen.py 4096 n16_ps4096_1t_J 1 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n16_ps512_1t_J 1
+Output of python3 exp_gen.py 512 n16_ps512_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 512 n16_ps512_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps512_1t_J/dc_ga_profiling.py", line 11, in <module>
+    from joblib import Parallel, delayed
+ModuleNotFoundError: No module named 'joblib'
+
+python3 exp_gen.py 512 n16_ps512_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 1024 n16_ps1024_1t_J 1
+Output of python3 exp_gen.py 1024 n16_ps1024_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 1024 n16_ps1024_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps1024_1t_J/dc_ga_profiling.py", line 11, in <module>
+    from joblib import Parallel, delayed
+ModuleNotFoundError: No module named 'joblib'
+
+python3 exp_gen.py 1024 n16_ps1024_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 2048 n16_ps2048_1t_J 1
+Output of python3 exp_gen.py 2048 n16_ps2048_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 2048 n16_ps2048_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps2048_1t_J/dc_ga_profiling.py", line 11, in <module>
+    from joblib import Parallel, delayed
+ModuleNotFoundError: No module named 'joblib'
+
+python3 exp_gen.py 2048 n16_ps2048_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 4096 n16_ps4096_1t_J 1
+Output of python3 exp_gen.py 4096 n16_ps4096_1t_J 1:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 4096 n16_ps4096_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n16_ps4096_1t_J/dc_ga_profiling.py", line 11, in <module>
+    from joblib import Parallel, delayed
+ModuleNotFoundError: No module named 'joblib'
+
+python3 exp_gen.py 4096 n16_ps4096_1t_J 1 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n16_ps512_1t_J 1
+Output of python3 exp_gen.py 512 n16_ps512_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16         0.439545  ...       144.011094        4.009208
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps512_1t_J/profiling_results.csv
+Summary stats saved to n16_ps512_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 512 n16_ps512_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 1024 n16_ps1024_1t_J 1
+Output of python3 exp_gen.py 1024 n16_ps1024_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16         1.006866  ...       152.969141         4.10152
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps1024_1t_J/profiling_results.csv
+Summary stats saved to n16_ps1024_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 1024 n16_ps1024_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 2048 n16_ps2048_1t_J 1
+Output of python3 exp_gen.py 2048 n16_ps2048_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16         2.144986  ...       153.604453        3.233279
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps2048_1t_J/profiling_results.csv
+Summary stats saved to n16_ps2048_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 2048 n16_ps2048_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 4096 n16_ps4096_1t_J 1
+Output of python3 exp_gen.py 4096 n16_ps4096_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            16         4.654866  ...         163.6525        3.062075
+
+[1 rows x 9 columns]
+
+Results saved to n16_ps4096_1t_J/profiling_results.csv
+Summary stats saved to n16_ps4096_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 4096 n16_ps4096_1t_J 1 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n32_ps512_1t_J 1
+Output of python3 exp_gen.py 512 n32_ps512_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         0.769934  ...       187.540625        6.858846
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps512_1t_J/profiling_results.csv
+Summary stats saved to n32_ps512_1t_J/profiling_summary.csv
+
+python3 exp_gen.py 512 n32_ps512_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 1024 n32_ps1024_1t_J 1
+Output of python3 exp_gen.py 1024 n32_ps1024_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         1.903645  ...       205.258828        7.849094
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps1024_1t_J/profiling_results.csv
+Summary stats saved to n32_ps1024_1t_J/profiling_summary.csv
+
+python3 exp_gen.py 1024 n32_ps1024_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 2048 n32_ps2048_1t_J 1
+Output of python3 exp_gen.py 2048 n32_ps2048_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         4.299866  ...       207.573984        4.897016
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps2048_1t_J/profiling_results.csv
+Summary stats saved to n32_ps2048_1t_J/profiling_summary.csv
+
+python3 exp_gen.py 2048 n32_ps2048_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 4096 n32_ps4096_1t_J 1
+Output of python3 exp_gen.py 4096 n32_ps4096_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32          8.50199  ...       225.696016        4.789025
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps4096_1t_J/profiling_results.csv
+Summary stats saved to n32_ps4096_1t_J/profiling_summary.csv
+
+python3 exp_gen.py 4096 n32_ps4096_1t_J 1 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_1t_J 1
+Output of python3 exp_gen.py 512 n64_ps512_1t_J 1:
+
+Error output of python3 exp_gen.py 512 n64_ps512_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps512_1t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 512 n64_ps512_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_1t_J 1
+Output of python3 exp_gen.py 1024 n64_ps1024_1t_J 1:
+
+Error output of python3 exp_gen.py 1024 n64_ps1024_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps1024_1t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 1024 n64_ps1024_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_1t_J 1
+Output of python3 exp_gen.py 2048 n64_ps2048_1t_J 1:
+
+Error output of python3 exp_gen.py 2048 n64_ps2048_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps2048_1t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 2048 n64_ps2048_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_1t_J 1
+Output of python3 exp_gen.py 4096 n64_ps4096_1t_J 1:
+
+Error output of python3 exp_gen.py 4096 n64_ps4096_1t_J 1:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps4096_1t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 4096 n64_ps4096_1t_J 1 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_1t_J 1
+Output of python3 exp_gen.py 512 n64_ps512_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         2.313949  ...       266.280312       17.559428
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps512_1t_J/profiling_results.csv
+Summary stats saved to n64_ps512_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 512 n64_ps512_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_1t_J 1
+Output of python3 exp_gen.py 1024 n64_ps1024_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         6.054408  ...       295.278359        15.12538
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps1024_1t_J/profiling_results.csv
+Summary stats saved to n64_ps1024_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 1024 n64_ps1024_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_1t_J 1
+Output of python3 exp_gen.py 2048 n64_ps2048_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        15.117418  ...       299.986719       10.584353
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps2048_1t_J/profiling_results.csv
+Summary stats saved to n64_ps2048_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 2048 n64_ps2048_1t_J 1 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_1t_J 1
+Output of python3 exp_gen.py 4096 n64_ps4096_1t_J 1:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        35.513871  ...       328.415625        10.31536
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps4096_1t_J/profiling_results.csv
+Summary stats saved to n64_ps4096_1t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 4096 n64_ps4096_1t_J 1 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_4t_J 4
+Output of python3 exp_gen.py 512 n64_ps512_4t_J 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64           3.7925  ...       267.949453       17.302499
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps512_4t_J/profiling_results.csv
+Summary stats saved to n64_ps512_4t_J/profiling_summary.csv
+
+python3 exp_gen.py 512 n64_ps512_4t_J 4 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_4t_J 4
+Output of python3 exp_gen.py 1024 n64_ps1024_4t_J 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         9.313747  ...       294.415156       17.691135
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps1024_4t_J/profiling_results.csv
+Summary stats saved to n64_ps1024_4t_J/profiling_summary.csv
+
+python3 exp_gen.py 1024 n64_ps1024_4t_J 4 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_4t_J 4
+Output of python3 exp_gen.py 2048 n64_ps2048_4t_J 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        21.237842  ...       301.080859        9.834275
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps2048_4t_J/profiling_results.csv
+Summary stats saved to n64_ps2048_4t_J/profiling_summary.csv
+
+python3 exp_gen.py 2048 n64_ps2048_4t_J 4 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_4t_J 4
+Output of python3 exp_gen.py 4096 n64_ps4096_4t_J 4:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        46.615537  ...       332.559766       10.140035
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps4096_4t_J/profiling_results.csv
+Summary stats saved to n64_ps4096_4t_J/profiling_summary.csv
+
+python3 exp_gen.py 4096 n64_ps4096_4t_J 4 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_8t_J 8
+Output of python3 exp_gen.py 512 n64_ps512_8t_J 8:
+
+Error output of python3 exp_gen.py 512 n64_ps512_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps512_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 512 n64_ps512_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_8t_J 8
+Output of python3 exp_gen.py 1024 n64_ps1024_8t_J 8:
+
+Error output of python3 exp_gen.py 1024 n64_ps1024_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps1024_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 1024 n64_ps1024_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_8t_J 8
+Output of python3 exp_gen.py 2048 n64_ps2048_8t_J 8:
+
+Error output of python3 exp_gen.py 2048 n64_ps2048_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps2048_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 2048 n64_ps2048_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_8t_J 8
+Output of python3 exp_gen.py 4096 n64_ps4096_8t_J 8:
+
+Error output of python3 exp_gen.py 4096 n64_ps4096_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps4096_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 4096 n64_ps4096_8t_J 8 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_16t_J 16
+Output of python3 exp_gen.py 512 n64_ps512_16t_J 16:
+
+Error output of python3 exp_gen.py 512 n64_ps512_16t_J 16:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps512_16t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 512 n64_ps512_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_16t_J 16
+Output of python3 exp_gen.py 1024 n64_ps1024_16t_J 16:
+
+Error output of python3 exp_gen.py 1024 n64_ps1024_16t_J 16:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps1024_16t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 1024 n64_ps1024_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_16t_J 16
+Output of python3 exp_gen.py 2048 n64_ps2048_16t_J 16:
+
+Error output of python3 exp_gen.py 2048 n64_ps2048_16t_J 16:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps2048_16t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 2048 n64_ps2048_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_16t_J 16
+Output of python3 exp_gen.py 4096 n64_ps4096_16t_J 16:
+
+Error output of python3 exp_gen.py 4096 n64_ps4096_16t_J 16:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps4096_16t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 4096 n64_ps4096_16t_J 16 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_16t_J 16
+Output of python3 exp_gen.py 512 n64_ps512_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         3.696469  ...       276.881562       18.153092
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps512_16t_J/profiling_results.csv
+Summary stats saved to n64_ps512_16t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 512 n64_ps512_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_16t_J 16
+Output of python3 exp_gen.py 1024 n64_ps1024_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         9.796563  ...       301.584766       14.331745
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps1024_16t_J/profiling_results.csv
+Summary stats saved to n64_ps1024_16t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 1024 n64_ps1024_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_16t_J 16
+Output of python3 exp_gen.py 2048 n64_ps2048_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        22.297288  ...       312.135391       10.197214
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps2048_16t_J/profiling_results.csv
+Summary stats saved to n64_ps2048_16t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 2048 n64_ps2048_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_16t_J 16
+Output of python3 exp_gen.py 4096 n64_ps4096_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        45.948282  ...       339.264844       10.089285
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps4096_16t_J/profiling_results.csv
+Summary stats saved to n64_ps4096_16t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 4096 n64_ps4096_16t_J 16 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_8t_J 8
+Output of python3 exp_gen.py 512 n64_ps512_8t_J 8:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 512 n64_ps512_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps512_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 512 n64_ps512_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_8t_J 8
+Output of python3 exp_gen.py 1024 n64_ps1024_8t_J 8:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 1024 n64_ps1024_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps1024_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 1024 n64_ps1024_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_8t_J 8
+Output of python3 exp_gen.py 2048 n64_ps2048_8t_J 8:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 2048 n64_ps2048_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps2048_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 2048 n64_ps2048_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_8t_J 8
+Output of python3 exp_gen.py 4096 n64_ps4096_8t_J 8:
+Warning: Directory already existed
+
+Error output of python3 exp_gen.py 4096 n64_ps4096_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n64_ps4096_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 4096 n64_ps4096_8t_J 8 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_2t_J 2
+Output of python3 exp_gen.py 512 n64_ps512_2t_J 2:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         3.853341  ...       267.040078       18.216637
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps512_2t_J/profiling_results.csv
+Summary stats saved to n64_ps512_2t_J/profiling_summary.csv
+
+python3 exp_gen.py 512 n64_ps512_2t_J 2 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_2t_J 2
+Output of python3 exp_gen.py 1024 n64_ps1024_2t_J 2:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         9.678391  ...       296.386953       15.642353
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps1024_2t_J/profiling_results.csv
+Summary stats saved to n64_ps1024_2t_J/profiling_summary.csv
+
+python3 exp_gen.py 1024 n64_ps1024_2t_J 2 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_2t_J 2
+Output of python3 exp_gen.py 2048 n64_ps2048_2t_J 2:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         21.72209  ...       299.597109       10.143658
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps2048_2t_J/profiling_results.csv
+Summary stats saved to n64_ps2048_2t_J/profiling_summary.csv
+
+python3 exp_gen.py 2048 n64_ps2048_2t_J 2 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_2t_J 2
+Output of python3 exp_gen.py 4096 n64_ps4096_2t_J 2:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        45.433569  ...       323.841953       10.443548
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps4096_2t_J/profiling_results.csv
+Summary stats saved to n64_ps4096_2t_J/profiling_summary.csv
+
+python3 exp_gen.py 4096 n64_ps4096_2t_J 2 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n32_ps512_8t_J 8
+Output of python3 exp_gen.py 512 n32_ps512_8t_J 8:
+
+Error output of python3 exp_gen.py 512 n32_ps512_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps512_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 512 n32_ps512_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 1024 n32_ps1024_8t_J 8
+Output of python3 exp_gen.py 1024 n32_ps1024_8t_J 8:
+
+Error output of python3 exp_gen.py 1024 n32_ps1024_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps1024_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 1024 n32_ps1024_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 2048 n32_ps2048_8t_J 8
+Output of python3 exp_gen.py 2048 n32_ps2048_8t_J 8:
+
+Error output of python3 exp_gen.py 2048 n32_ps2048_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps2048_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 2048 n32_ps2048_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 4096 n32_ps4096_8t_J 8
+Output of python3 exp_gen.py 4096 n32_ps4096_8t_J 8:
+
+Error output of python3 exp_gen.py 4096 n32_ps4096_8t_J 8:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps4096_8t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 4096 n32_ps4096_8t_J 8 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n32_ps512_8t_J 8
+Output of python3 exp_gen.py 512 n32_ps512_8t_J 8:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         1.351107  ...       190.048359        8.844535
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps512_8t_J/profiling_results.csv
+Summary stats saved to n32_ps512_8t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 512 n32_ps512_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 1024 n32_ps1024_8t_J 8
+Output of python3 exp_gen.py 1024 n32_ps1024_8t_J 8:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         3.547145  ...       205.610078        7.460732
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps1024_8t_J/profiling_results.csv
+Summary stats saved to n32_ps1024_8t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 1024 n32_ps1024_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 2048 n32_ps2048_8t_J 8
+Output of python3 exp_gen.py 2048 n32_ps2048_8t_J 8:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32          7.87706  ...       207.770156        5.308212
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps2048_8t_J/profiling_results.csv
+Summary stats saved to n32_ps2048_8t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 2048 n32_ps2048_8t_J 8 completed successfully.
+Starting: python3 exp_gen.py 4096 n32_ps4096_8t_J 8
+Output of python3 exp_gen.py 4096 n32_ps4096_8t_J 8:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32        16.083314  ...       225.371563        4.679343
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps4096_8t_J/profiling_results.csv
+Summary stats saved to n32_ps4096_8t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 4096 n32_ps4096_8t_J 8 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n32_ps512_16t_J 16
+Output of python3 exp_gen.py 512 n32_ps512_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         1.510065  ...       191.125859        9.619154
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps512_16t_J/profiling_results.csv
+Summary stats saved to n32_ps512_16t_J/profiling_summary.csv
+
+python3 exp_gen.py 512 n32_ps512_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 1024 n32_ps1024_16t_J 16
+Output of python3 exp_gen.py 1024 n32_ps1024_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         3.780116  ...       200.160391        7.002422
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps1024_16t_J/profiling_results.csv
+Summary stats saved to n32_ps1024_16t_J/profiling_summary.csv
+
+python3 exp_gen.py 1024 n32_ps1024_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 2048 n32_ps2048_16t_J 16
+Output of python3 exp_gen.py 2048 n32_ps2048_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         8.395037  ...       208.207812        6.025656
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps2048_16t_J/profiling_results.csv
+Summary stats saved to n32_ps2048_16t_J/profiling_summary.csv
+
+python3 exp_gen.py 2048 n32_ps2048_16t_J 16 completed successfully.
+Starting: python3 exp_gen.py 4096 n32_ps4096_16t_J 16
+Output of python3 exp_gen.py 4096 n32_ps4096_16t_J 16:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32        17.524458  ...       228.011562        5.144297
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps4096_16t_J/profiling_results.csv
+Summary stats saved to n32_ps4096_16t_J/profiling_summary.csv
+
+python3 exp_gen.py 4096 n32_ps4096_16t_J 16 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n64_ps512_32t_J 32
+Output of python3 exp_gen.py 512 n64_ps512_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         3.827914  ...       290.745156       20.273601
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps512_32t_J/profiling_results.csv
+Summary stats saved to n64_ps512_32t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 512 n64_ps512_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 1024 n64_ps1024_32t_J 32
+Output of python3 exp_gen.py 1024 n64_ps1024_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64         9.858856  ...       318.670937        17.15613
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps1024_32t_J/profiling_results.csv
+Summary stats saved to n64_ps1024_32t_J/profiling_summary.csv
+
+python3 exp_gen.py 1024 n64_ps1024_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 2048 n64_ps2048_32t_J 32
+Output of python3 exp_gen.py 2048 n64_ps2048_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        22.358422  ...       320.046016       11.974345
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps2048_32t_J/profiling_results.csv
+Summary stats saved to n64_ps2048_32t_J/profiling_summary.csv
+
+python3 exp_gen.py 2048 n64_ps2048_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 4096 n64_ps4096_32t_J 32
+Output of python3 exp_gen.py 4096 n64_ps4096_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            64        46.165393  ...       350.936328       10.079656
+
+[1 rows x 9 columns]
+
+Results saved to n64_ps4096_32t_J/profiling_results.csv
+Summary stats saved to n64_ps4096_32t_J/profiling_summary.csv
+
+python3 exp_gen.py 4096 n64_ps4096_32t_J 32 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n32_ps512_32t_J 32
+Output of python3 exp_gen.py 512 n32_ps512_32t_J 32:
+
+Error output of python3 exp_gen.py 512 n32_ps512_32t_J 32:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps512_32t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 512 n32_ps512_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 1024 n32_ps1024_32t_J 32
+Output of python3 exp_gen.py 1024 n32_ps1024_32t_J 32:
+
+Error output of python3 exp_gen.py 1024 n32_ps1024_32t_J 32:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps1024_32t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 1024 n32_ps1024_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 2048 n32_ps2048_32t_J 32
+Output of python3 exp_gen.py 2048 n32_ps2048_32t_J 32:
+
+Error output of python3 exp_gen.py 2048 n32_ps2048_32t_J 32:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps2048_32t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 2048 n32_ps2048_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 4096 n32_ps4096_32t_J 32
+Output of python3 exp_gen.py 4096 n32_ps4096_32t_J 32:
+
+Error output of python3 exp_gen.py 4096 n32_ps4096_32t_J 32:
+Traceback (most recent call last):
+  File "/home/speron/paralela/vect/dinamic_ga/n32_ps4096_32t_J/dc_ga_profiling.py", line 6, in <module>
+    import pygad
+ModuleNotFoundError: No module named 'pygad'
+
+python3 exp_gen.py 4096 n32_ps4096_32t_J 32 completed successfully.
+All programs completed.
+Starting: python3 exp_gen.py 512 n32_ps512_32t_J 32
+Output of python3 exp_gen.py 512 n32_ps512_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         1.478964  ...       191.712578        9.774886
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps512_32t_J/profiling_results.csv
+Summary stats saved to n32_ps512_32t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 512 n32_ps512_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 1024 n32_ps1024_32t_J 32
+Output of python3 exp_gen.py 1024 n32_ps1024_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         3.855751  ...       207.096797        8.374668
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps1024_32t_J/profiling_results.csv
+Summary stats saved to n32_ps1024_32t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 1024 n32_ps1024_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 2048 n32_ps2048_32t_J 32
+Output of python3 exp_gen.py 2048 n32_ps2048_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32         8.780273  ...       210.265078        4.961957
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps2048_32t_J/profiling_results.csv
+Summary stats saved to n32_ps2048_32t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 2048 n32_ps2048_32t_J 32 completed successfully.
+Starting: python3 exp_gen.py 4096 n32_ps4096_32t_J 32
+Output of python3 exp_gen.py 4096 n32_ps4096_32t_J 32:
+Eigenstate Propagation: correct
+run 0
+run 1
+run 2
+run 3
+run 4
+run 5
+run 6
+run 7
+run 8
+run 9
+run 10
+run 11
+run 12
+run 13
+run 14
+run 15
+run 16
+run 17
+run 18
+run 19
+run 20
+run 21
+run 22
+run 23
+run 24
+run 25
+run 26
+run 27
+run 28
+run 29
+run 30
+run 31
+run 32
+run 33
+run 34
+run 35
+run 36
+run 37
+run 38
+run 39
+run 40
+run 41
+run 42
+run 43
+run 44
+run 45
+run 46
+run 47
+run 48
+run 49
+
+Summary of Stats (Mean and Standard Deviation):
+   chain_length  total_time_mean  ...  max_memory_mean  max_memory_std
+0            32        16.972775  ...       231.861562        5.802036
+
+[1 rows x 9 columns]
+
+Results saved to n32_ps4096_32t_J/profiling_results.csv
+Summary stats saved to n32_ps4096_32t_J/profiling_summary.csv
+Warning: Directory already existed
+
+python3 exp_gen.py 4096 n32_ps4096_32t_J 32 completed successfully.
+All programs completed.

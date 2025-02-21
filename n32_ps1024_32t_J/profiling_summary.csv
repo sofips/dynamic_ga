@@ -1,0 +1,2 @@
+chain_length,total_time_mean,total_time_std,max_memory_increment_mean,max_memory_increment_std,min_memory_mean,min_memory_std,max_memory_mean,max_memory_std
+32,3.8557509422302245,0.03979829672145148,0.49,0.16863421954040048,205.370546875,8.91598705118558,207.096796875,8.37466837305142
