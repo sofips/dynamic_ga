@@ -184,12 +184,11 @@ results = []
 # Test the optimized and original versions of the fitness function
 # -----------------------------------------------------------------
 
-dimensions = [16,32,64]
-
+dimensions = [2**n for n in range(3, 8)]
 iterations = 1024
 
 for n in dimensions:
-
+    print(f"Testing for n = {n}")
     times_vectorized = []
     times_optimized = []
     times_original = []
@@ -291,6 +290,6 @@ for n in dimensions:
     )
 
 df = pd.DataFrame(results)
-output_file = f"comparing_functions.csv"
+output_file = f"comparing_functions_for_2n.csv"
 df.to_csv(output_file, index=False)
 print(f"\nResults saved to {output_file}")
