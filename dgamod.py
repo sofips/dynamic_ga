@@ -1,10 +1,8 @@
 import numpy as np
 import scipy.linalg as la
-import cmath as cm
 import csv
 import matplotlib.pyplot as plt
 from scipy.linalg import expm
-import os
 
 
 def gen_props(actions, n, dt, test=True):
@@ -388,44 +386,17 @@ def ipr_based2(action_sequence, dt, props, test_normalization=True):
 
 def fitness_func_constructor(fid_function, arguments):
     """
-<<<<<<< HEAD
-    Constructs a fitness function for use with PyGAD.
-
-        fid_function (callable): The fidelity function to be used.
-        arguments (tuple): The arguments to be passed to the fidelity function.
-
-    Returns:
-        callable: A lambda function that takes a PyGAD GA instance, a solution, and the solution index,
-                  and returns the fitness value of the solution.
-=======
     Parameters:
         - fidelity function(can be either fidelity or en_fidelity)
         - arguments: arguments of fidelity functions
     Return:
         - lambda function: the fitness function as required by PyGAD
->>>>>>> parent of 7d21bbe (documented all functions :))
     """
     fitness = lambda vec: fid_function(vec, *arguments)
 
     return lambda ga_instance, solution, solution_idx: fitness(solution)
 
 
-<<<<<<< HEAD
-def generation_func(ga, props, tol):
-    """
-    Function to be ran on every generation of the genetic algorithm.
-    Prints relevant information on the best solution,
-    and determines whether to stop the algorithm based on fidelity.
-
-    Args:
-        ga (GeneticAlgorithm): An instance of the genetic algorithm.
-        props (dict): Propagators being used to calculate fidelity from action sequence.
-        tol (float): The tolerance level for the fidelity to determine if the algorithm should stop.
-
-    Returns:
-        str: Returns "stop" if the fidelity of the best solution is greater than or equal to (1 - tol).
-    """
-=======
 def generation_print(ga):
 
     solution, solution_fitness, solution_idx = ga.best_solution()
@@ -435,7 +406,6 @@ def generation_print(ga):
 
 
 def generation_func(ga, props, tol):
->>>>>>> parent of 7d21bbe (documented all functions :))
 
     solution, solution_fitness, solution_idx = ga.best_solution()
 
@@ -512,25 +482,18 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
     for action in solution:
 
-<<<<<<< HEAD
-        state = calculate_next_state(state, action, props, check_normalization=False)
-=======
         state = np.matmul(props[action, :, :], state)
         # fid = np.real(state[nh-1])**2+np.imag(state[nh-1])**2
 
->>>>>>> parent of 7d21bbe (documented all functions :))
         fid = np.real(state[nh - 1] * np.conjugate(state[nh - 1]))
         fid_evolution = np.append(fid_evolution, fid)
 
         if abs(la.norm(state) - 1.0) > 1e-8:
             print("FALLO EN LA NORMALIZACION", la.norm(state))
 
-<<<<<<< HEAD
-=======
         # else:
         # print('NORMALIZACION OK: ',la.norm(state))
 
->>>>>>> parent of 7d21bbe (documented all functions :))
     tsteps = np.shape(fid_evolution)[0] + 1
 
     if graph:
@@ -546,13 +509,7 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
         plt.grid()
         plt.title(
-<<<<<<< HEAD
-            " Fidelity evolution. Max. = {} on time step = {}".format(
-                max_fid, max_action
-            )
-=======
             " Evolucion fidelidad, max = {}, accion = {}".format(max_fid, max_action)
->>>>>>> parent of 7d21bbe (documented all functions :))
         )
         plt.xlabel("t")
         plt.ylabel("|f|**2")
@@ -567,37 +524,12 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
     return fid_evolution_array
 
 
-<<<<<<< HEAD
-# ---------------------------------------------------------------------------
-#
-# ACTIONS FROM THE REFERENCED WORK
-#
-# ---------------------------------------------------------------------------
-
-
-def diagonals_zhang(bmax, i, nh):
-    """
-    Construction of diagonals associated to referenced work. The first and last three sites
-    can be controlled.
-
-    Parameters:
-    bmax (float): Control field value.
-    i (int): The index determining which diagonal elements to set to 1.
-    nh (int): The length of the spin chain, corresponding to the action
-    matrices size.
-
-    Returns:
-    numpy.ndarray: A diagonal vector of length `nh` with specific elements set to `bmax` based on the index `i`,
-    corresponding to the 16 action matrices.
-    """
-=======
 ################
 # acciones zhang#
 ################
 
 
 def diagonales_paper2(bmax, i, nh):
->>>>>>> parent of 7d21bbe (documented all functions :))
 
     b = np.full(nh, 0)
 
@@ -673,11 +605,7 @@ def actions_paper2(bmax, nh):
 
         b = diagonales_paper2(bmax, i, nh)
 
-<<<<<<< HEAD
         J = 1
-=======
-        J = 1  # [-0.5*np.sqrt((nh-k)*k) for k in np.arange(1,nh,1)]
->>>>>>> parent of 7d21bbe (documented all functions :))
 
         for k in range(0, nh - 1):
             actions[i, k, k + 1] = J

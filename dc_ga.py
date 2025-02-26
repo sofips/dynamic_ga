@@ -126,13 +126,4 @@ def main():
             actions_to_file(solution, solutions_fname, "w")
 
 if __name__ == "__main__":
-    profiler = cProfile.Profile()
-    profiler.enable()
     main()
-    profiler.disable()
-    profiler.dump_stats('profile_results.prof')
-
-    with open('profile_stats.txt', 'w') as f:
-        stats = pstats.Stats('profile_results.prof', stream=f)
-        stats.sort_stats('cumulative')
-        stats.print_stats()
