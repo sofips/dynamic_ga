@@ -3,7 +3,8 @@ import scipy.linalg as la
 import csv
 import matplotlib.pyplot as plt
 from scipy.linalg import expm
-
+np.complex_ = np.complex128
+np.mat = np.asmatrix
 
 def gen_props(actions, n, dt, test=True):
     """
