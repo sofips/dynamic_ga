@@ -1,9 +1,0 @@
-Starting: python3 exp_gen.py 1024 n16_ps1024_1t_og 1 10 >>out1.out 
-python3 exp_gen.py 1024 n16_ps1024_1t_og 1 10 >>out1.out  failed with exit code None
-Starting: python3 exp_gen.py 2048 n16_ps2048_1t_og 1 15
-python3 exp_gen.py 2048 n16_ps2048_1t_og 1 15 failed with exit code None
-Starting: python3 exp_gen.py 4096 n16_ps4096_1t_og 1 20
-python3 exp_gen.py 4096 n16_ps4096_1t_og 1 20 failed with exit code None
-Starting: python3 exp_gen.py 8192 n16_ps1024_1t_og 1 25
-python3 exp_gen.py 8192 n16_ps1024_1t_og 1 25 failed with exit code None
-All programs completed.
