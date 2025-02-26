@@ -71,7 +71,7 @@ for i in range(initial_step):
     initial_state = calculate_next_state(state, 0, props)
 
 num_genes = num_genes - initial_step
-fidelity_args = [props, initial_state, fidelity_tolerance,reward_decay]#,fidelity_tolerance,reward_decay]
+fidelity_args = [props, initial_state, initial_step, fidelity_tolerance,reward_decay]#,fidelity_tolerance,reward_decay]
 fitness_func = fitness_func_constructor(reward_based_fitness_late, fidelity_args)
 mutation_type = "swap"
 
