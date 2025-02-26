@@ -23,7 +23,7 @@ max_optimization_time = 0 #int(n//2/0.15)
 
 num_generations = 1000
 num_genes = 5 * n
-sol_per_pop = 3000
+sol_per_pop = 2048
 fidelity_tolerance = 0.05
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 20
@@ -42,7 +42,7 @@ mutation_num_genes = n
 
 # execution and results saving
 directory = sys.argv[2]
-n_samples = 1
+n_samples = 10
 
 
 config["system_parameters"] = {

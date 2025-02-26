@@ -1,6 +1,5 @@
 import numpy as np
 from dgamod import *
-
 import csv
 import pygad
 import sys
@@ -69,8 +68,8 @@ def main():
         generation_func, [props, fidelity_tolerance]
     )
 
-    fidelity_args = [dt, props, True] #[props,fidelity_tolerance,reward_decay, True] #[dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
-    fitness_func = fitness_func_constructor(ipr_based2, fidelity_args)
+    fidelity_args = [props,fidelity_tolerance,reward_decay, True] #[dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
+    fitness_func = fitness_func_constructor(reward_based_fitness, fidelity_args)
     mutation_type = "swap"
 
 
