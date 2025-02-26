@@ -7,10 +7,6 @@ import time
 import os
 import configparser
 
-# profiling libraries
-import cProfile
-import pstats
-
 def main():
     # get parameters from config file
     thisfolder = os.path.dirname(os.path.abspath(__file__))
