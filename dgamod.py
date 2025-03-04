@@ -368,7 +368,7 @@ def generation_func(ga, props, tol):
     )
 
     if fid >= 1 - tol:
-        return "would stop here"
+        return "stop"
 
 
 def generation_func_constructor(gen_function, arguments):
