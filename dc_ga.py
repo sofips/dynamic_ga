@@ -31,7 +31,7 @@ b = config.getfloat("system_parameters", "b")
 # max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
 # generates actions and associated propagators
-acciones = actions_zhang(b, n)  ## acciones zhang
+acciones = one_field_actions(b, n)  ## acciones zhang
 props = gen_props(acciones, n, dt)
 
 # genetic algorithm parameters
@@ -80,15 +80,15 @@ fitness_func = fitness_func_constructor(reward_based_fitness_gpu, fidelity_args)
 mutation_type = "swap"
 
 
-def main():
-    # with open(filename, "a") as f:
+#def main():
+with open(filename, "a") as f:
     for i in range(n_samples):
-        # writer = csv.writer(f, delimiter=" ")
+        writer = csv.writer(f, delimiter=" ")
 
-        # solutions_fname = "{}/act_sequence_n{}_sample{}.dat".format(dirname, n, i)
-        # fitness_history_fname = dirname + '/fitness_history_sample'+ str(i) + '.dat'
+        solutions_fname = "{}/act_sequence_n{}_sample{}.dat".format(dirname, n, i)
+        fitness_history_fname = dirname + '/fitness_history_sample'+ str(i) + '.dat'
 
-        # t1 = time.time()
+        t1 = time.time()
 
         initial_instance = pygad.GA(
             num_generations=num_generations,
@@ -107,43 +107,33 @@ def main():
             mutation_num_genes=mutation_num_genes,
             stop_criteria=stop_criteria,
             save_solutions=False,
-            fitness_batch_size=200
+            fitness_batch_size=sol_per_pop
         )
 
         initial_instance.run()
 
-        # comento toda la escritura a disco
 
-        # t2 = time.time()
-        # trun = t2 - t1
+        t2 = time.time()
+        trun = t2 - t1
 
-        # maxg = initial_instance.generations_completed
+        maxg = initial_instance.generations_completed
 
-        # solution, solution_fitness, solution_idx = initial_instance.best_solution()
+        solution, solution_fitness, solution_idx = initial_instance.best_solution()
 
-        # evolution = time_evolution(solution, props, n, graph=False, filename=False)
-        # time_max_fidelity = np.argmax(evolution) * dt
+        evolution = time_evolution(solution, props, n, graph=False, filename=False)
+        time_max_fidelity = np.argmax(evolution) * dt
 
-        # row = [
-        #     n,
-        #     i,
-        #     format(fidelity(solution, props)),
-        #     "{:.8f}".format(time_max_fidelity),
-        #     maxg,
-        #     "{:.8f}".format(trun),
-        # ]
-        # writer.writerow(row)
-        # actions_to_file(solution, solutions_fname, "w")
+        row = [
+            n,
+            i,
+            format(fidelity(solution, props)),
+            "{:.8f}".format(time_max_fidelity),
+            maxg,
+            "{:.8f}".format(trun),
+        ]
+        writer.writerow(row)
+        actions_to_file(solution, solutions_fname, "w")
 
 
 if __name__ == "__main__":
-    profiler = cProfile.Profile()
-    profiler.enable()
     main()
-    profiler.disable()
-    profiler.dump_stats(dirname + "/profile_results.prof")
-
-    with open(dirname + "/profile_stats.txt", "w") as f:
-        stats = pstats.Stats(dirname + "/profile_results.prof", stream=f)
-        stats.sort_stats("tottime")
-        stats.print_stats()
