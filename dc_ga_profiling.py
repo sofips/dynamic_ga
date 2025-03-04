@@ -88,13 +88,9 @@ fidelity_args = [
     fidelity_tolerance,
     reward_decay,
     False,
-]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
+]  
 
 fitness_func = fitness_func_constructor(reward_based_fitness_gpu, fidelity_args)
-
-# def fitness_func(ga_instance, action_sequence, action_index) -> float:
-#     return reward_based_fitness_gpu(action_sequence, props, fidelity_tolerance, reward_decay, False)
-
 
 mutation_type = "swap"
 
@@ -124,11 +120,11 @@ def target_program():
         stop_criteria=stop_criteria,
         save_solutions=False,
         fitness_batch_size=sol_per_pop,
-        #parallel_processing=["thread", int(num_threads)]
+        parallel_processing=["thread", int(num_threads)]
 
     )
-    with Pool(int(num_threads)) as p:
-        initial_instance.run()
+    #with Pool(int(num_threads)) as p:
+    initial_instance.run()
 
 
 def profile_memory():
@@ -168,6 +164,8 @@ def profile_by_function():
 
 
 def main():
+
+
     num_runs = 50 # Number of profiling runs
     results = []
 
