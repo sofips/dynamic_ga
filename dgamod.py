@@ -1,10 +1,14 @@
 import numpy as np
 import scipy.linalg as la
 import csv
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from scipy.linalg import expm
+import os
+#from numba import njit
+import torch as T
 np.complex_ = np.complex128
 np.mat = np.asmatrix
+
 
 def gen_props(actions, n, dt, test=True):
     """
@@ -407,6 +411,19 @@ def generation_print(ga):
 
 
 def generation_func(ga, props, tol):
+    """
+    Function to be ran on every generation of the genetic algorithm.
+    Prints relevant information on the best solution,
+    and determines whether to stop the algorithm based on fidelity.
+
+    Args:
+        ga (GeneticAlgorithm): An instance of the genetic algorithm.
+        props (dict): Propagators being used to calculate fidelity from action sequence.
+        tol (float): The tolerance level for the fidelity to determine if the algorithm should stop.
+
+    Returns:
+        str: Returns "stop" if the fidelity of the best solution is greater than or equal to (1 - tol).
+    """
 
     solution, solution_fitness, solution_idx = ga.best_solution()
 
@@ -483,9 +500,7 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
     for action in solution:
 
-        state = np.matmul(props[action, :, :], state)
-        # fid = np.real(state[nh-1])**2+np.imag(state[nh-1])**2
-
+        state = calculate_next_state(state, action, props, check_normalization=False)
         fid = np.real(state[nh - 1] * np.conjugate(state[nh - 1]))
         fid_evolution = np.append(fid_evolution, fid)
 
@@ -510,7 +525,9 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
         plt.grid()
         plt.title(
-            " Evolucion fidelidad, max = {}, accion = {}".format(max_fid, max_action)
+            " Fidelity evolution. Max. = {} on time step = {}".format(
+                max_fid, max_action
+            )
         )
         plt.xlabel("t")
         plt.ylabel("|f|**2")
@@ -525,12 +542,28 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
     return fid_evolution_array
 
 
-################
-# acciones zhang#
-################
+# ---------------------------------------------------------------------------
+#
+# ACTIONS FROM THE REFERENCED WORK
+#
+# ---------------------------------------------------------------------------
 
 
-def diagonales_paper2(bmax, i, nh):
+def diagonals_zhang(bmax, i, nh):
+    """
+    Construction of diagonals associated to referenced work. The first and last three sites
+    can be controlled.
+
+    Parameters:
+    bmax (float): Control field value.
+    i (int): The index determining which diagonal elements to set to 1.
+    nh (int): The length of the spin chain, corresponding to the action
+    matrices size.
+
+    Returns:
+    numpy.ndarray: A diagonal vector of length `nh` with specific elements set to `bmax` based on the index `i`,
+    corresponding to the 16 action matrices.
+    """
 
     b = np.full(nh, 0)
 
@@ -704,3 +737,101 @@ def one_field_actions_weak(bmax, nh):
         action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
 
     return action_matrices
+
+
+def refined_cns(state, action_index, props):
+    # Retrieve the matrix corresponding to the action index
+    p = props[action_index]
+
+    # Perform matrix-vector multiplication directly
+    next_state = p @ state
+
+    # Return the result as a flat 1D array
+    return next_state.ravel()
+
+
+def reward_based_fitness_vectorized(
+    action_sequence, props, tolerance, reward_decay, test_normalization=True
+):
+    # compute states
+    n = np.shape(props)[1]
+    state = np.zeros(n, dtype=np.complex_)
+    state[0] = 1.0
+
+    states = generate_states(state, action_sequence, props)
+
+    fitness = calculate_reward(states, tolerance, reward_decay)
+
+    return fitness
+
+
+def calculate_reward(states, tolerance, reward_decay):
+    # Compute fidelity for all states
+    n = np.shape(states)[1]
+    fid = np.abs(states[:, n - 1]) ** 2  # Shape: (num_states,)
+
+    # Compute rewards based on conditions
+    rewards = np.zeros_like(fid)
+    rewards[fid <= 0.8] = 10 * fid[fid <= 0.8]
+    rewards[(fid > 0.8) & (fid <= 1 - tolerance)] = 100 / (
+        1 + np.exp(10 * (1 - tolerance - fid[(fid > 0.8) & (fid <= 1 - tolerance)]))
+    )
+    rewards[fid > 1 - tolerance] = 2500
+
+    # Compute fitness with decay
+    decay_factors = reward_decay ** np.arange(len(fid))  # Precompute decay factors
+    fitness = np.sum(rewards * decay_factors)
+
+    return fitness
+
+def generate_states(initial_state, action_sequence, props):
+    """Generate a matrix where each row is the state at a given step."""
+    num_elements = len(initial_state)
+    steps = len(action_sequence)
+    states = np.zeros((steps + 1, num_elements), dtype=initial_state.dtype)
+    states[0] = initial_state  # Set the initial state
+
+    # Sequentially calculate states
+    for i in range(1, steps):
+        states[i] = refined_cns(states[i - 1], action_sequence[i], props)
+
+    return states
+
+
+def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay, test_normalization=False):
+    device = 'cuda'
+    
+    # Convert props to a CUDA tensor once (complex64 is faster)
+    props = T.tensor(props, dtype=T.complex64, device=device, requires_grad=False)
+
+    # Convert action sequences to a tensor
+    action_sequences = T.tensor(action_sequences, dtype=T.int64, device=device)
+
+    num_sequences, steps = action_sequences.shape
+    chain_length = props.shape[1]
+
+    # Initialize states tensor (batch dimension added)
+    states = T.zeros((num_sequences, steps+1, chain_length), dtype=T.complex64, device=device)
+    states[:, 0, 0] = 1.0  # Initial condition
+
+    # Compute states using batched matrix multiplication
+    for i in range(0, steps):
+        states[:, i+1, :] = T.bmm(props[action_sequences[:, i]], states[:, i, :].unsqueeze(-1)).squeeze(-1)
+
+    # Compute fidelity
+    fid = states[:, :, -1].abs() ** 2  # Take absolute squared of last column
+
+    # Compute rewards in parallel
+    rewards = T.zeros_like(fid, device=device)
+    rewards[fid <= 0.8] = 10 * fid[fid <= 0.8]
+    
+    mask = (fid > 0.8) & (fid <= 1 - tolerance)
+    rewards[mask] = 100 / (1 + T.exp(10 * (1 - tolerance - fid[mask])))
+
+    rewards[fid > 1 - tolerance] = 2500
+
+    # Apply decay and sum fitness
+    decay_factors = reward_decay ** T.arange(steps+1, device=device).unsqueeze(0)  # Shape: (1, steps)
+    fitness = T.sum(rewards * decay_factors, dim=1)  # Sum over steps
+
+    return fitness.cpu().numpy()  # Convert once at the end
