@@ -13,7 +13,7 @@ config = configparser.ConfigParser()
 
 # system parameters
 
-n = 64 #int(sys.argv[1])  # number of spins in the system
+n = int(sys.argv[1])  # number of spins in the system
 dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
 #speed_fraction = 1.1  # fraction of qsl speed
@@ -21,28 +21,28 @@ b = 100  # magnetic field strength
 
 # genetic algorithm parameters
 
-num_generations = 2
+num_generations = 3000
 num_genes = 5 * n
-sol_per_pop = int(sys.argv[1]) 
-fidelity_tolerance = 0.00001
+sol_per_pop = 4096 
+fidelity_tolerance = 0.01
 reward_decay = 0.95  # time decay to achieve faster transmission
-saturation = 10
+saturation = 30
 
 # crossover and parent selection
-num_parents_mating = 300 #sol_per_pop // 10
+num_parents_mating = sol_per_pop // 10
 parent_selection_type = "sss"
-keep_elitism = 300 #sol_per_pop // 10
+keep_elitism = sol_per_pop // 10
 crossover_type = "uniform"
-crossover_probability = 1 #0.8
+crossover_probability = 0.8
 
 # other mutation parameters
 
-mutation_probability = 1 #0.99
+mutation_probability = 0.99
 mutation_num_genes = n
 
 # execution and results saving
 directory = sys.argv[2]
-n_samples = 1
+n_samples = 10
 
 
 config["system_parameters"] = {
@@ -85,7 +85,7 @@ config["saving"] = {
     "directory": directory,
     "n_samples": str(n_samples),
 }
-script = "dc_ga_profiling.py"
+script = "dc_ga.py"
 
 isExist = os.path.exists(directory)
 if not isExist:
@@ -109,6 +109,5 @@ with open(config_name, "w") as configfile:
 script_name = directory + "/" + script
 config_name = "ga" + directory + ".ini"
 
-num_threads = int(sys.argv[3])
-cmd = f'python3 "{script_name}" "{config_name}" {num_threads}'
+cmd = f'python3 "{script_name}" "{config_name}"'
 os.system(cmd)
