@@ -18,7 +18,6 @@ print(initfile)
 config = configparser.ConfigParser()
 config.read(initfile)
 
-
 # system parameters
 n = config.getint("system_parameters", "n")
 dt = config.getfloat("system_parameters", "dt")
@@ -29,9 +28,9 @@ b = config.getfloat("system_parameters", "b")
 # )  # fraction of qsl speed if loc based fitness
 # max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
-    # generates actions and associated propagators
-    acciones = one_field_actions(b, n)  ## acciones zhang
-    props = gen_props(acciones, n, dt)
+# generates actions and associated propagators
+acciones = one_field_actions(b, n)  ## acciones zhang
+props = gen_props(acciones, n, dt)
 
 # genetic algorithm parameters
 num_generations = config.getint("ga_initialization", "num_generations")
@@ -58,8 +57,8 @@ n_samples = config.getint("saving", "n_samples")
 filename = dirname + "/nvsmaxfid.dat"
 
 
-    gene_space = np.arange(0, len(acciones), 1)
-    gene_type = int
+gene_space = np.arange(0, len(acciones), 1)
+gene_type = int
 
 stop_criteria = ["saturate_" + str(saturation)]  # , 'reach_'+str(fidelity_tolerance)]
 
@@ -74,12 +73,11 @@ fidelity_args = [
     fidelity_tolerance,
     reward_decay,
     False,
-]  # [dt,props,speed_fraction, max_optimization_time]#,fidelity_tolerance,reward_decay]
+] 
+
 fitness_func = fitness_func_constructor(reward_based_fitness_gpu, fidelity_args)
 mutation_type = "swap"
 
-
-#def main():
 with open(filename, "a") as f:
     for i in range(n_samples):
         writer = csv.writer(f, delimiter=" ")
@@ -111,7 +109,6 @@ with open(filename, "a") as f:
 
         initial_instance.run()
 
-
         t2 = time.time()
         trun = t2 - t1
 
@@ -132,7 +129,3 @@ with open(filename, "a") as f:
         ]
         writer.writerow(row)
         actions_to_file(solution, solutions_fname, "w")
-
-
-if __name__ == "__main__":
-    main()
