@@ -505,10 +505,8 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
         fid_evolution = np.append(fid_evolution, fid)
 
         if abs(la.norm(state) - 1.0) > 1e-8:
-            print("FALLO EN LA NORMALIZACION", la.norm(state))
-
-        # else:
-        # print('NORMALIZACION OK: ',la.norm(state))
+            raise ValueError(f"Normalization failed. Norm of state: {la.norm(state)}")
+        
 
     tsteps = np.shape(fid_evolution)[0] + 1
 
