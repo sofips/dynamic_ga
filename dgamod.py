@@ -1,11 +1,14 @@
 import numpy as np
 import scipy.linalg as la
 import csv
-#import matplotlib.pyplot as plt
+
+# import matplotlib.pyplot as plt
 from scipy.linalg import expm
 import os
-#from numba import njit
+
+# from numba import njit
 import torch as T
+
 np.complex_ = np.complex128
 np.mat = np.asmatrix
 
@@ -49,7 +52,9 @@ def gen_props(actions, n, dt, test=True):
         for a in np.arange(0, n_actions):
             for j in np.arange(0, n):
                 errores = (
-                    calculate_next_state(bases[a, :, j], a, props,check_normalization=True)
+                    calculate_next_state(
+                        bases[a, :, j], a, props, check_normalization=True
+                    )
                     - np.exp(-comp_i * dt * en[a, j]) * bases[a, :, j]
                 )
                 et = np.sum(errores)
@@ -108,7 +113,8 @@ def fidelity(action_sequence, props, return_time=False, test_normalization=True)
 
     return max_fid
 
-def calculate_next_state(state, action_index, props, check_normalization = True):
+
+def calculate_next_state(state, action_index, props, check_normalization=True):
     """
     Calculate the next state by applying the propagator associated to an action.
 
@@ -136,6 +142,7 @@ def calculate_next_state(state, action_index, props, check_normalization = True)
             quit()
 
     return next_state
+
 
 def reward_based_fitness(
     action_sequence, props, tolerance, reward_decay, test_normalization=True
@@ -166,7 +173,7 @@ def reward_based_fitness(
 
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props, check_normalization = False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
         if fid <= 0.8:
@@ -204,7 +211,7 @@ def reward_based_fitness_late(
 
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props, check_normalization = False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         fid = np.real(state[n - 1] * np.conjugate(state[n - 1]))
 
         if fid <= 0.8:
@@ -226,7 +233,9 @@ def reward_based_fitness_late(
     return fitness
 
 
-def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time, test_normalization = True):
+def localization_based(
+    action_sequence, dt, props, speed_fraction, max_opt_time, test_normalization=True
+):
 
     n = np.shape(props)[1]
     state = np.zeros(n, dtype=np.complex_)
@@ -245,7 +254,7 @@ def localization_based(action_sequence, dt, props, speed_fraction, max_opt_time,
     i = 0
     for action in action_sequence:
         i += 1
-        state = calculate_next_state(state, action, props, check_normalization = False)
+        state = calculate_next_state(state, action, props, check_normalization=False)
         site_localization = np.sum(
             np.asarray(
                 [
@@ -335,12 +344,13 @@ def ipr_based(action_sequence, dt, props, test_normalization=True):
     max_time = np.argmax(fidelity_evolution)
 
     i = 0
-    for fid,ipr in zip(fidelity_evolution,ipr_evolution):
+    for fid, ipr in zip(fidelity_evolution, ipr_evolution):
 
-        fitness = fitness + (fid / ipr)*0.95**i
+        fitness = fitness + (fid / ipr) * 0.95**i
         i += 1
 
-    return fitness #n**2 * fitness * np.max(fidelity_evolution) / max_time
+    return fitness  # n**2 * fitness * np.max(fidelity_evolution) / max_time
+
 
 def ipr_based2(action_sequence, dt, props, test_normalization=True):
     """
@@ -381,13 +391,14 @@ def ipr_based2(action_sequence, dt, props, test_normalization=True):
     max_time = np.argmax(fidelity_evolution)
 
     i = 0
-    for fid,ipr in zip(fidelity_evolution,ipr_evolution):
+    for fid, ipr in zip(fidelity_evolution, ipr_evolution):
         alpha = 0.3
-        beta = 1-alpha
-        fitness = fitness + fid*(alpha + beta/ipr)
+        beta = 1 - alpha
+        fitness = fitness + fid * (alpha + beta / ipr)
         i += 1
 
-    return n**2*fitness/max_time
+    return n**2 * fitness / max_time
+
 
 def fitness_func_constructor(fid_function, arguments):
     """
@@ -506,7 +517,6 @@ def time_evolution(solution, props, nh, graph=False, filename=False):
 
         if abs(la.norm(state) - 1.0) > 1e-8:
             raise ValueError(f"Normalization failed. Norm of state: {la.norm(state)}")
-        
 
     tsteps = np.shape(fid_evolution)[0] + 1
 
@@ -649,11 +659,13 @@ def actions_paper2(bmax, nh):
 
     return actions
 
-#---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
 #
 # SETS OF ACTIONS DEFINED TO RUN ON ONE SITE ONLY
-# 
-#---------------------------------------------------------------------------
+#
+# ---------------------------------------------------------------------------
+
 
 def one_field_actions(bmax, nh):
 
@@ -782,6 +794,7 @@ def calculate_reward(states, tolerance, reward_decay):
 
     return fitness
 
+
 def generate_states(initial_state, action_sequence, props):
     """Generate a matrix where each row is the state at a given step."""
     num_elements = len(initial_state)
@@ -796,9 +809,11 @@ def generate_states(initial_state, action_sequence, props):
     return states
 
 
-def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay, test_normalization=False):
-    device = 'cuda'
-    
+def reward_based_fitness_gpu(
+    action_sequences, props, tolerance, reward_decay, test_normalization=False
+):
+    device = "cuda"
+
     # Convert props to a CUDA tensor once (complex64 is faster)
     props = T.tensor(props, dtype=T.complex64, device=device, requires_grad=False)
 
@@ -809,12 +824,16 @@ def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay, t
     chain_length = props.shape[1]
 
     # Initialize states tensor (batch dimension added)
-    states = T.zeros((num_sequences, steps+1, chain_length), dtype=T.complex64, device=device)
+    states = T.zeros(
+        (num_sequences, steps + 1, chain_length), dtype=T.complex64, device=device
+    )
     states[:, 0, 0] = 1.0  # Initial condition
 
     # Compute states using batched matrix multiplication
     for i in range(0, steps):
-        states[:, i+1, :] = T.bmm(props[action_sequences[:, i]], states[:, i, :].unsqueeze(-1)).squeeze(-1)
+        states[:, i + 1, :] = T.bmm(
+            props[action_sequences[:, i]], states[:, i, :].unsqueeze(-1)
+        ).squeeze(-1)
 
     # Compute fidelity
     fid = states[:, :, -1].abs() ** 2  # Take absolute squared of last column
@@ -822,14 +841,16 @@ def reward_based_fitness_gpu(action_sequences, props, tolerance, reward_decay, t
     # Compute rewards in parallel
     rewards = T.zeros_like(fid, device=device)
     rewards[fid <= 0.8] = 10 * fid[fid <= 0.8]
-    
+
     mask = (fid > 0.8) & (fid <= 1 - tolerance)
     rewards[mask] = 100 / (1 + T.exp(10 * (1 - tolerance - fid[mask])))
 
     rewards[fid > 1 - tolerance] = 2500
 
     # Apply decay and sum fitness
-    decay_factors = reward_decay ** T.arange(steps+1, device=device).unsqueeze(0)  # Shape: (1, steps)
+    decay_factors = reward_decay ** T.arange(steps + 1, device=device).unsqueeze(
+        0
+    )  # Shape: (1, steps)
     fitness = T.sum(rewards * decay_factors, dim=1)  # Sum over steps
 
     return fitness.cpu().numpy()  # Convert once at the end
