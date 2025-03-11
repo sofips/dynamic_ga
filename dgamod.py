@@ -635,12 +635,31 @@ def actions_paper2(bmax, nh):
 
     for i in range(0, 16):
 
-        b = diagonales_paper2(bmax, i, nh)
+        b = diagonals_zhang(bmax, i, nh)
 
         J = 1
 
         for k in range(0, nh - 1):
             actions[i, k, k + 1] = J
+            actions[i, k + 1, k] = actions[i, k, k + 1]
+
+        for k in range(0, nh):
+
+            actions[i, k, k] = b[k]
+
+    return actions
+
+def noisy_zhang_actions(bmax, nh,noise_level):
+
+    actions = np.zeros((16, nh, nh))
+    J = np.random.normal(1, 0.1, nh)
+
+    for i in range(0, 16):
+
+        b = diagonals_zhang(bmax, i, nh)
+
+        for k in range(0, nh - 1):
+            actions[i, k, k + 1] = J[k]
             actions[i, k + 1, k] = actions[i, k, k + 1]
 
         for k in range(0, nh):
@@ -673,6 +692,29 @@ def one_field_actions(bmax, nh):
         action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
 
     return action_matrices
+
+def noisy_one_field_actions(bmax, nh, noise_level):
+
+    action_matrices = np.zeros((nh + 1, nh, nh))
+    
+    J = np.random.normal(1, noise_level, nh)
+
+    for i in range(0, nh):
+
+        for k in range(0, nh - 1):
+            action_matrices[i + 1, k, k + 1] = J[k]
+            action_matrices[i + 1, k + 1, k] = action_matrices[i + 1, k, k + 1]
+
+        action_matrices[i + 1, i, i] = bmax
+
+    for k in range(0, nh - 1):
+        action_matrices[0, k, k + 1] = J[k]
+        action_matrices[0, k + 1, k] = action_matrices[0, k, k + 1]
+    
+    print(J)
+
+    return action_matrices
+
 
 
 def one_field_actions_extra(bmax, nh):

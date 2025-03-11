@@ -18,13 +18,15 @@ dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
 #speed_fraction = 1.1  # fraction of qsl speed
 #max_optimization_time = 0 #int(n//2/0.15)
+noise_level = 0.01
+
 
 # genetic algorithm parameters
 
 num_generations = 1000
 num_genes = 5 * n
 sol_per_pop = 2048
-fidelity_tolerance = 0.05
+fidelity_tolerance = 0.01
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 30
 
@@ -42,13 +44,14 @@ mutation_num_genes = n
 
 # execution and results saving
 directory = sys.argv[2]
-n_samples = 10
+n_samples = 100
 
 
 config["system_parameters"] = {
     "n": str(n),
     "dt": str(dt),
     "b": str(b),
+    "noise_level": str(noise_level),
     #"speed_fraction": str(speed_fraction),
     #"max_optimization_time": str(max_optimization_time),
 }

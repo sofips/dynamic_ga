@@ -22,6 +22,7 @@ config.read(initfile)
 n = config.getint("system_parameters", "n")
 dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
+noise_level = config.getfloat("system_parameters", "noise_level")
 
 # speed_fraction = config.getfloat(
 # "system_parameters", "speed_fraction"
@@ -29,7 +30,7 @@ b = config.getfloat("system_parameters", "b")
 # max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
 # generates actions and associated propagators
-acciones = one_field_actions(b, n)  ## acciones zhang
+acciones = noisy_one_field_actions(b, n,noise_level)  ## acciones zhang
 props = gen_props(acciones, n, dt)
 
 # genetic algorithm parameters
@@ -118,7 +119,13 @@ with open(filename, "a") as f:
 
         evolution = time_evolution(solution, props, n, graph=False, filename=False)
         time_max_fidelity = np.argmax(evolution) * dt
-
+        final_population = initial_instance.population
+        fidelities = np.array(
+            [fidelity(individual, props) for individual in final_population]
+        )
+        print(fidelities)
+        mean_fidelity = np.mean(fidelities)
+        print(mean_fidelity)
         row = [
             n,
             i,
@@ -126,6 +133,7 @@ with open(filename, "a") as f:
             "{:.8f}".format(time_max_fidelity),
             maxg,
             "{:.8f}".format(trun),
+            "{:.8f}".format(mean_fidelity),
         ]
         writer.writerow(row)
         actions_to_file(solution, solutions_fname, "w")
