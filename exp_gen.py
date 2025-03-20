@@ -18,14 +18,14 @@ dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
 #speed_fraction = 1.1  # fraction of qsl speed
 #max_optimization_time = 0 #int(n//2/0.15)
-noise_level = 0.01
+noise_level = 0.1
 
 
 # genetic algorithm parameters
 
 num_generations = 1000
 num_genes = 5 * n
-sol_per_pop = 2048
+sol_per_pop = 4096
 fidelity_tolerance = 0.01
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 30
