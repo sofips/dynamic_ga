@@ -26,7 +26,7 @@ num_genes = 5 * n
 sol_per_pop = 2048
 fidelity_tolerance = 0.05
 reward_decay = 0.95  # time decay to achieve faster transmission
-saturation = 30
+saturation = 20
 
 # crossover and parent selection
 num_parents_mating = sol_per_pop // 10
