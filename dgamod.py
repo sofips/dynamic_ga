@@ -809,6 +809,47 @@ def generate_states(initial_state, action_sequence, props):
     return states
 
 
+def ipr_based_fitness_gpu(
+    action_sequences, props, tolerance, reward_decay, test_normalization=False
+):
+    device = "cuda"
+
+    # Convert props to a CUDA tensor once (complex64 is faster)
+    props = T.tensor(props, dtype=T.complex64, device=device, requires_grad=False)
+
+    # Convert action sequences to a tensor
+    action_sequences = T.tensor(action_sequences, dtype=T.int64, device=device)
+
+    num_sequences, steps = action_sequences.shape
+    chain_length = props.shape[1]
+
+    # Initialize states tensor (batch dimension added)
+    states = T.zeros(
+        (num_sequences, steps + 1, chain_length), dtype=T.complex64, device=device
+    )
+    states[:, 0, 0] = 1.0  # Initial condition
+
+    # Compute states using batched matrix multiplication
+    for i in range(0, steps):
+        states[:, i + 1, :] = T.bmm(
+            props[action_sequences[:, i]], states[:, i, :].unsqueeze(-1)
+        ).squeeze(-1)
+
+    # Compute fidelity
+    fid = states[:, :, -1].abs() ** 2  # Take absolute squared of last column
+
+    ipr = 1. / T.sum(states.abs()**4, dim=2)
+    
+    rewards = fid/ipr
+
+    # Apply decay and sum fitness
+    decay_factors = reward_decay ** T.arange(steps + 1, device=device).unsqueeze(
+        0
+    )  # Shape: (1, steps)
+    fitness = T.sum(rewards * decay_factors, dim=1)  # Sum over steps
+
+    return fitness.cpu().numpy()  # Convert once at the end
+
 def reward_based_fitness_gpu(
     action_sequences, props, tolerance, reward_decay, test_normalization=False
 ):
