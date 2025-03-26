@@ -234,7 +234,7 @@ def reward_based_fitness_late(
 
 
 def localization_based(
-    action_sequence, dt, props, speed_fraction, max_opt_time, test_normalization=True
+    action_sequence, dt, props, speed_fraction, steps, test_normalization=True
 ):
 
     n = np.shape(props)[1]
@@ -270,11 +270,11 @@ def localization_based(
     max_time = np.argmax(fidelity_evolution)
     speed = speed_fraction * 2 * n / (n - 1)
 
-    if max_opt_time == 0:
-        max_opt_time = max_time
+    if steps == 0:
+        steps = max_time
 
     i = 0
-    for fid in fidelity_evolution[0 : max_opt_time + 1]:
+    for fid in fidelity_evolution[0 : steps + 1]:
 
         reward = 1 / np.abs(loc_evolution[i] - speed * dt * i) ** 2
         fitness = fitness + fid * reward
@@ -318,7 +318,7 @@ def ipr_based(action_sequence, dt, props, test_normalization=True):
     dt (float): Time step for the evolution.
     props (ndarray): Properties of the system.
     speed_fraction (float): Fraction of the speed to be considered.
-    max_opt_time (int): Maximum optimization time.
+    steps (int): Maximum optimization time.
     test_normalization (bool, optional): Flag to test normalization of the state. Default is True.
 
     Returns:
@@ -365,7 +365,7 @@ def ipr_based2(action_sequence, dt, props, test_normalization=True):
     dt (float): Time step for the evolution.
     props (ndarray): Properties of the system.
     speed_fraction (float): Fraction of the speed to be considered.
-    max_opt_time (int): Maximum optimization time.
+    steps (int): Maximum optimization time.
     test_normalization (bool, optional): Flag to test normalization of the state. Default is True.
 
     Returns:
@@ -639,13 +639,13 @@ def diagonals_zhang(bmax, i, nh):
     return b
 
 
-def actions_paper2(bmax, nh):
+def actions_zhang(bmax, nh):
 
     actions = np.zeros((16, nh, nh))
 
     for i in range(0, 16):
 
-        b = diagonales_paper2(bmax, i, nh)
+        b = diagonals_zhang(bmax, i, nh)
 
         J = 1
 
@@ -893,5 +893,59 @@ def reward_based_fitness_gpu(
         0
     )  # Shape: (1, steps)
     fitness = T.sum(rewards * decay_factors, dim=1)  # Sum over steps
+
+    return fitness.cpu().numpy()  # Convert once at the end
+
+
+def loc_based_fitness_gpu(
+    action_sequences, dt, props, speed_fraction
+):
+
+    device = 'cuda'
+
+    # Convert props to a CUDA tensor once (complex64 is faster)
+    props = T.tensor(props, dtype=T.complex64, device=device, requires_grad=False)
+
+    # Convert action sequences to a tensor
+    action_sequences = T.tensor(action_sequences, dtype=T.int64, device=device)
+
+    num_sequences, steps = action_sequences.shape
+    chain_length = props.shape[1]
+
+    # Initialize states tensor (batch dimension added)
+    states = T.zeros(
+        (num_sequences, steps + 1, chain_length), dtype=T.complex64, device=device
+    )
+    states[:, 0, 0] = 1.0  # Initial condition
+
+    # Compute states using batched matrix multiplication
+    for i in range(0, steps):
+        states[:, i + 1, :] = T.bmm(
+            props[action_sequences[:, i]], states[:, i, :].unsqueeze(-1)
+        ).squeeze(-1)
+    
+    # Compute fidelity
+    fid = states[:, :, -1].abs() ** 2  # Take absolute squared of last column
+
+
+    loc_evolution = T.sum(
+        T.real(states.abs() ** 2) * T.arange(1, chain_length + 1, device=device),
+        dim=2
+    )
+
+    max_time = T.argmax(fid, dim=1)
+    speed = speed_fraction * 2 * chain_length / (chain_length - 1)
+
+
+    # Compute rewards in parallel for all sequences and time steps
+    time_steps = T.arange(0, steps + 1, device=device).unsqueeze(0)  # Shape: (1, time_steps)
+    expected_loc = speed * dt * time_steps  # Expected localization at each time step
+
+    # Compute the reward for all sequences and time steps
+    rewards = 1 / T.abs(loc_evolution[:, :steps + 1] - expected_loc) ** 2
+
+    # Compute fitness by summing over time steps, weighted by fidelity
+    fitness = T.sum(fid[:, :steps + 1] * rewards, dim=1)
+    # fitness = np.max(fidelity_evolution)*(1+fitness-max_time)
 
     return fitness.cpu().numpy()  # Convert once at the end
