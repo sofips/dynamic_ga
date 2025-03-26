@@ -16,14 +16,14 @@ config = configparser.ConfigParser()
 n = int(sys.argv[1])  # number of spins in the system
 dt = 0.15  # length of temporal steps
 b = 100  # magnetic field strength
-#speed_fraction = 1.1  # fraction of qsl speed
+speed_fraction = 1  # fraction of qsl speed
 #max_optimization_time = 0 #int(n//2/0.15)
 
 # genetic algorithm parameters
 
 num_generations = 1000
 num_genes = 5 * n
-sol_per_pop = 2048
+sol_per_pop = 4096
 fidelity_tolerance = 0.05
 reward_decay = 0.95  # time decay to achieve faster transmission
 saturation = 20
@@ -49,7 +49,7 @@ config["system_parameters"] = {
     "n": str(n),
     "dt": str(dt),
     "b": str(b),
-    #"speed_fraction": str(speed_fraction),
+    "speed_fraction": str(speed_fraction),
     #"max_optimization_time": str(max_optimization_time),
 }
 

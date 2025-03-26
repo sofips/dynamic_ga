@@ -7,9 +7,6 @@ import time
 import os
 import configparser
 
-# profiling libraries
-import cProfile
-import pstats
 
 # get parameters from config file
 thisfolder = os.path.dirname(os.path.abspath(__file__))
@@ -23,13 +20,13 @@ n = config.getint("system_parameters", "n")
 dt = config.getfloat("system_parameters", "dt")
 b = config.getfloat("system_parameters", "b")
 
-# speed_fraction = config.getfloat(
-# "system_parameters", "speed_fraction"
-# )  # fraction of qsl speed if loc based fitness
-# max_optimization_time = config.getint("system_parameters", "max_optimization_time")
+speed_fraction = config.getfloat(
+ "system_parameters", "speed_fraction"
+ )  # fraction of qsl speed if loc based fitness
+#max_optimization_time = config.getint("system_parameters", "max_optimization_time")
 
 # generates actions and associated propagators
-acciones = one_field_actions(b, n)  ## acciones zhang
+acciones = actions_zhang(b, n)  ## acciones zhang
 props = gen_props(acciones, n, dt)
 
 # genetic algorithm parameters
@@ -69,13 +66,12 @@ on_generation = generation_func_constructor(
 )
 
 fidelity_args = [
+    dt,
     props,
-    fidelity_tolerance,
-    reward_decay,
-    False,
+    speed_fraction,
 ] 
 
-fitness_func = fitness_func_constructor(reward_based_fitness_gpu, fidelity_args)
+fitness_func = fitness_func_constructor(loc_based_fitness_gpu, fidelity_args)
 mutation_type = "swap"
 
 with open(filename, "a") as f:
